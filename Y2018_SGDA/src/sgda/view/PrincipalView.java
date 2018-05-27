@@ -78,19 +78,26 @@ public class PrincipalView extends javax.swing.JFrame {
 
         Administrador.setBackground(new java.awt.Color(76, 175, 80));
 
+        menuAdministrador.setBackground(new java.awt.Color(76, 175, 80));
         menuAdministrador.setFloatable(false);
         menuAdministrador.setOrientation(javax.swing.SwingConstants.VERTICAL);
         menuAdministrador.setBorderPainted(false);
 
         jLabel1.setText(" ");
+        jLabel1.setMaximumSize(new java.awt.Dimension(30, 20));
+        jLabel1.setMinimumSize(new java.awt.Dimension(30, 20));
+        jLabel1.setPreferredSize(new java.awt.Dimension(30, 20));
         menuAdministrador.add(jLabel1);
 
+        jButton1.setBackground(new java.awt.Color(217, 224, 217));
         jButton1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jButton1.setText("Cadastro de Pessoas");
         jButton1.setBorder(new javax.swing.border.MatteBorder(null));
         jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton1.setFocusable(false);
         jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton1.setMaximumSize(new java.awt.Dimension(200, 40));
+        jButton1.setMinimumSize(new java.awt.Dimension(200, 40));
         jButton1.setPreferredSize(new java.awt.Dimension(200, 40));
         jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -101,27 +108,38 @@ public class PrincipalView extends javax.swing.JFrame {
         menuAdministrador.add(jButton1);
 
         jLabel2.setText(" ");
+        jLabel2.setMaximumSize(new java.awt.Dimension(30, 30));
+        jLabel2.setMinimumSize(new java.awt.Dimension(30, 30));
         menuAdministrador.add(jLabel2);
 
+        jButton2.setBackground(new java.awt.Color(217, 224, 217));
         jButton2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jButton2.setText("Cadastro de Cursos");
         jButton2.setBorder(new javax.swing.border.MatteBorder(null));
         jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton2.setFocusable(false);
         jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton2.setMaximumSize(new java.awt.Dimension(200, 40));
+        jButton2.setMinimumSize(new java.awt.Dimension(200, 40));
         jButton2.setPreferredSize(new java.awt.Dimension(200, 40));
         jButton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         menuAdministrador.add(jButton2);
 
         jLabel3.setText(" ");
+        jLabel3.setMaximumSize(new java.awt.Dimension(30, 30));
+        jLabel3.setMinimumSize(new java.awt.Dimension(30, 30));
+        jLabel3.setPreferredSize(new java.awt.Dimension(30, 30));
         menuAdministrador.add(jLabel3);
 
+        jButton3.setBackground(new java.awt.Color(217, 224, 217));
         jButton3.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jButton3.setText("Cadastro de Disciplinas");
         jButton3.setBorder(new javax.swing.border.MatteBorder(null));
         jButton3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton3.setFocusable(false);
         jButton3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton3.setMaximumSize(new java.awt.Dimension(200, 40));
+        jButton3.setMinimumSize(new java.awt.Dimension(200, 40));
         jButton3.setPreferredSize(new java.awt.Dimension(200, 40));
         jButton3.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         menuAdministrador.add(jButton3);
@@ -132,14 +150,14 @@ public class PrincipalView extends javax.swing.JFrame {
             AdministradorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(AdministradorLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(menuAdministrador, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
+                .addComponent(menuAdministrador, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         AdministradorLayout.setVerticalGroup(
             AdministradorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(AdministradorLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(menuAdministrador, javax.swing.GroupLayout.DEFAULT_SIZE, 690, Short.MAX_VALUE)
+                .addComponent(menuAdministrador, javax.swing.GroupLayout.DEFAULT_SIZE, 693, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -147,71 +165,107 @@ public class PrincipalView extends javax.swing.JFrame {
 
         Professor.setBackground(new java.awt.Color(76, 175, 80));
 
+        menuProfessor.setBackground(new java.awt.Color(76, 175, 80));
         menuProfessor.setFloatable(false);
         menuProfessor.setOrientation(javax.swing.SwingConstants.VERTICAL);
         menuProfessor.setBorderPainted(false);
 
         jLabel11.setText(" ");
+        jLabel11.setMaximumSize(new java.awt.Dimension(30, 20));
+        jLabel11.setMinimumSize(new java.awt.Dimension(30, 20));
+        jLabel11.setPreferredSize(new java.awt.Dimension(30, 20));
         menuProfessor.add(jLabel11);
 
+        jButton12.setBackground(new java.awt.Color(217, 224, 217));
         jButton12.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jButton12.setText("Dados Pessoais");
+        jButton12.setActionCommand("");
         jButton12.setBorder(new javax.swing.border.MatteBorder(null));
         jButton12.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton12.setFocusable(false);
         jButton12.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton12.setMaximumSize(new java.awt.Dimension(200, 40));
+        jButton12.setMinimumSize(new java.awt.Dimension(200, 40));
         jButton12.setPreferredSize(new java.awt.Dimension(200, 40));
         jButton12.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         menuProfessor.add(jButton12);
 
         jLabel12.setText(" ");
+        jLabel12.setMaximumSize(new java.awt.Dimension(30, 30));
+        jLabel12.setMinimumSize(new java.awt.Dimension(30, 30));
+        jLabel12.setPreferredSize(new java.awt.Dimension(30, 30));
         menuProfessor.add(jLabel12);
 
+        jButton15.setBackground(new java.awt.Color(217, 224, 217));
         jButton15.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jButton15.setText("Consultar Cursos");
+        jButton15.setActionCommand("");
         jButton15.setBorder(new javax.swing.border.MatteBorder(null));
         jButton15.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton15.setFocusable(false);
         jButton15.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton15.setMaximumSize(new java.awt.Dimension(200, 40));
+        jButton15.setMinimumSize(new java.awt.Dimension(200, 40));
         jButton15.setPreferredSize(new java.awt.Dimension(200, 40));
         jButton15.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         menuProfessor.add(jButton15);
 
         jLabel13.setText(" ");
+        jLabel13.setMaximumSize(new java.awt.Dimension(30, 30));
+        jLabel13.setMinimumSize(new java.awt.Dimension(30, 30));
+        jLabel13.setPreferredSize(new java.awt.Dimension(30, 30));
         menuProfessor.add(jLabel13);
 
+        jButton14.setBackground(new java.awt.Color(217, 224, 217));
         jButton14.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jButton14.setText("Consultar Disciplinas");
+        jButton14.setActionCommand("");
         jButton14.setBorder(new javax.swing.border.MatteBorder(null));
         jButton14.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton14.setFocusable(false);
         jButton14.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton14.setMaximumSize(new java.awt.Dimension(200, 40));
+        jButton14.setMinimumSize(new java.awt.Dimension(200, 40));
         jButton14.setPreferredSize(new java.awt.Dimension(200, 40));
         jButton14.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         menuProfessor.add(jButton14);
 
         jLabel14.setText(" ");
+        jLabel14.setMaximumSize(new java.awt.Dimension(30, 30));
+        jLabel14.setMinimumSize(new java.awt.Dimension(30, 30));
+        jLabel14.setPreferredSize(new java.awt.Dimension(30, 30));
         menuProfessor.add(jLabel14);
 
+        jButton13.setBackground(new java.awt.Color(217, 224, 217));
         jButton13.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jButton13.setText("Consultar Grade");
+        jButton13.setActionCommand("");
         jButton13.setBorder(new javax.swing.border.MatteBorder(null));
         jButton13.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton13.setFocusable(false);
         jButton13.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton13.setMaximumSize(new java.awt.Dimension(200, 40));
+        jButton13.setMinimumSize(new java.awt.Dimension(200, 40));
         jButton13.setPreferredSize(new java.awt.Dimension(200, 40));
         jButton13.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         menuProfessor.add(jButton13);
 
         jLabel15.setText(" ");
+        jLabel15.setMaximumSize(new java.awt.Dimension(30, 30));
+        jLabel15.setMinimumSize(new java.awt.Dimension(30, 30));
+        jLabel15.setPreferredSize(new java.awt.Dimension(30, 30));
         menuProfessor.add(jLabel15);
 
+        jButton16.setBackground(new java.awt.Color(217, 224, 217));
         jButton16.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jButton16.setText("Editar Calendário");
+        jButton16.setActionCommand("");
         jButton16.setBorder(new javax.swing.border.MatteBorder(null));
         jButton16.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton16.setFocusable(false);
         jButton16.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton16.setMaximumSize(new java.awt.Dimension(200, 40));
+        jButton16.setMinimumSize(new java.awt.Dimension(200, 40));
         jButton16.setPreferredSize(new java.awt.Dimension(200, 40));
         jButton16.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         menuProfessor.add(jButton16);
@@ -222,14 +276,14 @@ public class PrincipalView extends javax.swing.JFrame {
             ProfessorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ProfessorLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(menuProfessor, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
+                .addComponent(menuProfessor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         ProfessorLayout.setVerticalGroup(
             ProfessorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ProfessorLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(menuProfessor, javax.swing.GroupLayout.DEFAULT_SIZE, 690, Short.MAX_VALUE)
+                .addComponent(menuProfessor, javax.swing.GroupLayout.DEFAULT_SIZE, 693, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -237,71 +291,102 @@ public class PrincipalView extends javax.swing.JFrame {
 
         Aluno.setBackground(new java.awt.Color(76, 175, 80));
 
+        menuAluno.setBackground(new java.awt.Color(76, 175, 80));
         menuAluno.setFloatable(false);
         menuAluno.setOrientation(javax.swing.SwingConstants.VERTICAL);
         menuAluno.setBorderPainted(false);
 
         jLabel4.setText(" ");
+        jLabel4.setMaximumSize(new java.awt.Dimension(30, 20));
+        jLabel4.setMinimumSize(new java.awt.Dimension(30, 20));
+        jLabel4.setPreferredSize(new java.awt.Dimension(30, 20));
         menuAluno.add(jLabel4);
 
+        jButton5.setBackground(new java.awt.Color(217, 224, 217));
         jButton5.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jButton5.setText("Dados Pessoais");
+        jButton5.setActionCommand("");
         jButton5.setBorder(new javax.swing.border.MatteBorder(null));
         jButton5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton5.setFocusable(false);
         jButton5.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton5.setMaximumSize(new java.awt.Dimension(200, 40));
+        jButton5.setMinimumSize(new java.awt.Dimension(200, 40));
         jButton5.setPreferredSize(new java.awt.Dimension(200, 40));
         jButton5.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         menuAluno.add(jButton5);
 
         jLabel5.setText(" ");
+        jLabel5.setMaximumSize(new java.awt.Dimension(30, 30));
+        jLabel5.setMinimumSize(new java.awt.Dimension(30, 30));
+        jLabel5.setPreferredSize(new java.awt.Dimension(30, 30));
         menuAluno.add(jLabel5);
 
+        jButton11.setBackground(new java.awt.Color(217, 224, 217));
         jButton11.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jButton11.setText("Consultar Disciplinas");
+        jButton11.setActionCommand("");
         jButton11.setBorder(new javax.swing.border.MatteBorder(null));
         jButton11.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton11.setFocusable(false);
         jButton11.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton11.setMaximumSize(new java.awt.Dimension(200, 40));
+        jButton11.setMinimumSize(new java.awt.Dimension(200, 40));
         jButton11.setPreferredSize(new java.awt.Dimension(200, 40));
         jButton11.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         menuAluno.add(jButton11);
 
         jLabel6.setText(" ");
+        jLabel6.setMaximumSize(new java.awt.Dimension(30, 30));
+        jLabel6.setMinimumSize(new java.awt.Dimension(30, 30));
+        jLabel6.setPreferredSize(new java.awt.Dimension(30, 30));
         menuAluno.add(jLabel6);
 
+        jButton7.setBackground(new java.awt.Color(217, 224, 217));
         jButton7.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jButton7.setText("Consultar Boletim");
+        jButton7.setActionCommand("");
         jButton7.setBorder(new javax.swing.border.MatteBorder(null));
         jButton7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton7.setFocusable(false);
         jButton7.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton7.setMaximumSize(new java.awt.Dimension(200, 40));
+        jButton7.setMinimumSize(new java.awt.Dimension(200, 40));
         jButton7.setPreferredSize(new java.awt.Dimension(200, 40));
         jButton7.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         menuAluno.add(jButton7);
 
         jLabel10.setText(" ");
+        jLabel10.setMaximumSize(new java.awt.Dimension(30, 30));
+        jLabel10.setMinimumSize(new java.awt.Dimension(30, 30));
+        jLabel10.setPreferredSize(new java.awt.Dimension(30, 30));
         menuAluno.add(jLabel10);
 
+        jButton6.setBackground(new java.awt.Color(217, 224, 217));
         jButton6.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jButton6.setText("Consultar Grade");
+        jButton6.setActionCommand("");
         jButton6.setBorder(new javax.swing.border.MatteBorder(null));
         jButton6.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton6.setFocusable(false);
         jButton6.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton6.setMaximumSize(new java.awt.Dimension(200, 40));
+        jButton6.setMinimumSize(new java.awt.Dimension(200, 40));
         jButton6.setPreferredSize(new java.awt.Dimension(200, 40));
         jButton6.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         menuAluno.add(jButton6);
 
         jLabel16.setText(" ");
+        jLabel16.setMaximumSize(new java.awt.Dimension(30, 30));
+        jLabel16.setMinimumSize(new java.awt.Dimension(30, 30));
+        jLabel16.setPreferredSize(new java.awt.Dimension(30, 30));
         menuAluno.add(jLabel16);
 
+        jButton17.setBackground(new java.awt.Color(217, 224, 217));
         jButton17.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jButton17.setText("Consultar Calendário");
+        jButton17.setActionCommand("");
         jButton17.setBorder(new javax.swing.border.MatteBorder(null));
         jButton17.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton17.setFocusable(false);
         jButton17.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton17.setMaximumSize(new java.awt.Dimension(200, 40));
+        jButton17.setMinimumSize(new java.awt.Dimension(200, 40));
         jButton17.setPreferredSize(new java.awt.Dimension(200, 40));
         jButton17.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         menuAluno.add(jButton17);
@@ -312,14 +397,14 @@ public class PrincipalView extends javax.swing.JFrame {
             AlunoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(AlunoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(menuAluno, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
+                .addComponent(menuAluno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         AlunoLayout.setVerticalGroup(
             AlunoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(AlunoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(menuAluno, javax.swing.GroupLayout.DEFAULT_SIZE, 690, Short.MAX_VALUE)
+                .addComponent(menuAluno, javax.swing.GroupLayout.DEFAULT_SIZE, 693, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -331,11 +416,11 @@ public class PrincipalView extends javax.swing.JFrame {
         Vazio.setLayout(VazioLayout);
         VazioLayout.setHorizontalGroup(
             VazioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 200, Short.MAX_VALUE)
+            .addGap(0, 222, Short.MAX_VALUE)
         );
         VazioLayout.setVerticalGroup(
             VazioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 712, Short.MAX_VALUE)
+            .addGap(0, 715, Short.MAX_VALUE)
         );
 
         panelMenu.add(Vazio, "Vazio");
@@ -350,7 +435,7 @@ public class PrincipalView extends javax.swing.JFrame {
                     .addComponent(txtPerfil, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(panelMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelJanela, javax.swing.GroupLayout.PREFERRED_SIZE, 861, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(panelJanela, javax.swing.GroupLayout.PREFERRED_SIZE, 846, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         panelPrincipalLayout.setVerticalGroup(
@@ -358,11 +443,11 @@ public class PrincipalView extends javax.swing.JFrame {
             .addGroup(panelPrincipalLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelJanela, javax.swing.GroupLayout.DEFAULT_SIZE, 744, Short.MAX_VALUE)
+                    .addComponent(panelJanela, javax.swing.GroupLayout.DEFAULT_SIZE, 750, Short.MAX_VALUE)
                     .addGroup(panelPrincipalLayout.createSequentialGroup()
                         .addComponent(panelMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtPerfil, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)))
+                        .addComponent(txtPerfil, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -386,7 +471,7 @@ public class PrincipalView extends javax.swing.JFrame {
         setPainel(painel);
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void setPainel(JPanel painel){
+    private void setPainel(JPanel painel){            
         panelJanela.removeAll();
         panelJanela.add(painel);
         panelJanela.repaint();
@@ -404,15 +489,15 @@ public class PrincipalView extends javax.swing.JFrame {
     public static void main(String args[]) {
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(PrincipalView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-
+        
         java.awt.EventQueue.invokeLater(() -> {
             new PrincipalView().setVisible(true);
         });

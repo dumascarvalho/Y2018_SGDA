@@ -11,7 +11,7 @@ import java.util.logging.Logger;
 public class ConnectionFactoryModel {
 
     private static final String DRIVER = "com.mysql.jdbc.Driver";
-    private static final String URL = "jdbc:mysql://localhost:3306/database_sgda";
+    private static final String URL = "jdbc:mysql://localhost:3306/sgda";
     private static final String USER = "root";
     private static final String PASS = "092508";
 
@@ -19,6 +19,7 @@ public class ConnectionFactoryModel {
         try {
             Class.forName(DRIVER);
             return DriverManager.getConnection(URL, USER, PASS);
+            
         } catch (ClassNotFoundException | SQLException ex) {
             throw new RuntimeException("Exceção: " + ex);
         }

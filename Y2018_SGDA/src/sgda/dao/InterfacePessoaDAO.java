@@ -1,14 +1,15 @@
 package sgda.dao;
 
+import javax.swing.table.TableModel;
 import sgda.model.PessoaModel;
 
 public interface InterfacePessoaDAO {
     
-    public void select();
+    public TableModel select(String tabela);
     
-    public void create(PessoaModel p);
+    public void insert(PessoaModel p, String tabela);
     
-    public void update(PessoaModel p);
+    public void update(PessoaModel p, String tabela);
 
-    public void delete(PessoaModel p);  
+    public void delete(PessoaModel p, String tabela);  
 }

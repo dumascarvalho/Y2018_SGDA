@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.Vector;
 import javax.swing.JFormattedTextField;
 import javax.swing.JSpinner;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.text.DefaultFormatter;
@@ -24,10 +25,26 @@ public class FormatarCamposModel {
                     campo.setText(campo.getText() + "-");
                     break;
                 }
-                case 10: {
-                    evento.setKeyCode(KeyEvent.VK_BACKSPACE);
-                }
             }
+            
+            if(campo.getText().length() >= 10) {
+                campo.setText(campo.getText()); 
+                evento.setKeyCode(KeyEvent.VK_BACKSPACE);           
+            }
+        }
+    }
+    
+    public static void formatarTamanho(JFormattedTextField campo, java.awt.event.KeyEvent evento, int tamanho) {
+        if ((evento.getKeyCode() != KeyEvent.VK_BACKSPACE) && (evento.getKeyCode() != KeyEvent.VK_DELETE) && (evento.getKeyCode() != KeyEvent.VK_LEFT) && (evento.getKeyCode() != KeyEvent.VK_RIGHT) && (campo.getText().length() >= tamanho)) {
+            campo.setText(campo.getText());
+            evento.setKeyCode(KeyEvent.VK_BACKSPACE);
+        }
+    }
+    
+    public static void formatarTamanho(JTextField campo, java.awt.event.KeyEvent evento, int tamanho) {
+        if ((evento.getKeyCode() != KeyEvent.VK_BACKSPACE) && (evento.getKeyCode() != KeyEvent.VK_DELETE) && (evento.getKeyCode() != KeyEvent.VK_LEFT) && (evento.getKeyCode() != KeyEvent.VK_RIGHT) && (campo.getText().length() >= tamanho)) {
+            campo.setText(campo.getText());
+            evento.setKeyCode(KeyEvent.VK_BACKSPACE);
         }
     }
     
