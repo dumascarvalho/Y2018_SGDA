@@ -36,13 +36,41 @@ public class ProfessorDAO implements InterfaceProfessorDAO {
     }
 
     @Override
-    public void delete(ProfessorModel a, String tabela) {
-
+    public void delete(ProfessorModel pr, String tabela) {
+        try {
+            con = ConnectionFactoryModel.getConnection();
+            stm = con.prepareStatement("DELETE FROM " + tabela + " WHERE matricula = ?");
+            stm.setInt(1, pr.getMatricula());
+            stm.executeUpdate();
+        
+        } catch (SQLException ex) {
+            JOptionPane.showConfirmDialog(null, "Houve algum erro durante a remoção!\n\nInformações técnicas sobre o erro: " + ex, "SGDA - Aviso", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+        
+        } finally {
+            ConnectionFactoryModel.closeConnection(con, stm);
+        }
     }
 
     @Override
-    public void update(ProfessorModel a, String tabela) {
+    public void update(ProfessorModel pr, String tabela) {
+        try {
+            con = ConnectionFactoryModel.getConnection();
+            stm = con.prepareStatement("UPDATE " + tabela + " SET dt_admissao = ?, salario = ?, banco = ?, agencia = ?, conta = ?, formacao = ?, nivel = ? WHERE matricula = ?");
+            stm.setString(1, pr.getDtadmissao());
+            stm.setString(2, pr.getSalario().toString());
+            stm.setString(3, pr.getBanco());
+            stm.setString(4, pr.getAgencia());
+            stm.setString(5, pr.getConta());
+            stm.setString(6, pr.getFormacao());
+            stm.setString(7, pr.getNivel());
+            stm.setInt(8, pr.getMatricula());
+            stm.executeUpdate();
 
+        } catch (SQLException ex) {
+            JOptionPane.showConfirmDialog(null, "Houve algum erro durante a atualização!\n\nInformações técnicas sobre o erro: " + ex, "SGDA - Aviso", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+            
+        } finally {
+            ConnectionFactoryModel.closeConnection(con, stm);
+        }
     }
-    
 }

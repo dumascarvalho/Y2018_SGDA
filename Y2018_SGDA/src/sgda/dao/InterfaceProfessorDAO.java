@@ -4,9 +4,9 @@ import sgda.model.ProfessorModel;
 
 public interface InterfaceProfessorDAO {
     
-    public void insert(ProfessorModel a, String tabela);
+    public void insert(ProfessorModel pr, String tabela);
     
-    public void delete(ProfessorModel a, String tabela);
+    public void delete(ProfessorModel pr, String tabela);
     
-    public void update(ProfessorModel a, String tabela);       
+    public void update(ProfessorModel pr, String tabela);       
 }

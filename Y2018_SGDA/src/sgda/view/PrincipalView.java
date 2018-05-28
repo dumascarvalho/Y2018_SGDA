@@ -25,6 +25,8 @@ public class PrincipalView extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
+        jButton4 = new javax.swing.JButton();
         Professor = new javax.swing.JPanel();
         menuProfessor = new javax.swing.JToolBar();
         jLabel11 = new javax.swing.JLabel();
@@ -123,6 +125,11 @@ public class PrincipalView extends javax.swing.JFrame {
         jButton2.setMinimumSize(new java.awt.Dimension(200, 40));
         jButton2.setPreferredSize(new java.awt.Dimension(200, 40));
         jButton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
         menuAdministrador.add(jButton2);
 
         jLabel3.setText(" ");
@@ -142,7 +149,31 @@ public class PrincipalView extends javax.swing.JFrame {
         jButton3.setMinimumSize(new java.awt.Dimension(200, 40));
         jButton3.setPreferredSize(new java.awt.Dimension(200, 40));
         jButton3.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
         menuAdministrador.add(jButton3);
+
+        jLabel7.setText(" ");
+        jLabel7.setMaximumSize(new java.awt.Dimension(30, 30));
+        jLabel7.setMinimumSize(new java.awt.Dimension(30, 30));
+        jLabel7.setPreferredSize(new java.awt.Dimension(30, 30));
+        menuAdministrador.add(jLabel7);
+
+        jButton4.setBackground(new java.awt.Color(217, 224, 217));
+        jButton4.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jButton4.setText("Relações");
+        jButton4.setBorder(new javax.swing.border.MatteBorder(null));
+        jButton4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton4.setFocusable(false);
+        jButton4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton4.setMaximumSize(new java.awt.Dimension(200, 40));
+        jButton4.setMinimumSize(new java.awt.Dimension(200, 40));
+        jButton4.setPreferredSize(new java.awt.Dimension(200, 40));
+        jButton4.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        menuAdministrador.add(jButton4);
 
         javax.swing.GroupLayout AdministradorLayout = new javax.swing.GroupLayout(Administrador);
         Administrador.setLayout(AdministradorLayout);
@@ -157,7 +188,7 @@ public class PrincipalView extends javax.swing.JFrame {
             AdministradorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(AdministradorLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(menuAdministrador, javax.swing.GroupLayout.DEFAULT_SIZE, 693, Short.MAX_VALUE)
+                .addComponent(menuAdministrador, javax.swing.GroupLayout.DEFAULT_SIZE, 626, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -283,7 +314,7 @@ public class PrincipalView extends javax.swing.JFrame {
             ProfessorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ProfessorLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(menuProfessor, javax.swing.GroupLayout.DEFAULT_SIZE, 693, Short.MAX_VALUE)
+                .addComponent(menuProfessor, javax.swing.GroupLayout.DEFAULT_SIZE, 626, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -304,7 +335,6 @@ public class PrincipalView extends javax.swing.JFrame {
 
         jButton5.setBackground(new java.awt.Color(217, 224, 217));
         jButton5.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jButton5.setActionCommand("");
         jButton5.setBorder(new javax.swing.border.MatteBorder(null));
         jButton5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton5.setFocusable(false);
@@ -323,7 +353,6 @@ public class PrincipalView extends javax.swing.JFrame {
 
         jButton11.setBackground(new java.awt.Color(217, 224, 217));
         jButton11.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jButton11.setActionCommand("");
         jButton11.setBorder(new javax.swing.border.MatteBorder(null));
         jButton11.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton11.setFocusable(false);
@@ -342,7 +371,6 @@ public class PrincipalView extends javax.swing.JFrame {
 
         jButton7.setBackground(new java.awt.Color(217, 224, 217));
         jButton7.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jButton7.setActionCommand("");
         jButton7.setBorder(new javax.swing.border.MatteBorder(null));
         jButton7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton7.setFocusable(false);
@@ -361,7 +389,6 @@ public class PrincipalView extends javax.swing.JFrame {
 
         jButton6.setBackground(new java.awt.Color(217, 224, 217));
         jButton6.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jButton6.setActionCommand("");
         jButton6.setBorder(new javax.swing.border.MatteBorder(null));
         jButton6.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton6.setFocusable(false);
@@ -380,7 +407,6 @@ public class PrincipalView extends javax.swing.JFrame {
 
         jButton17.setBackground(new java.awt.Color(217, 224, 217));
         jButton17.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jButton17.setActionCommand("");
         jButton17.setBorder(new javax.swing.border.MatteBorder(null));
         jButton17.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton17.setFocusable(false);
@@ -404,7 +430,7 @@ public class PrincipalView extends javax.swing.JFrame {
             AlunoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(AlunoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(menuAluno, javax.swing.GroupLayout.DEFAULT_SIZE, 693, Short.MAX_VALUE)
+                .addComponent(menuAluno, javax.swing.GroupLayout.DEFAULT_SIZE, 626, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -420,7 +446,7 @@ public class PrincipalView extends javax.swing.JFrame {
         );
         VazioLayout.setVerticalGroup(
             VazioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 715, Short.MAX_VALUE)
+            .addGap(0, 648, Short.MAX_VALUE)
         );
 
         panelMenu.add(Vazio, "Vazio");
@@ -434,21 +460,21 @@ public class PrincipalView extends javax.swing.JFrame {
                 .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(txtPerfil, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(panelMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(10, 10, 10)
                 .addComponent(panelJanela, javax.swing.GroupLayout.PREFERRED_SIZE, 846, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         panelPrincipalLayout.setVerticalGroup(
             panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelPrincipalLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(10, 10, 10)
                 .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelJanela, javax.swing.GroupLayout.DEFAULT_SIZE, 750, Short.MAX_VALUE)
+                    .addComponent(panelJanela, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(panelPrincipalLayout.createSequentialGroup()
-                        .addComponent(panelMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtPerfil, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addComponent(panelMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 648, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtPerfil, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGap(10, 10, 10))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -467,7 +493,7 @@ public class PrincipalView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        JPanel painel = new PessoaView();
+        JPanel painel = new CadastrarPessoaView();
         setPainel(painel);
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -485,6 +511,16 @@ public class PrincipalView extends javax.swing.JFrame {
         layout.show(panelMenu, perfil);        
         txtPerfil.setText(perfil); 
     }//GEN-LAST:event_formWindowActivated
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        JPanel painel = new CadastrarCursoView();
+        setPainel(painel);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        JPanel painel = new CadastrarDisciplinaView();
+        setPainel(painel);
+    }//GEN-LAST:event_jButton3ActionPerformed
     
     public static void main(String args[]) {
         try {
@@ -518,6 +554,7 @@ public class PrincipalView extends javax.swing.JFrame {
     private javax.swing.JButton jButton17;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
@@ -534,6 +571,7 @@ public class PrincipalView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JToolBar menuAdministrador;
     private javax.swing.JToolBar menuAluno;
     private javax.swing.JToolBar menuProfessor;
