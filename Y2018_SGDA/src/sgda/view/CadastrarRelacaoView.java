@@ -1,6 +1,11 @@
 package sgda.view;
 
 import java.awt.Color;
+import javax.swing.DefaultComboBoxModel;
+import sgda.dao.CursoDAO;
+import sgda.dao.DisciplinaDAO;
+import sgda.dao.PessoaDAO;
+import sgda.dao.ProfessorDAO;
 
 public class CadastrarRelacaoView extends javax.swing.JPanel {
 
@@ -15,12 +20,22 @@ public class CadastrarRelacaoView extends javax.swing.JPanel {
 
         Guias.addChangeListener((javax.swing.event.ChangeEvent evt) -> {
 
+            CursoDAO curso = new CursoDAO();
+            DisciplinaDAO disciplina = new DisciplinaDAO();
+
             switch (Guias.getSelectedIndex()) {
                 case 0: // Cursos e Disciplinas
-
+                    cmbCodigoCurso.setModel(new DefaultComboBoxModel(curso.selectForCombo("cod_curso").toArray()));
+                    cmbCurso.setModel(new DefaultComboBoxModel(curso.selectForCombo("descricao").toArray()));
+                    cmbCurso.setSelectedIndex(-1);
+                    
+                    cmbCodigoDisciplina.setModel(new DefaultComboBoxModel(disciplina.selectForCombo("cod_disciplina").toArray()));
+                    cmbDisciplina.setModel(new DefaultComboBoxModel(disciplina.selectForCombo("nome_disciplina").toArray()));
+                    cmbDisciplina.setSelectedIndex(-1);
                     break;
                 case 1: // Disciplinas e Professores
-
+                    cmbCursoProfessor.setModel(new DefaultComboBoxModel(curso.selectForCombo("descricao").toArray()));
+                    cmbCursoProfessor.setSelectedIndex(-1);
                     break;
                 case 2: // Pessoas e Contatos
 
@@ -450,7 +465,7 @@ public class CadastrarRelacaoView extends javax.swing.JPanel {
             }
         });
 
-        jLabel31.setText("Código:");
+        jLabel31.setText("Matrícula:");
 
         cmbCodigoProfessor.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         cmbCodigoProfessor.setEnabled(false);
@@ -553,7 +568,7 @@ public class CadastrarRelacaoView extends javax.swing.JPanel {
 
         jLabel35.setText("Perfil:");
 
-        cmbPerfil.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admnistrador", "Aluno", "Professor" }));
+        cmbPerfil.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Administrador", "Aluno", "Professor" }));
         cmbPerfil.setSelectedIndex(-1);
         cmbPerfil.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         cmbPerfil.addActionListener(new java.awt.event.ActionListener() {
@@ -632,9 +647,9 @@ public class CadastrarRelacaoView extends javax.swing.JPanel {
         jLabel1.setText("Nome:");
 
         txtNome.setEnabled(false);
-        txtNome.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtNomeKeyPressed(evt);
+        txtNome.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                txtNomeCaretUpdate(evt);
             }
         });
 
@@ -765,6 +780,13 @@ public class CadastrarRelacaoView extends javax.swing.JPanel {
         txtContato.setText("");
         txtPesquisar.setText("");
     }
+    
+    private void procurarPessoa() {
+        PessoaDAO pessoa = new PessoaDAO();
+        cmbCodigoPessoa.setModel(new DefaultComboBoxModel(pessoa.selectForCombo("matricula", cmbPerfil.getSelectedItem().toString().toLowerCase()).toArray()));
+        cmbPessoa.setModel(new DefaultComboBoxModel(pessoa.selectForCombo("nome", cmbPerfil.getSelectedItem().toString().toLowerCase()).toArray()));
+        cmbPessoa.setSelectedIndex(-1);
+    }
 
     private void cmbCursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCursoActionPerformed
         cmbCodigoCurso.setSelectedIndex(cmbCurso.getSelectedIndex());
@@ -783,23 +805,35 @@ public class CadastrarRelacaoView extends javax.swing.JPanel {
     }//GEN-LAST:event_cmbCodigoDisciplinaActionPerformed
 
     private void cmbDisciplinaProfessorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbDisciplinaProfessorActionPerformed
-        cmbDisciplinaProfessor.setSelectedIndex(cmbCodigoDisciplinaProfessor.getSelectedIndex());
+        cmbCodigoDisciplinaProfessor.setSelectedIndex(cmbDisciplinaProfessor.getSelectedIndex());
     }//GEN-LAST:event_cmbDisciplinaProfessorActionPerformed
 
     private void cmbCodigoDisciplinaProfessorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCodigoDisciplinaProfessorActionPerformed
-        cmbCodigoDisciplinaProfessor.setSelectedIndex(cmbDisciplinaProfessor.getSelectedIndex());
+        cmbDisciplinaProfessor.setSelectedIndex(cmbCodigoDisciplinaProfessor.getSelectedIndex());
     }//GEN-LAST:event_cmbCodigoDisciplinaProfessorActionPerformed
 
     private void cmbCursoProfessorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCursoProfessorActionPerformed
-        tornarVisivel();
+        if(cmbCursoProfessor.getSelectedIndex() != -1) {
+            tornarVisivel();  
+            
+            DisciplinaDAO disciplina = new DisciplinaDAO();
+            cmbCodigoDisciplinaProfessor.setModel(new DefaultComboBoxModel(disciplina.selectForCombo("cod_disciplina").toArray()));
+            cmbDisciplinaProfessor.setModel(new DefaultComboBoxModel(disciplina.selectForCombo("nome_disciplina").toArray()));
+            cmbDisciplinaProfessor.setSelectedIndex(-1); 
+            
+            ProfessorDAO professor = new ProfessorDAO();   
+            cmbCodigoProfessor.setModel(new DefaultComboBoxModel(professor.selectForCombo("matricula", "professor").toArray()));
+            cmbProfessor.setModel(new DefaultComboBoxModel(professor.selectForCombo("nome", "professor").toArray()));
+            cmbProfessor.setSelectedIndex(-1);
+        }
     }//GEN-LAST:event_cmbCursoProfessorActionPerformed
 
     private void cmbProfessorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbProfessorActionPerformed
-        cmbProfessor.setSelectedIndex(cmbCodigoProfessor.getSelectedIndex());
+        cmbCodigoProfessor.setSelectedIndex(cmbProfessor.getSelectedIndex());
     }//GEN-LAST:event_cmbProfessorActionPerformed
 
     private void cmbCodigoProfessorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCodigoProfessorActionPerformed
-        cmbCodigoProfessor.setSelectedIndex(cmbProfessor.getSelectedIndex());
+        cmbProfessor.setSelectedIndex(cmbCodigoProfessor.getSelectedIndex());
     }//GEN-LAST:event_cmbCodigoProfessorActionPerformed
 
     private void btnInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInserirActionPerformed
@@ -807,24 +841,33 @@ public class CadastrarRelacaoView extends javax.swing.JPanel {
     }//GEN-LAST:event_btnInserirActionPerformed
 
     private void cmbPerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPerfilActionPerformed
-        txtNome.setEnabled(true);
-        tornarVisivel();
+        if (cmbPerfil.getSelectedIndex() != -1) {            
+            procurarPessoa();
+            
+            txtNome.setEnabled(true);
+            txtNome.grabFocus();
+            tornarVisivel();
+        }
     }//GEN-LAST:event_cmbPerfilActionPerformed
 
     private void cmbPessoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPessoaActionPerformed
-        cmbPessoa.setSelectedIndex(cmbCodigoPessoa.getSelectedIndex());
+        cmbCodigoPessoa.setSelectedIndex(cmbPessoa.getSelectedIndex());
     }//GEN-LAST:event_cmbPessoaActionPerformed
 
     private void cmbCodigoPessoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCodigoPessoaActionPerformed
-        cmbCodigoPessoa.setSelectedIndex(cmbPessoa.getSelectedIndex());
+        cmbPessoa.setSelectedIndex(cmbCodigoPessoa.getSelectedIndex());
     }//GEN-LAST:event_cmbCodigoPessoaActionPerformed
 
-    private void txtNomeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomeKeyPressed
-
-        if (!"".equals(txtNome.getText())) {
-
+    private void txtNomeCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtNomeCaretUpdate
+        if (!"".equals(txtNome.getText())) {            
+            PessoaDAO pessoa = new PessoaDAO();
+            cmbCodigoPessoa.setModel(new DefaultComboBoxModel(pessoa.selectForCombo("matricula", cmbPerfil.getSelectedItem().toString().toLowerCase(), txtNome.getText()).toArray()));
+            cmbPessoa.setModel(new DefaultComboBoxModel(pessoa.selectForCombo("nome", cmbPerfil.getSelectedItem().toString().toLowerCase(), txtNome.getText()).toArray()));
+            cmbPessoa.setSelectedIndex(-1); 
+        } else {
+            procurarPessoa();            
         }
-    }//GEN-LAST:event_txtNomeKeyPressed
+    }//GEN-LAST:event_txtNomeCaretUpdate
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel CRUD;

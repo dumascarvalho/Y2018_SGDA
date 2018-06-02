@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.TableModel;
 import sgda.model.PessoaModel;
@@ -200,6 +202,54 @@ public class PessoaDAO implements InterfacePessoaDAO {
         } catch (SQLException ex) {
             throw new RuntimeException("Exceção: " + ex);
             
+        } finally {
+            ConnectionFactoryModel.closeConnection(con, stm, rs);
+        }
+    }
+
+    @Override
+    public List selectForCombo(String coluna, String perfil, String texto) {
+        
+        try {
+            List<String> listColuna = new ArrayList();
+
+            con = ConnectionFactoryModel.getConnection();
+            stm = con.prepareStatement("SELECT * FROM pessoa AS a INNER JOIN " + perfil + " AS b ON a.matricula = b.matricula WHERE a.nome LIKE '" + texto + "%'");
+            rs = stm.executeQuery();
+
+            while (rs.next()) {
+                listColuna.add(rs.getString(coluna));
+            }
+
+            return listColuna;
+
+        } catch (SQLException ex) {
+            throw new RuntimeException("Exceção: " + ex);
+
+        } finally {
+            ConnectionFactoryModel.closeConnection(con, stm, rs);
+        }
+    }
+
+    @Override
+    public List selectForCombo(String coluna, String perfil) {
+        
+        try {
+            List<String> listColuna = new ArrayList();
+
+            con = ConnectionFactoryModel.getConnection();
+            stm = con.prepareStatement("SELECT * FROM pessoa AS a INNER JOIN " + perfil + " AS b ON a.matricula = b.matricula");
+            rs = stm.executeQuery();
+
+            while (rs.next()) {
+                listColuna.add(rs.getString(coluna));
+            }
+
+            return listColuna;
+
+        } catch (SQLException ex) {
+            throw new RuntimeException("Exceção: " + ex);
+
         } finally {
             ConnectionFactoryModel.closeConnection(con, stm, rs);
         }

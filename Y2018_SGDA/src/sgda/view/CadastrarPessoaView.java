@@ -21,6 +21,8 @@ public class CadastrarPessoaView extends javax.swing.JPanel {
         initComponents();
 
         cmbPerfil.setSelectedIndex(0);
+        txtNome.grabFocus();
+        
         tabelaDados.getParent().setBackground(new Color(217, 224, 217));
     }
 
@@ -618,9 +620,9 @@ public class CadastrarPessoaView extends javax.swing.JPanel {
         txtPesquisar.setMaximumSize(new java.awt.Dimension(200, 30));
         txtPesquisar.setMinimumSize(new java.awt.Dimension(200, 30));
         txtPesquisar.setPreferredSize(new java.awt.Dimension(300, 30));
-        txtPesquisar.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtPesquisarKeyPressed(evt);
+        txtPesquisar.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                txtPesquisarCaretUpdate(evt);
             }
         });
         menuBancoDados.add(txtPesquisar);
@@ -1141,7 +1143,7 @@ public class CadastrarPessoaView extends javax.swing.JPanel {
         txtNome.grabFocus();
     }//GEN-LAST:event_btnLimparActionPerformed
 
-    private void txtPesquisarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisarKeyPressed
+    private void txtPesquisarCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtPesquisarCaretUpdate
         if (!"".equals(txtPesquisar.getText())) {
 
             String tabela = "";
@@ -1168,7 +1170,7 @@ public class CadastrarPessoaView extends javax.swing.JPanel {
         } else {
             preencherTabela();
         }
-    }//GEN-LAST:event_txtPesquisarKeyPressed
+    }//GEN-LAST:event_txtPesquisarCaretUpdate
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Adicional;

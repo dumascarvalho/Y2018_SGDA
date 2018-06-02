@@ -1,11 +1,16 @@
 package sgda.dao;
 
+import java.util.List;
 import javax.swing.table.TableModel;
 import sgda.model.PessoaModel;
 
 public interface InterfacePessoaDAO {
     
     public TableModel select(String tabela);
+
+    public List selectForCombo(String coluna, String perfil);
+    
+    public List selectForCombo(String coluna, String perfil, String texto);
     
     public TableModel pesquisarPessoas(String tabela, String texto);
     

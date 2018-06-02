@@ -14,6 +14,7 @@ public class CadastrarCursoView extends javax.swing.JPanel {
         initComponents();
 
         FormatarCamposModel.filtrarSpinner(spnCarga);
+        ativarCRUD();
         preencherTabela();
 
         tabelaDados.getParent().setBackground(new Color(217, 224, 217));
@@ -364,7 +365,7 @@ public class CadastrarCursoView extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
-                            .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
