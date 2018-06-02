@@ -12,26 +12,26 @@ public class CadastrarRelacaoView extends javax.swing.JPanel {
         for (int i = 0; i < Guias.getTabCount(); i++) {
             Guias.setBackgroundAt(i, new Color(76, 175, 80));
         }
-        
+
         Guias.addChangeListener((javax.swing.event.ChangeEvent evt) -> {
-    
+
             switch (Guias.getSelectedIndex()) {
                 case 0: // Cursos e Disciplinas
-                    
+
                     break;
                 case 1: // Disciplinas e Professores
-                    
+
                     break;
                 case 2: // Pessoas e Contatos
-                    
-                    break;                    
+
+                    break;
             }
-            
+
             ativarCRUD();
             limparCampos();
             tornarInvisivel();
         });
-        
+
         tabelaDados.getParent().setBackground(new Color(217, 224, 217));
     }
 
@@ -741,17 +741,17 @@ public class CadastrarRelacaoView extends javax.swing.JPanel {
         btnAlterar.setEnabled(true);
         btnRemover.setEnabled(true);
     }
-    
+
     private void tornarInvisivel() {
         DisciplinasProfessores.setVisible(false);
         PessoasContatos.setVisible(false);
     }
-    
+
     private void tornarVisivel() {
         DisciplinasProfessores.setVisible(true);
         PessoasContatos.setVisible(true);
     }
-    
+
     private void limparCampos() {
         cmbCurso.setSelectedIndex(-1);
         cmbDisciplina.setSelectedIndex(-1);
@@ -763,9 +763,9 @@ public class CadastrarRelacaoView extends javax.swing.JPanel {
         txtNome.setEnabled(false);
         cmbPessoa.setSelectedIndex(-1);
         txtContato.setText("");
-        txtPesquisar.setText("");        
+        txtPesquisar.setText("");
     }
-    
+
     private void cmbCursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCursoActionPerformed
         cmbCodigoCurso.setSelectedIndex(cmbCurso.getSelectedIndex());
     }//GEN-LAST:event_cmbCursoActionPerformed
@@ -812,7 +812,7 @@ public class CadastrarRelacaoView extends javax.swing.JPanel {
     }//GEN-LAST:event_cmbPerfilActionPerformed
 
     private void cmbPessoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPessoaActionPerformed
-        cmbPessoa.setSelectedIndex(cmbCodigoPessoa.getSelectedIndex());       
+        cmbPessoa.setSelectedIndex(cmbCodigoPessoa.getSelectedIndex());
     }//GEN-LAST:event_cmbPessoaActionPerformed
 
     private void cmbCodigoPessoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCodigoPessoaActionPerformed

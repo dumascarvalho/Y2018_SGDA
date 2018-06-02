@@ -12,13 +12,13 @@ public class CadastrarCursoView extends javax.swing.JPanel {
 
     public CadastrarCursoView() {
         initComponents();
-        
+
         FormatarCamposModel.filtrarSpinner(spnCarga);
         preencherTabela();
-        
+
         tabelaDados.getParent().setBackground(new Color(217, 224, 217));
     }
-    
+
     private void limparCampos() {
         txtNome.setText("");
         spnCarga.setValue(0);
@@ -26,58 +26,58 @@ public class CadastrarCursoView extends javax.swing.JPanel {
         txtPesquisar.setText("");
         txtNome.grabFocus();
     }
-    
+
     private void ativarCRUD() {
         txtPesquisar.setEnabled(true);
         btnInserir.setEnabled(true);
         btnAlterar.setEnabled(true);
         btnRemover.setEnabled(true);
-    }    
+    }
 
     private void preencherTabela() {
         CursoDAO dao = new CursoDAO();
-        
+
         tabelaDados.setModel(dao.selectForTable());
         tabelaDados.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         RedimensionarJTableModel redimensionar = new RedimensionarJTableModel(tabelaDados);
         redimensionar.adjustColumns();
     }
-    
+
     private void escolhaCRUD(String tipo) {
         try {
-            CursoModel cr = new CursoModel();            
+            CursoModel cr = new CursoModel();
             cr.setDescricao(txtNome.getText());
             cr.setCargaHoras((int) spnCarga.getValue());
             cr.setPeriodo(cmbPeriodo.getSelectedItem().toString());
-            
+
             CursoDAO dao = new CursoDAO();
-            
+
             switch (tipo) {
                 case "incluir":
                     dao.insert(cr);
                     break;
-                    
+
                 case "alterar":
                     cr.setCodCurso((int) tabelaDados.getValueAt(tabelaDados.getSelectedRow(), tabelaDados.getColumn("COD_CURSO").getModelIndex()));
                     dao.update(cr);
                     break;
-                    
+
                 case "remover":
                     cr.setCodCurso((int) tabelaDados.getValueAt(tabelaDados.getSelectedRow(), tabelaDados.getColumn("COD_CURSO").getModelIndex()));
                     dao.delete(cr);
                     break;
-            }           
-            
+            }
+
             limparCampos();
-        
+
         } catch (Exception ex) {
             JOptionPane.showConfirmDialog(this, "Ocorreu algum erro durante a operação e encontra-se abaixo as possíveis causas deste problema:\n\nInserção: algum está campo vazio e/ou em formato inválido;\nAlteração: mesmas possíveis causas das demais operações;\nRemoção: nenhuma linha foi selecionada.\n\nInformações técnicas sobre este erro: " + ex, "SGDA - Aviso", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
-        
+
         } finally {
-            
+
             txtNome.grabFocus();
-            preencherTabela();          
-        } 
+            preencherTabela();
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -414,7 +414,7 @@ public class CadastrarCursoView extends javax.swing.JPanel {
             spnCarga.setValue(tabelaDados.getValueAt(tabelaDados.getSelectedRow(), tabelaDados.getColumn("CARGA_HORARIA").getModelIndex()));
             cmbPeriodo.setSelectedItem(tabelaDados.getValueAt(tabelaDados.getSelectedRow(), tabelaDados.getColumn("PERIODO").getModelIndex()).toString());
         }
-        
+
         txtNome.grabFocus();
     }//GEN-LAST:event_tabelaDadosMouseClicked
 
@@ -423,7 +423,7 @@ public class CadastrarCursoView extends javax.swing.JPanel {
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void btnRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverActionPerformed
-       escolhaCRUD("remover");
+        escolhaCRUD("remover");
     }//GEN-LAST:event_btnRemoverActionPerformed
 
     private void spnCargaStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnCargaStateChanged

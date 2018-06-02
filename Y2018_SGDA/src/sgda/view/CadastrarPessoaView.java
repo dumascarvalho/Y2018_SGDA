@@ -19,7 +19,7 @@ public class CadastrarPessoaView extends javax.swing.JPanel {
 
     public CadastrarPessoaView() {
         initComponents();
-        
+
         Pessoa.setVisible(false);
         btnLimpar.setVisible(false);
         tabelaDados.getParent().setBackground(new Color(217, 224, 217));
@@ -51,15 +51,15 @@ public class CadastrarPessoaView extends javax.swing.JPanel {
         cmbEstado.setSelectedIndex(-1);
         txtCEP.setText("");
     }
-    
+
     private void ativarCRUD() {
         txtPesquisar.setEnabled(true);
         btnInserir.setEnabled(true);
         btnAlterar.setEnabled(true);
         btnRemover.setEnabled(true);
     }
-    
-        private void preencherTabela() {
+
+    private void preencherTabela() {
         try {
             String tabela = "";
 
@@ -88,7 +88,7 @@ public class CadastrarPessoaView extends javax.swing.JPanel {
             txtPesquisar.setText("");
         }
     }
-        
+
     private Object encapsularPessoa(PessoaModel obj) {
         obj.setNome(txtNome.getText());
         obj.setGenero(cmbGenero.getSelectedItem().toString());
@@ -104,13 +104,13 @@ public class CadastrarPessoaView extends javax.swing.JPanel {
         obj.setPerfil(cmbPerfil.getSelectedItem().toString());
 
         return obj;
-    } 
-    
+    }
+
     private void escolhaCRUD(String tipo) {
         try {
-            
+
             PessoaDAO dao = new PessoaDAO();
-            
+
             switch (cmbPerfil.getSelectedIndex()) {
                 case 0: // Administrador
                     AdministradorModel ad = new AdministradorModel();
@@ -121,7 +121,7 @@ public class CadastrarPessoaView extends javax.swing.JPanel {
                     ad.setBanco(cmbBanco.getSelectedItem().toString());
                     ad.setAgencia(txtAgencia.getText());
                     ad.setConta(txtConta.getText());
-                    
+
                     switch (tipo) {
                         case "incluir":
                             dao.insert(ad, "administrador");
@@ -136,7 +136,7 @@ public class CadastrarPessoaView extends javax.swing.JPanel {
                             ad.setMatricula((int) tabelaDados.getValueAt(tabelaDados.getSelectedRow(), tabelaDados.getColumn("MATRICULA").getModelIndex()));
                             dao.delete(ad, "administrador");
                             break;
-                    }       
+                    }
                     break;
                 case 1: // Aluno
                     AlunoModel al = new AlunoModel();
@@ -160,7 +160,7 @@ public class CadastrarPessoaView extends javax.swing.JPanel {
                             al.setMatricula((int) tabelaDados.getValueAt(tabelaDados.getSelectedRow(), tabelaDados.getColumn("MATRICULA").getModelIndex()));
                             dao.delete(al, "aluno");
                             break;
-                    }       
+                    }
                     break;
                 case 2: // Professor
                     ProfessorModel pr = new ProfessorModel();
@@ -188,21 +188,21 @@ public class CadastrarPessoaView extends javax.swing.JPanel {
                             pr.setMatricula((int) tabelaDados.getValueAt(tabelaDados.getSelectedRow(), tabelaDados.getColumn("MATRICULA").getModelIndex()));
                             dao.delete(pr, "professor");
                             break;
-                    }       
+                    }
                     break;
-            }              
-            
+            }
+
             limparCamposComuns();
             limparCamposEspecificos();
-        
+
         } catch (Exception ex) {
             JOptionPane.showConfirmDialog(this, "Ocorreu algum erro durante a operação e encontra-se abaixo as possíveis causas deste problema:\n\nInserção: algum está campo vazio e/ou em formato inválido;\nAlteração: mesmas possíveis causas das demais operações;\nRemoção: nenhuma linha foi selecionada.\n\nInformações técnicas sobre este erro: " + ex, "SGDA - Aviso", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
-        
+
         } finally {
-            
+
             txtNome.grabFocus();
-            preencherTabela();          
-        } 
+            preencherTabela();
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -960,7 +960,7 @@ public class CadastrarPessoaView extends javax.swing.JPanel {
 
         btnLimpar.getAccessibleContext().setAccessibleDescription("");
     }// </editor-fold>//GEN-END:initComponents
-    
+
     private void txtDtNascimentoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDtNascimentoKeyPressed
         FormatarCamposModel.formatarData(txtDtNascimento, evt);
     }//GEN-LAST:event_txtDtNascimentoKeyPressed

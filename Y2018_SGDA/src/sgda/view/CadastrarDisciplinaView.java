@@ -1,7 +1,12 @@
 package sgda.view;
 
 import java.awt.Color;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import sgda.dao.DisciplinaDAO;
+import sgda.model.DisciplinaModel;
 import sgda.model.FormatarCamposModel;
+import sgda.model.RedimensionarJTableModel;
 
 public class CadastrarDisciplinaView extends javax.swing.JPanel {
 
@@ -10,6 +15,7 @@ public class CadastrarDisciplinaView extends javax.swing.JPanel {
         
         FormatarCamposModel.filtrarSpinner(spnAulas);
         FormatarCamposModel.filtrarSpinner(spnVagas);
+        preencherTabela();
         
         tabelaDados.getParent().setBackground(new Color(217, 224, 217));
     }
@@ -19,6 +25,7 @@ public class CadastrarDisciplinaView extends javax.swing.JPanel {
         spnAulas.setValue(0);
         cmbSemestre.setSelectedIndex(-1);
         spnVagas.setValue(0);
+        cmbSituacao.setSelectedIndex(-1);
         txtPesquisar.setText("");
         txtNome.grabFocus();        
     }
@@ -28,6 +35,55 @@ public class CadastrarDisciplinaView extends javax.swing.JPanel {
         btnInserir.setEnabled(true);
         btnAlterar.setEnabled(true);
         btnRemover.setEnabled(true);
+    }
+     
+    private void preencherTabela() {
+        DisciplinaDAO dao = new DisciplinaDAO();
+        
+        tabelaDados.setModel(dao.selectForTable());
+        tabelaDados.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        RedimensionarJTableModel redimensionar = new RedimensionarJTableModel(tabelaDados);
+        redimensionar.adjustColumns();
+    }
+    
+    private void escolhaCRUD(String tipo) {
+        try {
+            DisciplinaModel ds = new DisciplinaModel();            
+            ds.setDescricao(txtNome.getText());
+            ds.setQntAulas((int) spnAulas.getValue());
+            ds.setSemestre(cmbSemestre.getSelectedItem().toString());
+            ds.setQntVagas((int) spnVagas.getValue());
+            ds.setSituacao(cmbSituacao.getSelectedItem().toString());
+            
+            DisciplinaDAO dao = new DisciplinaDAO();
+            
+            switch (tipo) {
+                case "incluir":
+                    ds.setQntMatriculado(0);
+                    dao.insert(ds);
+                    break;
+                    
+                case "alterar":
+                    ds.setCodDisciplina((int) tabelaDados.getValueAt(tabelaDados.getSelectedRow(), tabelaDados.getColumn("COD_DISCIPLINA").getModelIndex()));
+                    dao.update(ds);
+                    break;
+                    
+                case "remover":
+                    ds.setCodDisciplina((int) tabelaDados.getValueAt(tabelaDados.getSelectedRow(), tabelaDados.getColumn("COD_DISCIPLINA").getModelIndex()));
+                    dao.delete(ds);
+                    break;
+            }           
+            
+            limparCampos();
+        
+        } catch (Exception ex) {
+            JOptionPane.showConfirmDialog(this, "Ocorreu algum erro durante a operação e encontra-se abaixo as possíveis causas deste problema:\n\nInserção: algum está campo vazio e/ou em formato inválido;\nAlteração: mesmas possíveis causas das demais operações;\nRemoção: nenhuma linha foi selecionada.\n\nInformações técnicas sobre este erro: " + ex, "SGDA - Aviso", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+        
+        } finally {
+            
+            txtNome.grabFocus();
+            preencherTabela();          
+        } 
     }
 
     @SuppressWarnings("unchecked")
@@ -58,6 +114,8 @@ public class CadastrarDisciplinaView extends javax.swing.JPanel {
         tabelaDados = new javax.swing.JTable();
         spnVagas = new javax.swing.JSpinner();
         jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        cmbSituacao = new javax.swing.JComboBox<>();
 
         setBackground(new java.awt.Color(165, 214, 167));
         setPreferredSize(new java.awt.Dimension(845, 690));
@@ -130,7 +188,6 @@ public class CadastrarDisciplinaView extends javax.swing.JPanel {
         menuBancoDados.add(jPanel6);
 
         txtPesquisar.setEnabled(false);
-        txtPesquisar.setFocusable(false);
         txtPesquisar.setMaximumSize(new java.awt.Dimension(200, 30));
         txtPesquisar.setMinimumSize(new java.awt.Dimension(200, 30));
         txtPesquisar.setPreferredSize(new java.awt.Dimension(300, 30));
@@ -164,6 +221,11 @@ public class CadastrarDisciplinaView extends javax.swing.JPanel {
         btnInserir.setMaximumSize(new java.awt.Dimension(100, 30));
         btnInserir.setMinimumSize(new java.awt.Dimension(100, 30));
         btnInserir.setPreferredSize(new java.awt.Dimension(100, 35));
+        btnInserir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInserirActionPerformed(evt);
+            }
+        });
         menuBancoDados.add(btnInserir);
 
         jPanel2.setBackground(new java.awt.Color(76, 175, 80));
@@ -194,6 +256,11 @@ public class CadastrarDisciplinaView extends javax.swing.JPanel {
         btnAlterar.setMaximumSize(new java.awt.Dimension(100, 30));
         btnAlterar.setMinimumSize(new java.awt.Dimension(100, 30));
         btnAlterar.setPreferredSize(new java.awt.Dimension(100, 35));
+        btnAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlterarActionPerformed(evt);
+            }
+        });
         menuBancoDados.add(btnAlterar);
 
         jPanel3.setBackground(new java.awt.Color(76, 175, 80));
@@ -224,6 +291,11 @@ public class CadastrarDisciplinaView extends javax.swing.JPanel {
         btnRemover.setMaximumSize(new java.awt.Dimension(100, 30));
         btnRemover.setMinimumSize(new java.awt.Dimension(100, 30));
         btnRemover.setPreferredSize(new java.awt.Dimension(100, 35));
+        btnRemover.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemoverActionPerformed(evt);
+            }
+        });
         menuBancoDados.add(btnRemover);
 
         jPanel5.setBackground(new java.awt.Color(76, 175, 80));
@@ -259,6 +331,11 @@ public class CadastrarDisciplinaView extends javax.swing.JPanel {
         tabelaDados.setSelectionBackground(new java.awt.Color(76, 175, 80));
         tabelaDados.getTableHeader().setResizingAllowed(false);
         tabelaDados.getTableHeader().setReorderingAllowed(false);
+        tabelaDados.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelaDadosMouseClicked(evt);
+            }
+        });
         scrollPessoa.setViewportView(tabelaDados);
 
         javax.swing.GroupLayout CRUDLayout = new javax.swing.GroupLayout(CRUD);
@@ -278,7 +355,7 @@ public class CadastrarDisciplinaView extends javax.swing.JPanel {
                 .addGap(15, 15, 15)
                 .addComponent(menuBancoDados, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(scrollPessoa, javax.swing.GroupLayout.DEFAULT_SIZE, 273, Short.MAX_VALUE)
+                .addComponent(scrollPessoa, javax.swing.GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -289,6 +366,16 @@ public class CadastrarDisciplinaView extends javax.swing.JPanel {
         });
 
         jLabel6.setText("Quantidade de Vagas:");
+
+        jLabel7.setText("Situação:");
+
+        cmbSituacao.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Matriculas Abertas", "Matriculas Fechadas", "Vagas Esgotadas" }));
+        cmbSituacao.setSelectedIndex(-1);
+        cmbSituacao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbSituacaoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -308,7 +395,9 @@ public class CadastrarDisciplinaView extends javax.swing.JPanel {
                             .addComponent(CRUD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4)
                             .addComponent(jLabel3)
+                            .addComponent(jLabel7)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(cmbSituacao, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(spnAulas, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(cmbSemestre, javax.swing.GroupLayout.Alignment.LEADING, 0, 150, Short.MAX_VALUE)
                                 .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING)
@@ -336,7 +425,11 @@ public class CadastrarDisciplinaView extends javax.swing.JPanel {
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(spnVagas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cmbSituacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
                 .addComponent(CRUD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20))
         );
@@ -351,8 +444,36 @@ public class CadastrarDisciplinaView extends javax.swing.JPanel {
     private void spnVagasStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnVagasStateChanged
         if ((int) spnVagas.getValue() <= 0) {
             spnVagas.setValue(0);
-        }
+        }     
     }//GEN-LAST:event_spnVagasStateChanged
+
+    private void btnInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInserirActionPerformed
+        escolhaCRUD("incluir");
+    }//GEN-LAST:event_btnInserirActionPerformed
+
+    private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
+        escolhaCRUD("alterar");
+    }//GEN-LAST:event_btnAlterarActionPerformed
+
+    private void btnRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverActionPerformed
+        escolhaCRUD("remover");
+    }//GEN-LAST:event_btnRemoverActionPerformed
+
+    private void tabelaDadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaDadosMouseClicked
+        if (tabelaDados.getSelectedRow() != -1) {
+            txtNome.setText(tabelaDados.getValueAt(tabelaDados.getSelectedRow(), tabelaDados.getColumn("NOME_DISCIPLINA").getModelIndex()).toString());
+            spnAulas.setValue((int) tabelaDados.getValueAt(tabelaDados.getSelectedRow(), tabelaDados.getColumn("QNT_AULAS").getModelIndex()));
+            cmbSemestre.setSelectedItem(tabelaDados.getValueAt(tabelaDados.getSelectedRow(), tabelaDados.getColumn("SEMESTRE").getModelIndex()).toString());
+            spnVagas.setValue((int) tabelaDados.getValueAt(tabelaDados.getSelectedRow(), tabelaDados.getColumn("QNT_VAGAS").getModelIndex()));
+            cmbSituacao.setSelectedItem(tabelaDados.getValueAt(tabelaDados.getSelectedRow(), tabelaDados.getColumn("SITUACAO").getModelIndex()).toString());
+        }
+        
+        txtNome.grabFocus();
+    }//GEN-LAST:event_tabelaDadosMouseClicked
+
+    private void cmbSituacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbSituacaoActionPerformed
+        ativarCRUD();
+    }//GEN-LAST:event_cmbSituacaoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -361,12 +482,14 @@ public class CadastrarDisciplinaView extends javax.swing.JPanel {
     private javax.swing.JButton btnInserir;
     private javax.swing.JButton btnRemover;
     private javax.swing.JComboBox<String> cmbSemestre;
+    private javax.swing.JComboBox<String> cmbSituacao;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
