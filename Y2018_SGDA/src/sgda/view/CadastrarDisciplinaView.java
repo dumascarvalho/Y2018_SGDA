@@ -1,13 +1,33 @@
 package sgda.view;
 
+import java.awt.Color;
 import sgda.model.FormatarCamposModel;
 
 public class CadastrarDisciplinaView extends javax.swing.JPanel {
 
     public CadastrarDisciplinaView() {
         initComponents();
+        
         FormatarCamposModel.filtrarSpinner(spnAulas);
         FormatarCamposModel.filtrarSpinner(spnVagas);
+        
+        tabelaDados.getParent().setBackground(new Color(217, 224, 217));
+    }
+    
+    private void limparCampos() {        
+        txtNome.setText("");
+        spnAulas.setValue(0);
+        cmbSemestre.setSelectedIndex(-1);
+        spnVagas.setValue(0);
+        txtPesquisar.setText("");
+        txtNome.grabFocus();        
+    }
+    
+     private void ativarCRUD() {
+        txtPesquisar.setEnabled(true);
+        btnInserir.setEnabled(true);
+        btnAlterar.setEnabled(true);
+        btnRemover.setEnabled(true);
     }
 
     @SuppressWarnings("unchecked")
@@ -35,16 +55,17 @@ public class CadastrarDisciplinaView extends javax.swing.JPanel {
         btnRemover = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         scrollPessoa = new javax.swing.JScrollPane();
-        tabelaPessoa = new javax.swing.JTable();
+        tabelaDados = new javax.swing.JTable();
         spnVagas = new javax.swing.JSpinner();
         jLabel6 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(165, 214, 167));
-        setPreferredSize(new java.awt.Dimension(846, 678));
+        setPreferredSize(new java.awt.Dimension(845, 690));
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Cadastro de Disciplinas");
+        jLabel1.setPreferredSize(new java.awt.Dimension(181, 40));
 
         jLabel2.setText("Nome da Disciplina:");
 
@@ -217,7 +238,7 @@ public class CadastrarDisciplinaView extends javax.swing.JPanel {
 
         scrollPessoa.setBackground(new java.awt.Color(217, 224, 217));
 
-        tabelaPessoa.setModel(new javax.swing.table.DefaultTableModel(
+        tabelaDados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -225,14 +246,14 @@ public class CadastrarDisciplinaView extends javax.swing.JPanel {
 
             }
         ));
-        tabelaPessoa.setToolTipText("");
-        tabelaPessoa.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
-        tabelaPessoa.setFocusable(false);
-        tabelaPessoa.setGridColor(new java.awt.Color(255, 255, 255));
-        tabelaPessoa.setSelectionBackground(new java.awt.Color(76, 175, 80));
-        tabelaPessoa.getTableHeader().setResizingAllowed(false);
-        tabelaPessoa.getTableHeader().setReorderingAllowed(false);
-        scrollPessoa.setViewportView(tabelaPessoa);
+        tabelaDados.setToolTipText("");
+        tabelaDados.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        tabelaDados.setFocusable(false);
+        tabelaDados.setGridColor(new java.awt.Color(255, 255, 255));
+        tabelaDados.setSelectionBackground(new java.awt.Color(76, 175, 80));
+        tabelaDados.getTableHeader().setResizingAllowed(false);
+        tabelaDados.getTableHeader().setReorderingAllowed(false);
+        scrollPessoa.setViewportView(tabelaDados);
 
         javax.swing.GroupLayout CRUDLayout = new javax.swing.GroupLayout(CRUD);
         CRUD.setLayout(CRUDLayout);
@@ -243,7 +264,7 @@ public class CadastrarDisciplinaView extends javax.swing.JPanel {
                 .addGroup(CRUDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(menuBancoDados, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(scrollPessoa, javax.swing.GroupLayout.DEFAULT_SIZE, 776, Short.MAX_VALUE))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addGap(15, 15, 15))
         );
         CRUDLayout.setVerticalGroup(
             CRUDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -251,7 +272,7 @@ public class CadastrarDisciplinaView extends javax.swing.JPanel {
                 .addGap(15, 15, 15)
                 .addComponent(menuBancoDados, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(scrollPessoa, javax.swing.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE)
+                .addComponent(scrollPessoa, javax.swing.GroupLayout.DEFAULT_SIZE, 273, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -265,15 +286,13 @@ public class CadastrarDisciplinaView extends javax.swing.JPanel {
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(20, 20, 20))
-                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
-                            .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(CRUD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4)
                             .addComponent(jLabel3)
@@ -282,13 +301,13 @@ public class CadastrarDisciplinaView extends javax.swing.JPanel {
                                 .addComponent(cmbSemestre, javax.swing.GroupLayout.Alignment.LEADING, 0, 150, Short.MAX_VALUE)
                                 .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(spnVagas, javax.swing.GroupLayout.Alignment.LEADING)))
-                        .addGap(0, 20, Short.MAX_VALUE))))
+                        .addGap(20, 20, 20))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -305,8 +324,8 @@ public class CadastrarDisciplinaView extends javax.swing.JPanel {
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(spnVagas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20)
-                .addComponent(CRUD, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                .addComponent(CRUD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -334,7 +353,7 @@ public class CadastrarDisciplinaView extends javax.swing.JPanel {
     private javax.swing.JScrollPane scrollPessoa;
     private javax.swing.JSpinner spnAulas;
     private javax.swing.JSpinner spnVagas;
-    private javax.swing.JTable tabelaPessoa;
+    private javax.swing.JTable tabelaDados;
     private javax.swing.JTextField txtNome;
     private javax.swing.JTextField txtPesquisar;
     // End of variables declaration//GEN-END:variables
