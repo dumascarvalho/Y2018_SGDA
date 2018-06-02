@@ -24,7 +24,13 @@ public class PessoaDAO implements InterfacePessoaDAO {
         
         try {
             con = ConnectionFactoryModel.getConnection();
-            stm = con.prepareStatement("SELECT * FROM pessoa AS a INNER JOIN " + tabela + " AS b ON a.matricula = b.matricula");
+                    
+            if(!"pessoa".equals(tabela)) {
+                stm = con.prepareStatement("SELECT * FROM pessoa AS a INNER JOIN " + tabela + " AS b ON a.matricula = b.matricula");
+            } else {
+                stm = con.prepareStatement("SELECT * FROM pessoa");
+            }
+            
             rs = stm.executeQuery();       
             
             return FormatarCamposModel.colocarDadosTabela(rs);
@@ -142,9 +148,9 @@ public class PessoaDAO implements InterfacePessoaDAO {
 
     @Override
     public void delete(PessoaModel p, String tabela) {
+        
         try {
-            switch (tabela) {
-             
+            switch (tabela) {             
                 case "administrador":
                     AdministradorDAO ad = new AdministradorDAO();
                     ad.delete((AdministradorModel) p, tabela);
@@ -180,7 +186,13 @@ public class PessoaDAO implements InterfacePessoaDAO {
     public TableModel pesquisarPessoas(String tabela, String texto) {
         try {
             con = ConnectionFactoryModel.getConnection();
-            stm = con.prepareStatement("SELECT * FROM pessoa AS a INNER JOIN " + tabela + " AS b ON a.matricula = b.matricula WHERE a.nome LIKE '" + texto + "%'");
+            
+            if(!"pessoa".equals(tabela)) {
+                stm = con.prepareStatement("SELECT * FROM pessoa AS a INNER JOIN " + tabela + " AS b ON a.matricula = b.matricula WHERE a.nome LIKE '" + texto + "%'");
+            } else {
+                stm = con.prepareStatement("SELECT * FROM pessoa");
+            }
+
             rs = stm.executeQuery();       
             
             return FormatarCamposModel.colocarDadosTabela(rs);
