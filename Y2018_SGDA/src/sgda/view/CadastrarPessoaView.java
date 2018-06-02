@@ -19,9 +19,10 @@ public class CadastrarPessoaView extends javax.swing.JPanel {
 
     public CadastrarPessoaView() {
         initComponents();
+
         Pessoa.setVisible(false);
         btnLimpar.setVisible(false);
-        tabelaPessoa.getParent().setBackground(new Color(217, 224, 217));
+        tabelaDados.getParent().setBackground(new Color(217, 224, 217));
     }
 
     private void limparCamposEspecificos() {
@@ -49,6 +50,159 @@ public class CadastrarPessoaView extends javax.swing.JPanel {
         txtCidade.setText("");
         cmbEstado.setSelectedIndex(-1);
         txtCEP.setText("");
+    }
+
+    private void ativarCRUD() {
+        txtPesquisar.setEnabled(true);
+        btnInserir.setEnabled(true);
+        btnAlterar.setEnabled(true);
+        btnRemover.setEnabled(true);
+    }
+
+    private void preencherTabela() {
+        try {
+            String tabela = "";
+
+            switch (cmbPerfil.getSelectedIndex()) {
+                case 0: // Administrador
+                    tabela = "administrador";
+                    break;
+                case 1: // Aluno
+                    tabela = "aluno";
+                    break;
+                case 2: // Professor
+                    tabela = "professor";
+                    break;
+            }
+
+            PessoaDAO dao = new PessoaDAO();
+            tabelaDados.setModel(dao.select(tabela));
+
+        } catch (Exception ex) {
+            System.out.println("\nExceção: " + ex);
+
+        } finally {
+            tabelaDados.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+            RedimensionarJTableModel redimensionar = new RedimensionarJTableModel(tabelaDados);
+            redimensionar.adjustColumns();
+            txtPesquisar.setText("");
+        }
+    }
+
+    private Object encapsularPessoa(PessoaModel obj) {
+        obj.setNome(txtNome.getText());
+        obj.setGenero(cmbGenero.getSelectedItem().toString());
+        obj.setDtnascimento(txtDtNascimento.getText());
+        obj.setRg(txtRG.getText());
+        obj.setCpf(txtCPF.getText());
+        obj.setRua(txtRua.getText());
+        obj.setNumero(Integer.parseInt(txtNumero.getText()));
+        obj.setBairro(txtBairro.getText());
+        obj.setCidade(txtCidade.getText());
+        obj.setEstado(cmbEstado.getSelectedItem().toString());
+        obj.setCep(txtCEP.getText());
+        obj.setPerfil(cmbPerfil.getSelectedItem().toString());
+
+        return obj;
+    }
+
+    private void escolhaCRUD(String tipo) {
+        try {
+
+            PessoaDAO dao = new PessoaDAO();
+
+            switch (cmbPerfil.getSelectedIndex()) {
+                case 0: // Administrador
+                    AdministradorModel ad = new AdministradorModel();
+                    ad = (AdministradorModel) encapsularPessoa(ad);
+
+                    ad.setDtadmissao(txtDtAdmissao.getText());
+                    ad.setSalario(new BigDecimal(txtSalario.getText().replace(",", ".")));
+                    ad.setBanco(cmbBanco.getSelectedItem().toString());
+                    ad.setAgencia(txtAgencia.getText());
+                    ad.setConta(txtConta.getText());
+
+                    switch (tipo) {
+                        case "incluir":
+                            dao.insert(ad, "administrador");
+                            break;
+
+                        case "alterar":
+                            ad.setMatricula((int) tabelaDados.getValueAt(tabelaDados.getSelectedRow(), tabelaDados.getColumn("MATRICULA").getModelIndex()));
+                            dao.update(ad, "administrador");
+                            break;
+
+                        case "remover":
+                            ad.setMatricula((int) tabelaDados.getValueAt(tabelaDados.getSelectedRow(), tabelaDados.getColumn("MATRICULA").getModelIndex()));
+                            dao.delete(ad, "administrador");
+                            break;
+                    }
+                    break;
+                case 1: // Aluno
+                    AlunoModel al = new AlunoModel();
+                    al = (AlunoModel) encapsularPessoa(al);
+
+                    al.setDtmatricula(txtDtMatricula.getText());
+                    al.setCurso(Integer.parseInt(cmbCodigo.getSelectedItem().toString()));
+                    al.setSituacao(cmbSituacao.getSelectedItem().toString());
+
+                    switch (tipo) {
+                        case "incluir":
+                            dao.insert(al, "aluno");
+                            break;
+
+                        case "alterar":
+                            al.setMatricula((int) tabelaDados.getValueAt(tabelaDados.getSelectedRow(), tabelaDados.getColumn("MATRICULA").getModelIndex()));
+                            dao.update(al, "aluno");
+                            break;
+
+                        case "remover":
+                            al.setMatricula((int) tabelaDados.getValueAt(tabelaDados.getSelectedRow(), tabelaDados.getColumn("MATRICULA").getModelIndex()));
+                            dao.delete(al, "aluno");
+                            break;
+                    }
+                    break;
+                case 2: // Professor
+                    ProfessorModel pr = new ProfessorModel();
+                    pr = (ProfessorModel) encapsularPessoa(pr);
+
+                    pr.setDtadmissao(txtDtAdmissao.getText());
+                    pr.setSalario(new BigDecimal(txtSalario.getText().replace(",", ".")));
+                    pr.setBanco(cmbBanco.getSelectedItem().toString());
+                    pr.setAgencia(txtAgencia.getText());
+                    pr.setConta(txtConta.getText());
+                    pr.setFormacao(cmbFormacao.getSelectedItem().toString());
+                    pr.setNivel(cmbNivel.getSelectedItem().toString());
+
+                    switch (tipo) {
+                        case "incluir":
+                            dao.insert(pr, "professor");
+                            break;
+
+                        case "alterar":
+                            pr.setMatricula((int) tabelaDados.getValueAt(tabelaDados.getSelectedRow(), tabelaDados.getColumn("MATRICULA").getModelIndex()));
+                            dao.update(pr, "professor");
+                            break;
+
+                        case "remover":
+                            pr.setMatricula((int) tabelaDados.getValueAt(tabelaDados.getSelectedRow(), tabelaDados.getColumn("MATRICULA").getModelIndex()));
+                            dao.delete(pr, "professor");
+                            break;
+                    }
+                    break;
+            }
+
+            limparCamposComuns();
+            limparCamposEspecificos();
+
+        } catch (Exception ex) {
+            JOptionPane.showConfirmDialog(this, "Ocorreu algum erro durante a operação e encontra-se abaixo as possíveis causas deste problema:\n\nInserção: algum está campo vazio e/ou em formato inválido;\nAlteração: mesmas possíveis causas das demais operações;\nRemoção: nenhuma linha foi selecionada.\n\nInformações técnicas sobre este erro: " + ex, "SGDA - Aviso", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+
+        } finally {
+
+            txtNome.grabFocus();
+            preencherTabela();
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -98,7 +252,7 @@ public class CadastrarPessoaView extends javax.swing.JPanel {
         btnRemover = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         scrollPessoa = new javax.swing.JScrollPane();
-        tabelaPessoa = new javax.swing.JTable();
+        tabelaDados = new javax.swing.JTable();
         Pessoa = new javax.swing.JPanel();
         cmbGenero = new javax.swing.JComboBox<>();
         jLabel16 = new javax.swing.JLabel();
@@ -125,7 +279,7 @@ public class CadastrarPessoaView extends javax.swing.JPanel {
         btnLimpar = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(165, 214, 167));
-        setPreferredSize(new java.awt.Dimension(846, 678));
+        setPreferredSize(new java.awt.Dimension(845, 690));
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -156,7 +310,7 @@ public class CadastrarPessoaView extends javax.swing.JPanel {
         Vazio.setLayout(VazioLayout);
         VazioLayout.setHorizontalGroup(
             VazioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 380, Short.MAX_VALUE)
+            .addGap(0, 384, Short.MAX_VALUE)
         );
         VazioLayout.setVerticalGroup(
             VazioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -223,7 +377,7 @@ public class CadastrarPessoaView extends javax.swing.JPanel {
                         .addGroup(AlunoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel24)
                             .addComponent(cmbCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
         AlunoLayout.setVerticalGroup(
             AlunoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -426,9 +580,9 @@ public class CadastrarPessoaView extends javax.swing.JPanel {
         txtPesquisar.setMaximumSize(new java.awt.Dimension(200, 30));
         txtPesquisar.setMinimumSize(new java.awt.Dimension(200, 30));
         txtPesquisar.setPreferredSize(new java.awt.Dimension(300, 30));
-        txtPesquisar.addCaretListener(new javax.swing.event.CaretListener() {
-            public void caretUpdate(javax.swing.event.CaretEvent evt) {
-                txtPesquisarCaretUpdate(evt);
+        txtPesquisar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtPesquisarKeyPressed(evt);
             }
         });
         menuBancoDados.add(txtPesquisar);
@@ -556,7 +710,7 @@ public class CadastrarPessoaView extends javax.swing.JPanel {
 
         scrollPessoa.setBackground(new java.awt.Color(217, 224, 217));
 
-        tabelaPessoa.setModel(new javax.swing.table.DefaultTableModel(
+        tabelaDados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -564,19 +718,19 @@ public class CadastrarPessoaView extends javax.swing.JPanel {
 
             }
         ));
-        tabelaPessoa.setToolTipText("");
-        tabelaPessoa.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
-        tabelaPessoa.setFocusable(false);
-        tabelaPessoa.setGridColor(new java.awt.Color(255, 255, 255));
-        tabelaPessoa.setSelectionBackground(new java.awt.Color(76, 175, 80));
-        tabelaPessoa.getTableHeader().setResizingAllowed(false);
-        tabelaPessoa.getTableHeader().setReorderingAllowed(false);
-        tabelaPessoa.addMouseListener(new java.awt.event.MouseAdapter() {
+        tabelaDados.setToolTipText("");
+        tabelaDados.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        tabelaDados.setFocusable(false);
+        tabelaDados.setGridColor(new java.awt.Color(255, 255, 255));
+        tabelaDados.setSelectionBackground(new java.awt.Color(76, 175, 80));
+        tabelaDados.getTableHeader().setResizingAllowed(false);
+        tabelaDados.getTableHeader().setReorderingAllowed(false);
+        tabelaDados.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tabelaPessoaMouseClicked(evt);
+                tabelaDadosMouseClicked(evt);
             }
         });
-        scrollPessoa.setViewportView(tabelaPessoa);
+        scrollPessoa.setViewportView(tabelaDados);
 
         javax.swing.GroupLayout CRUDLayout = new javax.swing.GroupLayout(CRUD);
         CRUD.setLayout(CRUDLayout);
@@ -585,9 +739,9 @@ public class CadastrarPessoaView extends javax.swing.JPanel {
             .addGroup(CRUDLayout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addGroup(CRUDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(menuBancoDados, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(scrollPessoa, javax.swing.GroupLayout.DEFAULT_SIZE, 776, Short.MAX_VALUE))
-                .addContainerGap(15, Short.MAX_VALUE))
+                    .addComponent(menuBancoDados, javax.swing.GroupLayout.DEFAULT_SIZE, 776, Short.MAX_VALUE)
+                    .addComponent(scrollPessoa))
+                .addGap(15, 15, 15))
         );
         CRUDLayout.setVerticalGroup(
             CRUDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -595,7 +749,7 @@ public class CadastrarPessoaView extends javax.swing.JPanel {
                 .addGap(15, 15, 15)
                 .addComponent(menuBancoDados, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(scrollPessoa, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
+                .addComponent(scrollPessoa, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -771,11 +925,10 @@ public class CadastrarPessoaView extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(CRUD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(Pessoa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(Adicional, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(Adicional, javax.swing.GroupLayout.DEFAULT_SIZE, 384, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lblLogo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -783,7 +936,8 @@ public class CadastrarPessoaView extends javax.swing.JPanel {
                         .addGap(18, 18, 18)
                         .addComponent(btnLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(CRUD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(20, 20, 20))
         );
         layout.setVerticalGroup(
@@ -792,7 +946,7 @@ public class CadastrarPessoaView extends javax.swing.JPanel {
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(lblLogo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cmbPerfil)
                     .addComponent(btnLimpar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(20, 20, 20)
@@ -813,10 +967,7 @@ public class CadastrarPessoaView extends javax.swing.JPanel {
 
     private void cmbPerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPerfilActionPerformed
         Pessoa.setVisible(true);
-        txtPesquisar.setEnabled(true);
-        btnInserir.setEnabled(true);
-        btnAlterar.setEnabled(true);
-        btnRemover.setEnabled(true);
+        ativarCRUD();
         btnLimpar.setVisible(true);
 
         CardLayout card = (CardLayout) Adicional.getLayout();
@@ -866,76 +1017,8 @@ public class CadastrarPessoaView extends javax.swing.JPanel {
         FormatarCamposModel.formatarData(txtDtMatricula, evt);
     }//GEN-LAST:event_txtDtMatriculaKeyPressed
 
-    private Object encapsularPessoa(PessoaModel obj) {
-        obj.setNome(txtNome.getText());
-        obj.setGenero(cmbGenero.getSelectedItem().toString());
-        obj.setDtnascimento(txtDtNascimento.getText());
-        obj.setRg(txtRG.getText());
-        obj.setCpf(txtCPF.getText());
-        obj.setRua(txtRua.getText());
-        obj.setNumero(Integer.parseInt(txtNumero.getText()));
-        obj.setBairro(txtBairro.getText());
-        obj.setCidade(txtCidade.getText());
-        obj.setEstado(cmbEstado.getSelectedItem().toString());
-        obj.setCep(txtCEP.getText());
-        obj.setPerfil(cmbPerfil.getSelectedItem().toString());
-
-        return obj;
-    }
-
     private void btnInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInserirActionPerformed
-        try {
-            PessoaDAO dao = new PessoaDAO();
-
-            switch (cmbPerfil.getSelectedIndex()) {
-                case 0: // Administrador
-                    AdministradorModel ad = new AdministradorModel();
-                    ad = (AdministradorModel) encapsularPessoa(ad);
-
-                    ad.setDtadmissao(txtDtAdmissao.getText());
-                    ad.setSalario(new BigDecimal(txtSalario.getText().replace(",", ".")));
-                    ad.setBanco(cmbBanco.getSelectedItem().toString());
-                    ad.setAgencia(txtAgencia.getText());
-                    ad.setConta(txtConta.getText());
-
-                    dao.insert(ad, "administrador");
-                    break;
-                case 1: // Aluno
-                    AlunoModel al = new AlunoModel();
-                    al = (AlunoModel) encapsularPessoa(al);
-
-                    al.setDtmatricula(txtDtMatricula.getText());
-                    al.setCurso(Integer.parseInt(cmbCodigo.getSelectedItem().toString()));
-                    al.setSituacao(cmbSituacao.getSelectedItem().toString());
-
-                    dao.insert(al, "aluno");
-                    break;
-                case 2: // Professor
-                    ProfessorModel pr = new ProfessorModel();
-                    pr = (ProfessorModel) encapsularPessoa(pr);
-
-                    pr.setDtadmissao(txtDtAdmissao.getText());
-                    pr.setSalario(new BigDecimal(txtSalario.getText().replace(",", ".")));
-                    pr.setBanco(cmbBanco.getSelectedItem().toString());
-                    pr.setAgencia(txtAgencia.getText());
-                    pr.setConta(txtConta.getText());
-                    pr.setFormacao(cmbFormacao.getSelectedItem().toString());
-                    pr.setNivel(cmbNivel.getSelectedItem().toString());
-
-                    dao.insert(pr, "professor");
-                    break;
-            }
-
-            limparCamposEspecificos();
-            limparCamposComuns();
-
-        } catch (Exception ex) {
-            JOptionPane.showConfirmDialog(this, "Algum campo encontra-se vazio e/ou em formato inválido!\n\nInformações técnicas sobre o erro: " + ex, "SGDA - Aviso", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
-
-        } finally {
-            txtNome.grabFocus();
-            preencherTabela();
-        }
+        escolhaCRUD("incluir");
     }//GEN-LAST:event_btnInserirActionPerformed
 
     private void txtNumeroKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumeroKeyPressed
@@ -954,150 +1037,71 @@ public class CadastrarPessoaView extends javax.swing.JPanel {
         FormatarCamposModel.formatarTamanho(txtConta, evt, 10);
     }//GEN-LAST:event_txtContaKeyPressed
 
-    private void tabelaPessoaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaPessoaMouseClicked
+    private void tabelaDadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaDadosMouseClicked
 
-        if (tabelaPessoa.getSelectedRow() != -1) {
-
-            txtNome.setText(tabelaPessoa.getValueAt(tabelaPessoa.getSelectedRow(), tabelaPessoa.getColumn("NOME").getModelIndex()).toString());
-            cmbGenero.setSelectedItem(tabelaPessoa.getValueAt(tabelaPessoa.getSelectedRow(), tabelaPessoa.getColumn("GENERO").getModelIndex()).toString());
-            txtDtNascimento.setText(tabelaPessoa.getValueAt(tabelaPessoa.getSelectedRow(), tabelaPessoa.getColumn("DT_NASCIMENTO").getModelIndex()).toString());
-            txtRG.setText(tabelaPessoa.getValueAt(tabelaPessoa.getSelectedRow(), tabelaPessoa.getColumn("RG").getModelIndex()).toString());
-            txtCPF.setText(tabelaPessoa.getValueAt(tabelaPessoa.getSelectedRow(), tabelaPessoa.getColumn("CPF").getModelIndex()).toString());
-            txtRua.setText(tabelaPessoa.getValueAt(tabelaPessoa.getSelectedRow(), tabelaPessoa.getColumn("RUA").getModelIndex()).toString());
-            txtNumero.setText(tabelaPessoa.getValueAt(tabelaPessoa.getSelectedRow(), tabelaPessoa.getColumn("NUMERO").getModelIndex()).toString());
-            txtBairro.setText(tabelaPessoa.getValueAt(tabelaPessoa.getSelectedRow(), tabelaPessoa.getColumn("BAIRRO").getModelIndex()).toString());
-            txtCidade.setText(tabelaPessoa.getValueAt(tabelaPessoa.getSelectedRow(), tabelaPessoa.getColumn("CIDADE").getModelIndex()).toString());
-            cmbEstado.setSelectedItem(tabelaPessoa.getValueAt(tabelaPessoa.getSelectedRow(), tabelaPessoa.getColumn("ESTADO").getModelIndex()).toString());
-            txtCEP.setText(tabelaPessoa.getValueAt(tabelaPessoa.getSelectedRow(), tabelaPessoa.getColumn("CEP").getModelIndex()).toString());
+        if (tabelaDados.getSelectedRow() != -1) {
+            txtNome.setText(tabelaDados.getValueAt(tabelaDados.getSelectedRow(), tabelaDados.getColumn("NOME").getModelIndex()).toString());
+            cmbGenero.setSelectedItem(tabelaDados.getValueAt(tabelaDados.getSelectedRow(), tabelaDados.getColumn("GENERO").getModelIndex()).toString());
+            txtDtNascimento.setText(tabelaDados.getValueAt(tabelaDados.getSelectedRow(), tabelaDados.getColumn("DT_NASCIMENTO").getModelIndex()).toString());
+            txtRG.setText(tabelaDados.getValueAt(tabelaDados.getSelectedRow(), tabelaDados.getColumn("RG").getModelIndex()).toString());
+            txtCPF.setText(tabelaDados.getValueAt(tabelaDados.getSelectedRow(), tabelaDados.getColumn("CPF").getModelIndex()).toString());
+            txtRua.setText(tabelaDados.getValueAt(tabelaDados.getSelectedRow(), tabelaDados.getColumn("RUA").getModelIndex()).toString());
+            txtNumero.setText(tabelaDados.getValueAt(tabelaDados.getSelectedRow(), tabelaDados.getColumn("NUMERO").getModelIndex()).toString());
+            txtBairro.setText(tabelaDados.getValueAt(tabelaDados.getSelectedRow(), tabelaDados.getColumn("BAIRRO").getModelIndex()).toString());
+            txtCidade.setText(tabelaDados.getValueAt(tabelaDados.getSelectedRow(), tabelaDados.getColumn("CIDADE").getModelIndex()).toString());
+            cmbEstado.setSelectedItem(tabelaDados.getValueAt(tabelaDados.getSelectedRow(), tabelaDados.getColumn("ESTADO").getModelIndex()).toString());
+            txtCEP.setText(tabelaDados.getValueAt(tabelaDados.getSelectedRow(), tabelaDados.getColumn("CEP").getModelIndex()).toString());
 
             switch (cmbPerfil.getSelectedIndex()) {
                 case 0: // Administrador
-                    txtDtAdmissao.setText(tabelaPessoa.getValueAt(tabelaPessoa.getSelectedRow(), tabelaPessoa.getColumn("DT_ADMISSAO").getModelIndex()).toString());
-                    txtSalario.setText(tabelaPessoa.getValueAt(tabelaPessoa.getSelectedRow(), tabelaPessoa.getColumn("SALARIO").getModelIndex()).toString().replace(".", ","));
-                    cmbBanco.setSelectedItem(tabelaPessoa.getValueAt(tabelaPessoa.getSelectedRow(), tabelaPessoa.getColumn("BANCO").getModelIndex()).toString());
-                    txtAgencia.setText(tabelaPessoa.getValueAt(tabelaPessoa.getSelectedRow(), tabelaPessoa.getColumn("AGENCIA").getModelIndex()).toString());
-                    txtConta.setText(tabelaPessoa.getValueAt(tabelaPessoa.getSelectedRow(), tabelaPessoa.getColumn("CONTA").getModelIndex()).toString());
+                    txtDtAdmissao.setText(tabelaDados.getValueAt(tabelaDados.getSelectedRow(), tabelaDados.getColumn("DT_ADMISSAO").getModelIndex()).toString());
+                    txtSalario.setText(tabelaDados.getValueAt(tabelaDados.getSelectedRow(), tabelaDados.getColumn("SALARIO").getModelIndex()).toString().replace(".", ","));
+                    cmbBanco.setSelectedItem(tabelaDados.getValueAt(tabelaDados.getSelectedRow(), tabelaDados.getColumn("BANCO").getModelIndex()).toString());
+                    txtAgencia.setText(tabelaDados.getValueAt(tabelaDados.getSelectedRow(), tabelaDados.getColumn("AGENCIA").getModelIndex()).toString());
+                    txtConta.setText(tabelaDados.getValueAt(tabelaDados.getSelectedRow(), tabelaDados.getColumn("CONTA").getModelIndex()).toString());
                     break;
                 case 1: // Aluno
-                    txtDtMatricula.setText(tabelaPessoa.getValueAt(tabelaPessoa.getSelectedRow(), tabelaPessoa.getColumn("DT_MATRICULA").getModelIndex()).toString());
-                    cmbCodigo.setSelectedItem(tabelaPessoa.getValueAt(tabelaPessoa.getSelectedRow(), tabelaPessoa.getColumn("CURSO").getModelIndex()).toString());
-                    cmbSituacao.setSelectedItem(tabelaPessoa.getValueAt(tabelaPessoa.getSelectedRow(), tabelaPessoa.getColumn("SITUACAO").getModelIndex()).toString());
+                    txtDtMatricula.setText(tabelaDados.getValueAt(tabelaDados.getSelectedRow(), tabelaDados.getColumn("DT_MATRICULA").getModelIndex()).toString());
+                    cmbCodigo.setSelectedItem(tabelaDados.getValueAt(tabelaDados.getSelectedRow(), tabelaDados.getColumn("CURSO").getModelIndex()).toString());
+                    cmbSituacao.setSelectedItem(tabelaDados.getValueAt(tabelaDados.getSelectedRow(), tabelaDados.getColumn("SITUACAO").getModelIndex()).toString());
                     break;
                 case 2: // Professor
-                    txtDtAdmissao.setText(tabelaPessoa.getValueAt(tabelaPessoa.getSelectedRow(), tabelaPessoa.getColumn("DT_ADMISSAO").getModelIndex()).toString());
-                    txtSalario.setText(tabelaPessoa.getValueAt(tabelaPessoa.getSelectedRow(), tabelaPessoa.getColumn("SALARIO").getModelIndex()).toString().replace(".", ","));
-                    cmbBanco.setSelectedItem(tabelaPessoa.getValueAt(tabelaPessoa.getSelectedRow(), tabelaPessoa.getColumn("BANCO").getModelIndex()).toString());
-                    txtAgencia.setText(tabelaPessoa.getValueAt(tabelaPessoa.getSelectedRow(), tabelaPessoa.getColumn("AGENCIA").getModelIndex()).toString());
-                    txtConta.setText(tabelaPessoa.getValueAt(tabelaPessoa.getSelectedRow(), tabelaPessoa.getColumn("CONTA").getModelIndex()).toString());
-                    cmbFormacao.setSelectedItem(tabelaPessoa.getValueAt(tabelaPessoa.getSelectedRow(), tabelaPessoa.getColumn("FORMACAO").getModelIndex()).toString());
-                    cmbNivel.setSelectedItem(tabelaPessoa.getValueAt(tabelaPessoa.getSelectedRow(), tabelaPessoa.getColumn("NIVEL").getModelIndex()).toString());
+                    txtDtAdmissao.setText(tabelaDados.getValueAt(tabelaDados.getSelectedRow(), tabelaDados.getColumn("DT_ADMISSAO").getModelIndex()).toString());
+                    txtSalario.setText(tabelaDados.getValueAt(tabelaDados.getSelectedRow(), tabelaDados.getColumn("SALARIO").getModelIndex()).toString().replace(".", ","));
+                    cmbBanco.setSelectedItem(tabelaDados.getValueAt(tabelaDados.getSelectedRow(), tabelaDados.getColumn("BANCO").getModelIndex()).toString());
+                    txtAgencia.setText(tabelaDados.getValueAt(tabelaDados.getSelectedRow(), tabelaDados.getColumn("AGENCIA").getModelIndex()).toString());
+                    txtConta.setText(tabelaDados.getValueAt(tabelaDados.getSelectedRow(), tabelaDados.getColumn("CONTA").getModelIndex()).toString());
+                    cmbFormacao.setSelectedItem(tabelaDados.getValueAt(tabelaDados.getSelectedRow(), tabelaDados.getColumn("FORMACAO").getModelIndex()).toString());
+                    cmbNivel.setSelectedItem(tabelaDados.getValueAt(tabelaDados.getSelectedRow(), tabelaDados.getColumn("NIVEL").getModelIndex()).toString());
                     break;
             }
 
             txtNome.grabFocus();
         }
-    }//GEN-LAST:event_tabelaPessoaMouseClicked
+    }//GEN-LAST:event_tabelaDadosMouseClicked
 
     private void cmbCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCodigoActionPerformed
         cmbCurso.setSelectedIndex(cmbCodigo.getSelectedIndex());
     }//GEN-LAST:event_cmbCodigoActionPerformed
 
     private void btnRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverActionPerformed
-        try {
-            PessoaDAO dao = new PessoaDAO();
-
-            switch (cmbPerfil.getSelectedIndex()) {
-                case 0: // Administrador
-                    AdministradorModel ad = new AdministradorModel();
-
-                    ad.setMatricula((int) tabelaPessoa.getValueAt(tabelaPessoa.getSelectedRow(), 0));
-                    dao.delete(ad, "administrador");
-                    break;
-                case 1: // Aluno
-                    AlunoModel al = new AlunoModel();
-
-                    al.setMatricula((int) tabelaPessoa.getValueAt(tabelaPessoa.getSelectedRow(), 0));
-                    dao.delete(al, "aluno");
-                    break;
-                case 2: // Professor
-                    ProfessorModel pr = new ProfessorModel();
-
-                    pr.setMatricula((int) tabelaPessoa.getValueAt(tabelaPessoa.getSelectedRow(), 0));
-                    dao.delete(pr, "professor");
-                    break;
-            }
-
-            limparCamposEspecificos();
-            limparCamposComuns();
-
-        } catch (Exception ex) {
-            JOptionPane.showConfirmDialog(this, "Nenhuma linha foi selecionada!\n\nInformações técnicas sobre o erro: " + ex, "SGDA - Aviso", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
-
-        } finally {
-            txtNome.grabFocus();
-            preencherTabela();
-        }
+        escolhaCRUD("remover");
     }//GEN-LAST:event_btnRemoverActionPerformed
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
-        try {
-            PessoaDAO dao = new PessoaDAO();
-
-            switch (cmbPerfil.getSelectedIndex()) {
-                case 0: // Administrador
-                    AdministradorModel ad = new AdministradorModel();
-                    ad = (AdministradorModel) encapsularPessoa(ad);
-
-                    ad.setMatricula((int) tabelaPessoa.getValueAt(tabelaPessoa.getSelectedRow(), 0));
-                    ad.setDtadmissao(txtDtAdmissao.getText());
-                    ad.setSalario(new BigDecimal(txtSalario.getText().replace(",", ".")));
-                    ad.setBanco(cmbBanco.getSelectedItem().toString());
-                    ad.setAgencia(txtAgencia.getText());
-                    ad.setConta(txtConta.getText());
-
-                    dao.update(ad, "administrador");
-                    break;
-                case 1: // Aluno
-                    AlunoModel al = new AlunoModel();
-                    al = (AlunoModel) encapsularPessoa(al);
-
-                    al.setMatricula((int) tabelaPessoa.getValueAt(tabelaPessoa.getSelectedRow(), 0));
-                    al.setDtmatricula(txtDtMatricula.getText());
-                    al.setCurso(Integer.parseInt(cmbCodigo.getSelectedItem().toString()));
-                    al.setSituacao(cmbSituacao.getSelectedItem().toString());
-
-                    dao.update(al, "aluno");
-                    break;
-                case 2: // Professor
-                    ProfessorModel pr = new ProfessorModel();
-                    pr = (ProfessorModel) encapsularPessoa(pr);
-
-                    pr.setMatricula((int) tabelaPessoa.getValueAt(tabelaPessoa.getSelectedRow(), 0));
-                    pr.setDtadmissao(txtDtAdmissao.getText());
-                    pr.setSalario(new BigDecimal(txtSalario.getText().replace(",", ".")));
-                    pr.setBanco(cmbBanco.getSelectedItem().toString());
-                    pr.setAgencia(txtAgencia.getText());
-                    pr.setConta(txtConta.getText());
-                    pr.setFormacao(cmbFormacao.getSelectedItem().toString());
-                    pr.setNivel(cmbNivel.getSelectedItem().toString());
-
-                    dao.update(pr, "professor");
-                    break;
-            }
-
-            limparCamposEspecificos();
-            limparCamposComuns();
-
-        } catch (Exception ex) {
-            JOptionPane.showConfirmDialog(this, "Algum campo encontra-se vazio/formato inválido e/ou nenhuma linha foi selecionada!\n\nInformações técnicas sobre o erro: " + ex, "SGDA - Aviso", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
-
-        } finally {
-            txtNome.grabFocus();
-            preencherTabela();
-        }
+        escolhaCRUD("alterar");
     }//GEN-LAST:event_btnAlterarActionPerformed
 
-    private void txtPesquisarCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtPesquisarCaretUpdate
+    private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
+        limparCamposEspecificos();
+        limparCamposComuns();
+        txtPesquisar.setText("");
+        preencherTabela();
+
+        txtNome.grabFocus();
+    }//GEN-LAST:event_btnLimparActionPerformed
+
+    private void txtPesquisarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisarKeyPressed
         if (!"".equals(txtPesquisar.getText())) {
 
             String tabela = "";
@@ -1116,53 +1120,15 @@ public class CadastrarPessoaView extends javax.swing.JPanel {
 
             PessoaDAO dao = new PessoaDAO();
 
-            tabelaPessoa.setModel(dao.pesquisarPessoas(tabela, txtPesquisar.getText()));
-            tabelaPessoa.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-            RedimensionarJTableModel redimensionar = new RedimensionarJTableModel(tabelaPessoa);
+            tabelaDados.setModel(dao.pesquisarPessoas(tabela, txtPesquisar.getText()));
+            tabelaDados.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+            RedimensionarJTableModel redimensionar = new RedimensionarJTableModel(tabelaDados);
             redimensionar.adjustColumns();
 
         } else {
             preencherTabela();
         }
-    }//GEN-LAST:event_txtPesquisarCaretUpdate
-
-    private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
-        limparCamposEspecificos();
-        limparCamposComuns();
-
-        txtNome.grabFocus();
-    }//GEN-LAST:event_btnLimparActionPerformed
-
-    private void preencherTabela() {
-
-        try {
-            String tabela = "";
-
-            switch (cmbPerfil.getSelectedIndex()) {
-                case 0: // Administrador
-                    tabela = "administrador";
-                    break;
-                case 1: // Aluno
-                    tabela = "aluno";
-                    break;
-                case 2: // Professor
-                    tabela = "professor";
-                    break;
-            }
-
-            PessoaDAO dao = new PessoaDAO();
-            tabelaPessoa.setModel(dao.select(tabela));
-
-        } catch (Exception ex) {
-            System.out.println("\nExceção: " + ex);
-
-        } finally {
-            tabelaPessoa.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-            RedimensionarJTableModel redimensionar = new RedimensionarJTableModel(tabelaPessoa);
-            redimensionar.adjustColumns();
-            txtPesquisar.setText("");
-        }
-    }
+    }//GEN-LAST:event_txtPesquisarKeyPressed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Adicional;
@@ -1217,7 +1183,7 @@ public class CadastrarPessoaView extends javax.swing.JPanel {
     private javax.swing.JLabel lblNivel;
     private javax.swing.JToolBar menuBancoDados;
     private javax.swing.JScrollPane scrollPessoa;
-    private javax.swing.JTable tabelaPessoa;
+    private javax.swing.JTable tabelaDados;
     private javax.swing.JTextField txtAgencia;
     private javax.swing.JTextField txtBairro;
     private javax.swing.JFormattedTextField txtCEP;

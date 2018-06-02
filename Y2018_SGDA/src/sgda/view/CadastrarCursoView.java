@@ -1,12 +1,83 @@
 package sgda.view;
 
+import java.awt.Color;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import sgda.dao.CursoDAO;
+import sgda.model.CursoModel;
 import sgda.model.FormatarCamposModel;
+import sgda.model.RedimensionarJTableModel;
 
 public class CadastrarCursoView extends javax.swing.JPanel {
 
     public CadastrarCursoView() {
         initComponents();
+
         FormatarCamposModel.filtrarSpinner(spnCarga);
+        preencherTabela();
+
+        tabelaDados.getParent().setBackground(new Color(217, 224, 217));
+    }
+
+    private void limparCampos() {
+        txtNome.setText("");
+        spnCarga.setValue(0);
+        cmbPeriodo.setSelectedIndex(-1);
+        txtPesquisar.setText("");
+        txtNome.grabFocus();
+    }
+
+    private void ativarCRUD() {
+        txtPesquisar.setEnabled(true);
+        btnInserir.setEnabled(true);
+        btnAlterar.setEnabled(true);
+        btnRemover.setEnabled(true);
+    }
+
+    private void preencherTabela() {
+        CursoDAO dao = new CursoDAO();
+
+        tabelaDados.setModel(dao.selectForTable());
+        tabelaDados.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        RedimensionarJTableModel redimensionar = new RedimensionarJTableModel(tabelaDados);
+        redimensionar.adjustColumns();
+    }
+
+    private void escolhaCRUD(String tipo) {
+        try {
+            CursoModel cr = new CursoModel();
+            cr.setDescricao(txtNome.getText());
+            cr.setCargaHoras((int) spnCarga.getValue());
+            cr.setPeriodo(cmbPeriodo.getSelectedItem().toString());
+
+            CursoDAO dao = new CursoDAO();
+
+            switch (tipo) {
+                case "incluir":
+                    dao.insert(cr);
+                    break;
+
+                case "alterar":
+                    cr.setCodCurso((int) tabelaDados.getValueAt(tabelaDados.getSelectedRow(), tabelaDados.getColumn("COD_CURSO").getModelIndex()));
+                    dao.update(cr);
+                    break;
+
+                case "remover":
+                    cr.setCodCurso((int) tabelaDados.getValueAt(tabelaDados.getSelectedRow(), tabelaDados.getColumn("COD_CURSO").getModelIndex()));
+                    dao.delete(cr);
+                    break;
+            }
+
+            limparCampos();
+
+        } catch (Exception ex) {
+            JOptionPane.showConfirmDialog(this, "Ocorreu algum erro durante a operação e encontra-se abaixo as possíveis causas deste problema:\n\nInserção: algum está campo vazio e/ou em formato inválido;\nAlteração: mesmas possíveis causas das demais operações;\nRemoção: nenhuma linha foi selecionada.\n\nInformações técnicas sobre este erro: " + ex, "SGDA - Aviso", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+
+        } finally {
+
+            txtNome.grabFocus();
+            preencherTabela();
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -34,22 +105,35 @@ public class CadastrarCursoView extends javax.swing.JPanel {
         btnRemover = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         scrollPessoa = new javax.swing.JScrollPane();
-        tabelaPessoa = new javax.swing.JTable();
+        tabelaDados = new javax.swing.JTable();
 
         setBackground(new java.awt.Color(165, 214, 167));
+        setPreferredSize(new java.awt.Dimension(845, 690));
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Cadastro de Cursos");
+        jLabel1.setPreferredSize(new java.awt.Dimension(153, 40));
 
         jLabel2.setText("Descrição:");
 
         jLabel3.setText("Carga Horária:");
 
+        spnCarga.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                spnCargaStateChanged(evt);
+            }
+        });
+
         jLabel4.setText("Período:");
 
         cmbPeriodo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Matutino", "Vespertino", "Noturno", "Integral" }));
         cmbPeriodo.setSelectedIndex(-1);
+        cmbPeriodo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbPeriodoActionPerformed(evt);
+            }
+        });
 
         CRUD.setBackground(new java.awt.Color(76, 175, 80));
         CRUD.setBorder(javax.swing.BorderFactory.createCompoundBorder());
@@ -99,7 +183,6 @@ public class CadastrarCursoView extends javax.swing.JPanel {
         menuBancoDados.add(jPanel6);
 
         txtPesquisar.setEnabled(false);
-        txtPesquisar.setFocusable(false);
         txtPesquisar.setMaximumSize(new java.awt.Dimension(200, 30));
         txtPesquisar.setMinimumSize(new java.awt.Dimension(200, 30));
         txtPesquisar.setPreferredSize(new java.awt.Dimension(300, 30));
@@ -133,6 +216,11 @@ public class CadastrarCursoView extends javax.swing.JPanel {
         btnInserir.setMaximumSize(new java.awt.Dimension(100, 30));
         btnInserir.setMinimumSize(new java.awt.Dimension(100, 30));
         btnInserir.setPreferredSize(new java.awt.Dimension(100, 35));
+        btnInserir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInserirActionPerformed(evt);
+            }
+        });
         menuBancoDados.add(btnInserir);
 
         jPanel2.setBackground(new java.awt.Color(76, 175, 80));
@@ -163,6 +251,11 @@ public class CadastrarCursoView extends javax.swing.JPanel {
         btnAlterar.setMaximumSize(new java.awt.Dimension(100, 30));
         btnAlterar.setMinimumSize(new java.awt.Dimension(100, 30));
         btnAlterar.setPreferredSize(new java.awt.Dimension(100, 35));
+        btnAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlterarActionPerformed(evt);
+            }
+        });
         menuBancoDados.add(btnAlterar);
 
         jPanel3.setBackground(new java.awt.Color(76, 175, 80));
@@ -193,6 +286,11 @@ public class CadastrarCursoView extends javax.swing.JPanel {
         btnRemover.setMaximumSize(new java.awt.Dimension(100, 30));
         btnRemover.setMinimumSize(new java.awt.Dimension(100, 30));
         btnRemover.setPreferredSize(new java.awt.Dimension(100, 35));
+        btnRemover.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemoverActionPerformed(evt);
+            }
+        });
         menuBancoDados.add(btnRemover);
 
         jPanel5.setBackground(new java.awt.Color(76, 175, 80));
@@ -213,7 +311,7 @@ public class CadastrarCursoView extends javax.swing.JPanel {
 
         scrollPessoa.setBackground(new java.awt.Color(217, 224, 217));
 
-        tabelaPessoa.setModel(new javax.swing.table.DefaultTableModel(
+        tabelaDados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -221,14 +319,19 @@ public class CadastrarCursoView extends javax.swing.JPanel {
 
             }
         ));
-        tabelaPessoa.setToolTipText("");
-        tabelaPessoa.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
-        tabelaPessoa.setFocusable(false);
-        tabelaPessoa.setGridColor(new java.awt.Color(255, 255, 255));
-        tabelaPessoa.setSelectionBackground(new java.awt.Color(76, 175, 80));
-        tabelaPessoa.getTableHeader().setResizingAllowed(false);
-        tabelaPessoa.getTableHeader().setReorderingAllowed(false);
-        scrollPessoa.setViewportView(tabelaPessoa);
+        tabelaDados.setToolTipText("");
+        tabelaDados.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        tabelaDados.setFocusable(false);
+        tabelaDados.setGridColor(new java.awt.Color(255, 255, 255));
+        tabelaDados.setSelectionBackground(new java.awt.Color(76, 175, 80));
+        tabelaDados.getTableHeader().setResizingAllowed(false);
+        tabelaDados.getTableHeader().setReorderingAllowed(false);
+        tabelaDados.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelaDadosMouseClicked(evt);
+            }
+        });
+        scrollPessoa.setViewportView(tabelaDados);
 
         javax.swing.GroupLayout CRUDLayout = new javax.swing.GroupLayout(CRUD);
         CRUD.setLayout(CRUDLayout);
@@ -239,7 +342,7 @@ public class CadastrarCursoView extends javax.swing.JPanel {
                 .addGroup(CRUDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(menuBancoDados, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(scrollPessoa, javax.swing.GroupLayout.DEFAULT_SIZE, 776, Short.MAX_VALUE))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addGap(15, 15, 15))
         );
         CRUDLayout.setVerticalGroup(
             CRUDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -247,7 +350,7 @@ public class CadastrarCursoView extends javax.swing.JPanel {
                 .addGap(15, 15, 15)
                 .addComponent(menuBancoDados, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(scrollPessoa, javax.swing.GroupLayout.DEFAULT_SIZE, 338, Short.MAX_VALUE)
+                .addComponent(scrollPessoa, javax.swing.GroupLayout.DEFAULT_SIZE, 273, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -259,28 +362,26 @@ public class CadastrarCursoView extends javax.swing.JPanel {
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(20, 20, 20))
-                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
-                            .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(CRUD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4)
                             .addComponent(jLabel3)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(spnCarga, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(cmbPeriodo, javax.swing.GroupLayout.Alignment.LEADING, 0, 150, Short.MAX_VALUE)))
-                        .addGap(0, 20, Short.MAX_VALUE))))
+                        .addGap(20, 20, 20))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -293,11 +394,43 @@ public class CadastrarCursoView extends javax.swing.JPanel {
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cmbPeriodo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 98, Short.MAX_VALUE)
                 .addComponent(CRUD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInserirActionPerformed
+        escolhaCRUD("incluir");
+    }//GEN-LAST:event_btnInserirActionPerformed
+
+    private void cmbPeriodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPeriodoActionPerformed
+        ativarCRUD();
+    }//GEN-LAST:event_cmbPeriodoActionPerformed
+
+    private void tabelaDadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaDadosMouseClicked
+        if (tabelaDados.getSelectedRow() != -1) {
+            txtNome.setText(tabelaDados.getValueAt(tabelaDados.getSelectedRow(), tabelaDados.getColumn("DESCRICAO").getModelIndex()).toString());
+            spnCarga.setValue(tabelaDados.getValueAt(tabelaDados.getSelectedRow(), tabelaDados.getColumn("CARGA_HORARIA").getModelIndex()));
+            cmbPeriodo.setSelectedItem(tabelaDados.getValueAt(tabelaDados.getSelectedRow(), tabelaDados.getColumn("PERIODO").getModelIndex()).toString());
+        }
+
+        txtNome.grabFocus();
+    }//GEN-LAST:event_tabelaDadosMouseClicked
+
+    private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
+        escolhaCRUD("alterar");
+    }//GEN-LAST:event_btnAlterarActionPerformed
+
+    private void btnRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverActionPerformed
+        escolhaCRUD("remover");
+    }//GEN-LAST:event_btnRemoverActionPerformed
+
+    private void spnCargaStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnCargaStateChanged
+        if ((int) spnCarga.getValue() <= 0) {
+            spnCarga.setValue(0);
+        }
+    }//GEN-LAST:event_spnCargaStateChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -320,7 +453,7 @@ public class CadastrarCursoView extends javax.swing.JPanel {
     private javax.swing.JToolBar menuBancoDados;
     private javax.swing.JScrollPane scrollPessoa;
     private javax.swing.JSpinner spnCarga;
-    private javax.swing.JTable tabelaPessoa;
+    private javax.swing.JTable tabelaDados;
     private javax.swing.JTextField txtNome;
     private javax.swing.JTextField txtPesquisar;
     // End of variables declaration//GEN-END:variables
