@@ -71,6 +71,12 @@ public class CadastrarDisciplinaView extends javax.swing.JPanel {
 
         jLabel3.setText("Quantidade de Aulas:");
 
+        spnAulas.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                spnAulasStateChanged(evt);
+            }
+        });
+
         jLabel4.setText("Semestre:");
 
         cmbSemestre.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1º Semestre", "2º Semestre", "3º Semestre", "4º Semestre", "5º Semestre", "6º Semestre", "7º Semestre", "8º Semestre", "9º Semestre", "10º Semestre" }));
@@ -276,6 +282,12 @@ public class CadastrarDisciplinaView extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
+        spnVagas.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                spnVagasStateChanged(evt);
+            }
+        });
+
         jLabel6.setText("Quantidade de Vagas:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -329,6 +341,18 @@ public class CadastrarDisciplinaView extends javax.swing.JPanel {
                 .addGap(20, 20, 20))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void spnAulasStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnAulasStateChanged
+        if ((int) spnAulas.getValue() <= 0) {
+            spnAulas.setValue(0);
+        }
+    }//GEN-LAST:event_spnAulasStateChanged
+
+    private void spnVagasStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnVagasStateChanged
+        if ((int) spnVagas.getValue() <= 0) {
+            spnVagas.setValue(0);
+        }
+    }//GEN-LAST:event_spnVagasStateChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -107,6 +107,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JSpinner" name="spnAulas">
+      <Events>
+        <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="spnAulasStateChanged"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel4">
       <Properties>
@@ -491,6 +494,9 @@
       </SubComponents>
     </Container>
     <Component class="javax.swing.JSpinner" name="spnVagas">
+      <Events>
+        <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="spnVagasStateChanged"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel6">
       <Properties>

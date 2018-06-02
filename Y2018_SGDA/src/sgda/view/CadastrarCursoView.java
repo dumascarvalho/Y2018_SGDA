@@ -1,7 +1,12 @@
 package sgda.view;
 
 import java.awt.Color;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import sgda.dao.CursoDAO;
+import sgda.model.CursoModel;
 import sgda.model.FormatarCamposModel;
+import sgda.model.RedimensionarJTableModel;
 
 public class CadastrarCursoView extends javax.swing.JPanel {
 
@@ -9,6 +14,7 @@ public class CadastrarCursoView extends javax.swing.JPanel {
         initComponents();
         
         FormatarCamposModel.filtrarSpinner(spnCarga);
+        preencherTabela();
         
         tabelaDados.getParent().setBackground(new Color(217, 224, 217));
     }
@@ -26,6 +32,52 @@ public class CadastrarCursoView extends javax.swing.JPanel {
         btnInserir.setEnabled(true);
         btnAlterar.setEnabled(true);
         btnRemover.setEnabled(true);
+    }    
+
+    private void preencherTabela() {
+        CursoDAO dao = new CursoDAO();
+        
+        tabelaDados.setModel(dao.selectForTable());
+        tabelaDados.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        RedimensionarJTableModel redimensionar = new RedimensionarJTableModel(tabelaDados);
+        redimensionar.adjustColumns();
+    }
+    
+    private void escolhaCRUD(String tipo) {
+        try {
+            CursoModel cr = new CursoModel();            
+            cr.setDescricao(txtNome.getText());
+            cr.setCargaHoras((int) spnCarga.getValue());
+            cr.setPeriodo(cmbPeriodo.getSelectedItem().toString());
+            
+            CursoDAO dao = new CursoDAO();
+            
+            switch (tipo) {
+                case "incluir":
+                    dao.insert(cr);
+                    break;
+                    
+                case "alterar":
+                    cr.setCodCurso((int) tabelaDados.getValueAt(tabelaDados.getSelectedRow(), tabelaDados.getColumn("COD_CURSO").getModelIndex()));
+                    dao.update(cr);
+                    break;
+                    
+                case "remover":
+                    cr.setCodCurso((int) tabelaDados.getValueAt(tabelaDados.getSelectedRow(), tabelaDados.getColumn("COD_CURSO").getModelIndex()));
+                    dao.delete(cr);
+                    break;
+            }           
+            
+            limparCampos();
+        
+        } catch (Exception ex) {
+            JOptionPane.showConfirmDialog(this, "Ocorreu algum erro durante a operação e encontra-se abaixo as possíveis causas deste problema:\n\nInserção: algum está campo vazio e/ou em formato inválido;\nAlteração: mesmas possíveis causas das demais operações;\nRemoção: nenhuma linha foi selecionada.\n\nInformações técnicas sobre este erro: " + ex, "SGDA - Aviso", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+        
+        } finally {
+            
+            txtNome.grabFocus();
+            preencherTabela();          
+        } 
     }
 
     @SuppressWarnings("unchecked")
@@ -67,10 +119,21 @@ public class CadastrarCursoView extends javax.swing.JPanel {
 
         jLabel3.setText("Carga Horária:");
 
+        spnCarga.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                spnCargaStateChanged(evt);
+            }
+        });
+
         jLabel4.setText("Período:");
 
         cmbPeriodo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Matutino", "Vespertino", "Noturno", "Integral" }));
         cmbPeriodo.setSelectedIndex(-1);
+        cmbPeriodo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbPeriodoActionPerformed(evt);
+            }
+        });
 
         CRUD.setBackground(new java.awt.Color(76, 175, 80));
         CRUD.setBorder(javax.swing.BorderFactory.createCompoundBorder());
@@ -120,7 +183,6 @@ public class CadastrarCursoView extends javax.swing.JPanel {
         menuBancoDados.add(jPanel6);
 
         txtPesquisar.setEnabled(false);
-        txtPesquisar.setFocusable(false);
         txtPesquisar.setMaximumSize(new java.awt.Dimension(200, 30));
         txtPesquisar.setMinimumSize(new java.awt.Dimension(200, 30));
         txtPesquisar.setPreferredSize(new java.awt.Dimension(300, 30));
@@ -154,6 +216,11 @@ public class CadastrarCursoView extends javax.swing.JPanel {
         btnInserir.setMaximumSize(new java.awt.Dimension(100, 30));
         btnInserir.setMinimumSize(new java.awt.Dimension(100, 30));
         btnInserir.setPreferredSize(new java.awt.Dimension(100, 35));
+        btnInserir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInserirActionPerformed(evt);
+            }
+        });
         menuBancoDados.add(btnInserir);
 
         jPanel2.setBackground(new java.awt.Color(76, 175, 80));
@@ -184,6 +251,11 @@ public class CadastrarCursoView extends javax.swing.JPanel {
         btnAlterar.setMaximumSize(new java.awt.Dimension(100, 30));
         btnAlterar.setMinimumSize(new java.awt.Dimension(100, 30));
         btnAlterar.setPreferredSize(new java.awt.Dimension(100, 35));
+        btnAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlterarActionPerformed(evt);
+            }
+        });
         menuBancoDados.add(btnAlterar);
 
         jPanel3.setBackground(new java.awt.Color(76, 175, 80));
@@ -214,6 +286,11 @@ public class CadastrarCursoView extends javax.swing.JPanel {
         btnRemover.setMaximumSize(new java.awt.Dimension(100, 30));
         btnRemover.setMinimumSize(new java.awt.Dimension(100, 30));
         btnRemover.setPreferredSize(new java.awt.Dimension(100, 35));
+        btnRemover.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemoverActionPerformed(evt);
+            }
+        });
         menuBancoDados.add(btnRemover);
 
         jPanel5.setBackground(new java.awt.Color(76, 175, 80));
@@ -249,6 +326,11 @@ public class CadastrarCursoView extends javax.swing.JPanel {
         tabelaDados.setSelectionBackground(new java.awt.Color(76, 175, 80));
         tabelaDados.getTableHeader().setResizingAllowed(false);
         tabelaDados.getTableHeader().setReorderingAllowed(false);
+        tabelaDados.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelaDadosMouseClicked(evt);
+            }
+        });
         scrollPessoa.setViewportView(tabelaDados);
 
         javax.swing.GroupLayout CRUDLayout = new javax.swing.GroupLayout(CRUD);
@@ -317,6 +399,38 @@ public class CadastrarCursoView extends javax.swing.JPanel {
                 .addGap(20, 20, 20))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInserirActionPerformed
+        escolhaCRUD("incluir");
+    }//GEN-LAST:event_btnInserirActionPerformed
+
+    private void cmbPeriodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPeriodoActionPerformed
+        ativarCRUD();
+    }//GEN-LAST:event_cmbPeriodoActionPerformed
+
+    private void tabelaDadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaDadosMouseClicked
+        if (tabelaDados.getSelectedRow() != -1) {
+            txtNome.setText(tabelaDados.getValueAt(tabelaDados.getSelectedRow(), tabelaDados.getColumn("DESCRICAO").getModelIndex()).toString());
+            spnCarga.setValue(tabelaDados.getValueAt(tabelaDados.getSelectedRow(), tabelaDados.getColumn("CARGA_HORARIA").getModelIndex()));
+            cmbPeriodo.setSelectedItem(tabelaDados.getValueAt(tabelaDados.getSelectedRow(), tabelaDados.getColumn("PERIODO").getModelIndex()).toString());
+        }
+        
+        txtNome.grabFocus();
+    }//GEN-LAST:event_tabelaDadosMouseClicked
+
+    private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
+        escolhaCRUD("alterar");
+    }//GEN-LAST:event_btnAlterarActionPerformed
+
+    private void btnRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverActionPerformed
+       escolhaCRUD("remover");
+    }//GEN-LAST:event_btnRemoverActionPerformed
+
+    private void spnCargaStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnCargaStateChanged
+        if ((int) spnCarga.getValue() <= 0) {
+            spnCarga.setValue(0);
+        }
+    }//GEN-LAST:event_spnCargaStateChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
