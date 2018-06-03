@@ -4,50 +4,24 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.TableModel;
 import sgda.model.ConnectionFactoryModel;
-import sgda.model.CursoModel;
+import sgda.model.CursoDisciplinaModel;
 import sgda.model.FormatarCamposModel;
 
-public class CursoDAO implements InterfaceCursoDAO {
+public class CursoDisciplinaDAO implements InterfaceCursoDisciplinaDAO {
 
     private PreparedStatement stm = null;
     private ResultSet rs = null;
     private Connection con = null;
-
-    @Override
-    public List selectForCombo(String coluna) {
-
-        try {
-            List<String> listColuna = new ArrayList();
-
-            con = ConnectionFactoryModel.getConnection();
-            stm = con.prepareStatement("SELECT * FROM curso");
-            rs = stm.executeQuery();
-
-            while (rs.next()) {
-                listColuna.add(rs.getString(coluna));
-            }
-
-            return listColuna;
-
-        } catch (SQLException ex) {
-            throw new RuntimeException("Exceção: " + ex);
-
-        } finally {
-            ConnectionFactoryModel.closeConnection(con, stm, rs);
-        }
-    }
-
+    
     @Override
     public TableModel selectForTable() {
-
+        
         try {
             con = ConnectionFactoryModel.getConnection();
-            stm = con.prepareStatement("SELECT * FROM curso");
+            stm = con.prepareStatement("SELECT curso, nome_curso, disciplina, nome_disciplina FROM curso_disciplina, curso, disciplina WHERE curso = cod_curso AND disciplina = cod_disciplina ORDER BY nome_curso");
             rs = stm.executeQuery();
 
             return FormatarCamposModel.colocarDadosTabela(rs);
@@ -61,14 +35,12 @@ public class CursoDAO implements InterfaceCursoDAO {
     }
 
     @Override
-    public void insert(CursoModel cr) {
-
+    public void insert(CursoDisciplinaModel cd) {
         try {
             con = ConnectionFactoryModel.getConnection();
-            stm = con.prepareStatement("INSERT INTO curso (nome_curso, carga_horaria, periodo) VALUES (?, ?, ?)");
-            stm.setString(1, cr.getDescricao());
-            stm.setInt(2, cr.getCargaHoras());
-            stm.setString(3, cr.getPeriodo());
+            stm = con.prepareStatement("INSERT INTO curso_disciplina (curso, disciplina) VALUES (?, ?)");
+            stm.setInt(1, cd.getCurso());
+            stm.setInt(2, cd.getDisciplina());
             stm.executeUpdate();
 
             JOptionPane.showConfirmDialog(null, "Inserção feita com sucesso!", "SGDA - Aviso", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
@@ -82,12 +54,12 @@ public class CursoDAO implements InterfaceCursoDAO {
     }
 
     @Override
-    public void delete(CursoModel cr) {
-
+    public void delete(CursoDisciplinaModel cd) {
         try {
             con = ConnectionFactoryModel.getConnection();
-            stm = con.prepareStatement("DELETE FROM curso WHERE cod_curso = ?");
-            stm.setInt(1, cr.getCodCurso());
+            stm = con.prepareStatement("DELETE FROM curso_disciplina WHERE curso = ? AND disciplina = ?");
+            stm.setInt(1, cd.getCurso());
+            stm.setInt(2, cd.getDisciplina());
             stm.executeUpdate();
 
             JOptionPane.showConfirmDialog(null, "Remoção feita com sucesso!", "SGDA - Aviso", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
@@ -101,24 +73,23 @@ public class CursoDAO implements InterfaceCursoDAO {
     }
 
     @Override
-    public void update(CursoModel cr) {
-
+    public void update(CursoDisciplinaModel cd, CursoDisciplinaModel cdu) {
         try {
             con = ConnectionFactoryModel.getConnection();
-            stm = con.prepareStatement("UPDATE curso SET descricao = ?, carga_horaria = ?, periodo = ? WHERE cod_curso = ?");
-            stm.setString(1, cr.getDescricao());
-            stm.setInt(2, cr.getCargaHoras());
-            stm.setString(3, cr.getPeriodo());
-            stm.setInt(4, cr.getCodCurso());
+            stm = con.prepareStatement("UPDATE curso_disciplina SET curso = ?, disciplina = ? WHERE curso = ? AND disciplina = ?");
+            stm.setInt(1, cd.getCurso());
+            stm.setInt(2, cd.getDisciplina());
+            stm.setInt(3, cdu.getCurso());
+            stm.setInt(4, cdu.getDisciplina());
             stm.executeUpdate();
 
-            JOptionPane.showConfirmDialog(null, "Alteração feita com sucesso!", "SGDA - Aviso", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showConfirmDialog(null, "Inserção feita com sucesso!", "SGDA - Aviso", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
 
         } catch (Exception ex) {
-            JOptionPane.showConfirmDialog(null, "Houve algum erro durante a alteração!\n\nInformações técnicas sobre o erro: " + ex, "SGDA - Aviso", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showConfirmDialog(null, "Houve algum erro durante a inserção!\n\nInformações técnicas sobre o erro: " + ex, "SGDA - Aviso", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
 
         } finally {
             ConnectionFactoryModel.closeConnection(con, stm, rs);
         }
-    }
+    }          
 }

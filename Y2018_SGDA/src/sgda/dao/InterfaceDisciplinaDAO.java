@@ -8,6 +8,8 @@ public interface InterfaceDisciplinaDAO {
   
     public List selectForCombo(String coluna); 
     
+    public List selectForComboRelacoes(String coluna, String curso); 
+    
     public TableModel selectForTable();
     
     public void insert(DisciplinaModel ds);

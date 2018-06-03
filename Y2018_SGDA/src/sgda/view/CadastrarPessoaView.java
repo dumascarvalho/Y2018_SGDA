@@ -1025,7 +1025,7 @@ public class CadastrarPessoaView extends javax.swing.JPanel {
 
                 CursoDAO curso = new CursoDAO();
                 cmbCodigo.setModel(new DefaultComboBoxModel(curso.selectForCombo("cod_curso").toArray()));
-                cmbCurso.setModel(new DefaultComboBoxModel(curso.selectForCombo("descricao").toArray()));
+                cmbCurso.setModel(new DefaultComboBoxModel(curso.selectForCombo("nome_curso").toArray()));
                 cmbCurso.setSelectedIndex(-1);
                 break;
             case 3: // Professor
