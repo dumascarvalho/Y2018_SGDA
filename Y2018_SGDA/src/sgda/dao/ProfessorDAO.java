@@ -2,7 +2,10 @@ package sgda.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 import sgda.model.ConnectionFactoryModel;
 import sgda.model.ProfessorModel;
@@ -10,6 +13,7 @@ import sgda.model.ProfessorModel;
 public class ProfessorDAO implements InterfaceProfessorDAO {
     
     private PreparedStatement stm = null;
+    private ResultSet rs = null;
     private Connection con = null; 
 
     @Override
@@ -71,6 +75,30 @@ public class ProfessorDAO implements InterfaceProfessorDAO {
             
         } finally {
             ConnectionFactoryModel.closeConnection(con, stm);
+        }
+    }
+
+    @Override
+    public List selectForCombo(String coluna, String tabela) {
+
+        try {
+            List<String> listColuna = new ArrayList();
+
+            con = ConnectionFactoryModel.getConnection();
+            stm = con.prepareStatement("SELECT * FROM pessoa AS a INNER JOIN " + tabela + " AS b ON a.matricula = b.matricula");
+            rs = stm.executeQuery();
+
+            while (rs.next()) {
+                listColuna.add(rs.getString(coluna));
+            }
+
+            return listColuna;
+
+        } catch (SQLException ex) {
+            throw new RuntimeException("Exceção: " + ex);
+
+        } finally {
+            ConnectionFactoryModel.closeConnection(con, stm, rs);
         }
     }
 }

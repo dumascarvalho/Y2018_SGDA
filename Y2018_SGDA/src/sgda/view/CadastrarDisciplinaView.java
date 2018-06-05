@@ -15,6 +15,7 @@ public class CadastrarDisciplinaView extends javax.swing.JPanel {
         
         FormatarCamposModel.filtrarSpinner(spnAulas);
         FormatarCamposModel.filtrarSpinner(spnVagas);
+        ativarCRUD();
         preencherTabela();
         
         tabelaDados.getParent().setBackground(new Color(217, 224, 217));
@@ -120,7 +121,7 @@ public class CadastrarDisciplinaView extends javax.swing.JPanel {
         setBackground(new java.awt.Color(165, 214, 167));
         setPreferredSize(new java.awt.Dimension(845, 690));
 
-        jLabel1.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Cadastro de Disciplinas");
         jLabel1.setPreferredSize(new java.awt.Dimension(181, 40));
@@ -191,6 +192,11 @@ public class CadastrarDisciplinaView extends javax.swing.JPanel {
         txtPesquisar.setMaximumSize(new java.awt.Dimension(200, 30));
         txtPesquisar.setMinimumSize(new java.awt.Dimension(200, 30));
         txtPesquisar.setPreferredSize(new java.awt.Dimension(300, 30));
+        txtPesquisar.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                txtPesquisarCaretUpdate(evt);
+            }
+        });
         menuBancoDados.add(txtPesquisar);
 
         jPanel1.setBackground(new java.awt.Color(76, 175, 80));
@@ -387,7 +393,7 @@ public class CadastrarDisciplinaView extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
-                            .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -430,7 +436,7 @@ public class CadastrarDisciplinaView extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cmbSituacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20)
-                .addComponent(CRUD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(CRUD, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(20, 20, 20))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -474,6 +480,20 @@ public class CadastrarDisciplinaView extends javax.swing.JPanel {
     private void cmbSituacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbSituacaoActionPerformed
         ativarCRUD();
     }//GEN-LAST:event_cmbSituacaoActionPerformed
+
+    private void txtPesquisarCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtPesquisarCaretUpdate
+        if (!"".equals(txtPesquisar.getText())) {
+            
+            DisciplinaDAO dao = new DisciplinaDAO();
+            
+            tabelaDados.setModel(dao.selectForTable(txtPesquisar.getText()));
+            tabelaDados.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+            RedimensionarJTableModel redimensionar = new RedimensionarJTableModel(tabelaDados);
+            redimensionar.adjustColumns();
+        } else {
+            preencherTabela();
+        }
+    }//GEN-LAST:event_txtPesquisarCaretUpdate
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

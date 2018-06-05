@@ -41,6 +41,30 @@ public class DisciplinaDAO implements InterfaceDisciplinaDAO {
             ConnectionFactoryModel.closeConnection(con, stm, rs);
         }
     }
+    
+    @Override
+    public List selectForComboRelacoes(String coluna, String curso) {
+
+        try {
+            List<String> listColuna = new ArrayList();
+
+            con = ConnectionFactoryModel.getConnection();
+            stm = con.prepareStatement("SELECT * FROM curso_disciplina, curso, disciplina WHERE disciplina = cod_disciplina AND curso = cod_curso AND nome_curso = '" + curso + "'");
+            rs = stm.executeQuery();
+
+            while (rs.next()) {
+                listColuna.add(rs.getString(coluna));
+            }
+
+            return listColuna;
+
+        } catch (SQLException ex) {
+            throw new RuntimeException("Exceção: " + ex);
+
+        } finally {
+            ConnectionFactoryModel.closeConnection(con, stm, rs);
+        }
+    }
 
     @Override
     public TableModel selectForTable() {
@@ -48,6 +72,24 @@ public class DisciplinaDAO implements InterfaceDisciplinaDAO {
         try {
             con = ConnectionFactoryModel.getConnection();
             stm = con.prepareStatement("SELECT * FROM disciplina");
+            rs = stm.executeQuery();
+
+            return FormatarCamposModel.colocarDadosTabela(rs);
+
+        } catch (SQLException ex) {
+            throw new RuntimeException("Exceção: " + ex);
+
+        } finally {
+            ConnectionFactoryModel.closeConnection(con, stm, rs);
+        }
+    }
+    
+    @Override
+    public TableModel selectForTable(String texto) {
+
+        try {
+            con = ConnectionFactoryModel.getConnection();
+            stm = con.prepareStatement("SELECT * FROM disciplina WHERE nome_disciplina LIKE '" + texto + "%'");
             rs = stm.executeQuery();
 
             return FormatarCamposModel.colocarDadosTabela(rs);

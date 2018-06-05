@@ -20,8 +20,9 @@ public class CadastrarPessoaView extends javax.swing.JPanel {
     public CadastrarPessoaView() {
         initComponents();
 
-        Pessoa.setVisible(false);
-        btnLimpar.setVisible(false);
+        cmbPerfil.setSelectedIndex(0);
+        txtNome.grabFocus();
+        
         tabelaDados.getParent().setBackground(new Color(217, 224, 217));
     }
 
@@ -60,18 +61,22 @@ public class CadastrarPessoaView extends javax.swing.JPanel {
     }
 
     private void preencherTabela() {
-        try {
-            String tabela = "";
-
+        
+        try {            
+            String tabela;
+            
             switch (cmbPerfil.getSelectedIndex()) {
-                case 0: // Administrador
+                case 1: // Administrador
                     tabela = "administrador";
                     break;
-                case 1: // Aluno
+                case 2: // Aluno
                     tabela = "aluno";
                     break;
-                case 2: // Professor
+                case 3: // Professor
                     tabela = "professor";
+                    break;
+                default:
+                    tabela = "pessoa";
                     break;
             }
 
@@ -112,7 +117,7 @@ public class CadastrarPessoaView extends javax.swing.JPanel {
             PessoaDAO dao = new PessoaDAO();
 
             switch (cmbPerfil.getSelectedIndex()) {
-                case 0: // Administrador
+                case 1: // Administrador
                     AdministradorModel ad = new AdministradorModel();
                     ad = (AdministradorModel) encapsularPessoa(ad);
 
@@ -138,7 +143,7 @@ public class CadastrarPessoaView extends javax.swing.JPanel {
                             break;
                     }
                     break;
-                case 1: // Aluno
+                case 2: // Aluno
                     AlunoModel al = new AlunoModel();
                     al = (AlunoModel) encapsularPessoa(al);
 
@@ -162,7 +167,7 @@ public class CadastrarPessoaView extends javax.swing.JPanel {
                             break;
                     }
                     break;
-                case 2: // Professor
+                case 3: // Professor
                     ProfessorModel pr = new ProfessorModel();
                     pr = (ProfessorModel) encapsularPessoa(pr);
 
@@ -187,6 +192,37 @@ public class CadastrarPessoaView extends javax.swing.JPanel {
                         case "remover":
                             pr.setMatricula((int) tabelaDados.getValueAt(tabelaDados.getSelectedRow(), tabelaDados.getColumn("MATRICULA").getModelIndex()));
                             dao.delete(pr, "professor");
+                            break;
+                    }
+                    break;                
+                default:
+                     switch (tipo) {
+                        case "alterar":
+                            PessoaModel ps = new PessoaModel();
+                            ps = (PessoaModel) encapsularPessoa(ps);
+                    
+                            ps.setMatricula((int) tabelaDados.getValueAt(tabelaDados.getSelectedRow(), tabelaDados.getColumn("MATRICULA").getModelIndex()));
+                            ps.setPerfil(tabelaDados.getValueAt(tabelaDados.getSelectedRow(), tabelaDados.getColumn("PERFIL").getModelIndex()).toString());
+                            dao.update(ps, "pessoa");
+                            break;
+                        case "remover":                      
+                            switch(tabelaDados.getValueAt(tabelaDados.getSelectedRow(), tabelaDados.getColumn("PERFIL").getModelIndex()).toString().toLowerCase()) {
+                                case "administrador":
+                                    ad = new AdministradorModel();
+                                    ad.setMatricula((int) tabelaDados.getValueAt(tabelaDados.getSelectedRow(), tabelaDados.getColumn("MATRICULA").getModelIndex()));
+                                    dao.delete(ad, "administrador");
+                                    break;
+                                case "aluno":
+                                    al = new AlunoModel();
+                                    al.setMatricula((int) tabelaDados.getValueAt(tabelaDados.getSelectedRow(), tabelaDados.getColumn("MATRICULA").getModelIndex()));
+                                    dao.delete(al, "aluno");
+                                    break;
+                                case "professor":
+                                    pr = new ProfessorModel();
+                                    pr.setMatricula((int) tabelaDados.getValueAt(tabelaDados.getSelectedRow(), tabelaDados.getColumn("MATRICULA").getModelIndex()));                                    
+                                    dao.delete(pr, "professor");
+                                    break;
+                            }
                             break;
                     }
                     break;
@@ -281,7 +317,7 @@ public class CadastrarPessoaView extends javax.swing.JPanel {
         setBackground(new java.awt.Color(165, 214, 167));
         setPreferredSize(new java.awt.Dimension(845, 690));
 
-        jLabel1.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Cadastro de Pessoas");
 
@@ -289,7 +325,7 @@ public class CadastrarPessoaView extends javax.swing.JPanel {
         lblLogo.setText("Selecione um Perfil:");
 
         cmbPerfil.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        cmbPerfil.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Administrador", "Aluno", "Professor" }));
+        cmbPerfil.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Geral", "Administrador", "Aluno", "Professor" }));
         cmbPerfil.setSelectedIndex(-1);
         cmbPerfil.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         cmbPerfil.setFocusable(false);
@@ -310,7 +346,7 @@ public class CadastrarPessoaView extends javax.swing.JPanel {
         Vazio.setLayout(VazioLayout);
         VazioLayout.setHorizontalGroup(
             VazioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 384, Short.MAX_VALUE)
+            .addGap(0, 380, Short.MAX_VALUE)
         );
         VazioLayout.setVerticalGroup(
             VazioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -377,7 +413,7 @@ public class CadastrarPessoaView extends javax.swing.JPanel {
                         .addGroup(AlunoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel24)
                             .addComponent(cmbCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
         AlunoLayout.setVerticalGroup(
             AlunoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -580,9 +616,9 @@ public class CadastrarPessoaView extends javax.swing.JPanel {
         txtPesquisar.setMaximumSize(new java.awt.Dimension(200, 30));
         txtPesquisar.setMinimumSize(new java.awt.Dimension(200, 30));
         txtPesquisar.setPreferredSize(new java.awt.Dimension(300, 30));
-        txtPesquisar.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtPesquisarKeyPressed(evt);
+        txtPesquisar.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                txtPesquisarCaretUpdate(evt);
             }
         });
         menuBancoDados.add(txtPesquisar);
@@ -924,20 +960,21 @@ public class CadastrarPessoaView extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(CRUD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(Pessoa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lblLogo)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(cmbPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnLimpar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(Pessoa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addComponent(Adicional, javax.swing.GroupLayout.DEFAULT_SIZE, 384, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblLogo)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cmbPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(CRUD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(Adicional, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGap(20, 20, 20))
         );
         layout.setVerticalGroup(
@@ -953,8 +990,8 @@ public class CadastrarPessoaView extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(Pessoa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Adicional, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20)
-                .addComponent(CRUD, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                .addComponent(CRUD, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20))
         );
 
@@ -966,14 +1003,12 @@ public class CadastrarPessoaView extends javax.swing.JPanel {
     }//GEN-LAST:event_txtDtNascimentoKeyPressed
 
     private void cmbPerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPerfilActionPerformed
-        Pessoa.setVisible(true);
         ativarCRUD();
-        btnLimpar.setVisible(true);
 
         CardLayout card = (CardLayout) Adicional.getLayout();
 
         switch (cmbPerfil.getSelectedIndex()) {
-            case 0: // Administrador
+            case 1: // Administrador
                 card.show(Adicional, "Outros");
 
                 lblNivel.setVisible(false);
@@ -981,15 +1016,15 @@ public class CadastrarPessoaView extends javax.swing.JPanel {
                 lblFormacao.setVisible(false);
                 cmbFormacao.setVisible(false);
                 break;
-            case 1: // Aluno
+            case 2: // Aluno
                 card.show(Adicional, "Aluno");
 
                 CursoDAO curso = new CursoDAO();
                 cmbCodigo.setModel(new DefaultComboBoxModel(curso.selectForCombo("cod_curso").toArray()));
-                cmbCurso.setModel(new DefaultComboBoxModel(curso.selectForCombo("descricao").toArray()));
+                cmbCurso.setModel(new DefaultComboBoxModel(curso.selectForCombo("nome_curso").toArray()));
                 cmbCurso.setSelectedIndex(-1);
                 break;
-            case 2: // Professor
+            case 3: // Professor
                 card.show(Adicional, "Outros");
 
                 lblNivel.setVisible(true);
@@ -997,6 +1032,9 @@ public class CadastrarPessoaView extends javax.swing.JPanel {
                 lblFormacao.setVisible(true);
                 cmbFormacao.setVisible(true);
                 break;
+            default:
+                card.show(Adicional, "Vazio");
+                btnInserir.setEnabled(false);
         }
 
         preencherTabela();
@@ -1053,19 +1091,19 @@ public class CadastrarPessoaView extends javax.swing.JPanel {
             txtCEP.setText(tabelaDados.getValueAt(tabelaDados.getSelectedRow(), tabelaDados.getColumn("CEP").getModelIndex()).toString());
 
             switch (cmbPerfil.getSelectedIndex()) {
-                case 0: // Administrador
+                case 1: // Administrador
                     txtDtAdmissao.setText(tabelaDados.getValueAt(tabelaDados.getSelectedRow(), tabelaDados.getColumn("DT_ADMISSAO").getModelIndex()).toString());
                     txtSalario.setText(tabelaDados.getValueAt(tabelaDados.getSelectedRow(), tabelaDados.getColumn("SALARIO").getModelIndex()).toString().replace(".", ","));
                     cmbBanco.setSelectedItem(tabelaDados.getValueAt(tabelaDados.getSelectedRow(), tabelaDados.getColumn("BANCO").getModelIndex()).toString());
                     txtAgencia.setText(tabelaDados.getValueAt(tabelaDados.getSelectedRow(), tabelaDados.getColumn("AGENCIA").getModelIndex()).toString());
                     txtConta.setText(tabelaDados.getValueAt(tabelaDados.getSelectedRow(), tabelaDados.getColumn("CONTA").getModelIndex()).toString());
                     break;
-                case 1: // Aluno
+                case 2: // Aluno
                     txtDtMatricula.setText(tabelaDados.getValueAt(tabelaDados.getSelectedRow(), tabelaDados.getColumn("DT_MATRICULA").getModelIndex()).toString());
                     cmbCodigo.setSelectedItem(tabelaDados.getValueAt(tabelaDados.getSelectedRow(), tabelaDados.getColumn("CURSO").getModelIndex()).toString());
                     cmbSituacao.setSelectedItem(tabelaDados.getValueAt(tabelaDados.getSelectedRow(), tabelaDados.getColumn("SITUACAO").getModelIndex()).toString());
                     break;
-                case 2: // Professor
+                case 3: // Professor
                     txtDtAdmissao.setText(tabelaDados.getValueAt(tabelaDados.getSelectedRow(), tabelaDados.getColumn("DT_ADMISSAO").getModelIndex()).toString());
                     txtSalario.setText(tabelaDados.getValueAt(tabelaDados.getSelectedRow(), tabelaDados.getColumn("SALARIO").getModelIndex()).toString().replace(".", ","));
                     cmbBanco.setSelectedItem(tabelaDados.getValueAt(tabelaDados.getSelectedRow(), tabelaDados.getColumn("BANCO").getModelIndex()).toString());
@@ -1101,21 +1139,21 @@ public class CadastrarPessoaView extends javax.swing.JPanel {
         txtNome.grabFocus();
     }//GEN-LAST:event_btnLimparActionPerformed
 
-    private void txtPesquisarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisarKeyPressed
+    private void txtPesquisarCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtPesquisarCaretUpdate
         if (!"".equals(txtPesquisar.getText())) {
 
-            String tabela = "";
+            String tabela = "pessoa";
 
             switch (cmbPerfil.getSelectedIndex()) {
-                case 0: // Administrador
+                case 1: // Administrador
                     tabela = "administrador";
                     break;
-                case 1: // Aluno
+                case 2: // Aluno
                     tabela = "aluno";
                     break;
-                case 2: // Professor
+                case 3: // Professor
                     tabela = "professor";
-                    break;
+                    break;                    
             }
 
             PessoaDAO dao = new PessoaDAO();
@@ -1124,11 +1162,10 @@ public class CadastrarPessoaView extends javax.swing.JPanel {
             tabelaDados.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
             RedimensionarJTableModel redimensionar = new RedimensionarJTableModel(tabelaDados);
             redimensionar.adjustColumns();
-
         } else {
             preencherTabela();
         }
-    }//GEN-LAST:event_txtPesquisarKeyPressed
+    }//GEN-LAST:event_txtPesquisarCaretUpdate
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Adicional;

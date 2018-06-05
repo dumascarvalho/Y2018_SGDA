@@ -5,8 +5,17 @@ import javax.swing.JPanel;
 
 public class TelaPrincipalView extends javax.swing.JFrame {
 
+    private String perfil = "Administrador", nome;
+    private int matricula;
+    
     public TelaPrincipalView() {
         initComponents();
+    }
+
+    public TelaPrincipalView(String perfil, String nome, int matricula) {
+        this.perfil = perfil;
+        this.nome = nome;
+        this.matricula = matricula;
     }
 
     @SuppressWarnings("unchecked")
@@ -557,14 +566,15 @@ public class TelaPrincipalView extends javax.swing.JFrame {
     private void setPainel(JPanel painel){            
         panelJanela.removeAll();
         panelJanela.add(painel);
-        panelJanela.repaint();
+        panelJanela.repaint();     
         
         this.pack();
+        
+        panelJanela.grabFocus();
     }
         
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         CardLayout layout = (CardLayout) panelMenu.getLayout();
-        String perfil = "Administrador";
         layout.show(panelMenu, perfil);
         
         txtPerfil.setText("Master"); 
