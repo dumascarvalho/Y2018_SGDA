@@ -83,6 +83,24 @@ public class DisciplinaDAO implements InterfaceDisciplinaDAO {
             ConnectionFactoryModel.closeConnection(con, stm, rs);
         }
     }
+    
+    @Override
+    public TableModel selectForTable(String texto) {
+
+        try {
+            con = ConnectionFactoryModel.getConnection();
+            stm = con.prepareStatement("SELECT * FROM disciplina WHERE nome_disciplina LIKE '" + texto + "%'");
+            rs = stm.executeQuery();
+
+            return FormatarCamposModel.colocarDadosTabela(rs);
+
+        } catch (SQLException ex) {
+            throw new RuntimeException("Exceção: " + ex);
+
+        } finally {
+            ConnectionFactoryModel.closeConnection(con, stm, rs);
+        }
+    }
 
     @Override
     public void insert(DisciplinaModel ds) {

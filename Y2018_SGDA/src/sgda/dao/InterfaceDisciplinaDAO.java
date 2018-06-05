@@ -12,6 +12,8 @@ public interface InterfaceDisciplinaDAO {
     
     public TableModel selectForTable();
     
+    public TableModel selectForTable(String texto);
+    
     public void insert(DisciplinaModel ds);
     
     public void delete(DisciplinaModel ds);

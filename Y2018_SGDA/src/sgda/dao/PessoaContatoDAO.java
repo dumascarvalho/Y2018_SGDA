@@ -4,8 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.TableModel;
 import sgda.model.ConnectionFactoryModel;
@@ -23,7 +21,7 @@ public class PessoaContatoDAO implements InterfacePessoaContatoDAO {
         
         try {
             con = ConnectionFactoryModel.getConnection();
-            stm = con.prepareStatement("SELECT matricula, nome, contato FROM pessoa, pessoa_contato WHERE matricula = pessoa ORDER BY nome");
+            stm = con.prepareStatement("SELECT matricula, perfil, nome, contato FROM pessoa, pessoa_contato WHERE matricula = pessoa ORDER BY nome");
             rs = stm.executeQuery();
 
             return FormatarCamposModel.colocarDadosTabela(rs);
@@ -36,11 +34,12 @@ public class PessoaContatoDAO implements InterfacePessoaContatoDAO {
         }
     }
     
-    public TableModel selectForTable(String perfil) {
+    @Override
+    public TableModel selectForTable(String texto) {
         
         try {
             con = ConnectionFactoryModel.getConnection();
-            stm = con.prepareStatement("SELECT matricula, nome, contato FROM pessoa, pessoa_contato WHERE matricula = pessoa AND perfil = '" + perfil + "' ORDER BY nome");
+            stm = con.prepareStatement("SELECT matricula, perfil, nome, contato FROM pessoa, pessoa_contato WHERE matricula = pessoa AND nome LIKE '" + texto + "%' ORDER BY nome");
             rs = stm.executeQuery();
 
             return FormatarCamposModel.colocarDadosTabela(rs);
@@ -106,52 +105,6 @@ public class PessoaContatoDAO implements InterfacePessoaContatoDAO {
 
         } catch (Exception ex) {
             JOptionPane.showConfirmDialog(null, "Houve algum erro durante a inserção!\n\nInformações técnicas sobre o erro: " + ex, "SGDA - Aviso", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
-
-        } finally {
-            ConnectionFactoryModel.closeConnection(con, stm, rs);
-        }
-    }
-
-    @Override
-    public List selectForCombo(String coluna, String texto) {
-        try {
-            List<String> listColuna = new ArrayList();
-
-            con = ConnectionFactoryModel.getConnection();
-            stm = con.prepareStatement("SELECT * FROM pessoa WHERE nome LIKE '" + texto + "%'");
-            rs = stm.executeQuery();
-
-            while (rs.next()) {
-                listColuna.add(rs.getString(coluna));
-            }
-
-            return listColuna;
-
-        } catch (SQLException ex) {
-            throw new RuntimeException("Exceção: " + ex);
-
-        } finally {
-            ConnectionFactoryModel.closeConnection(con, stm, rs);
-        }
-    }
-
-    @Override
-    public List selectForCombo(String coluna) {
-        try {
-            List<String> listColuna = new ArrayList();
-
-            con = ConnectionFactoryModel.getConnection();
-            stm = con.prepareStatement("SELECT * FROM pessoa");
-            rs = stm.executeQuery();
-
-            while (rs.next()) {
-                listColuna.add(rs.getString(coluna));
-            }
-
-            return listColuna;
-
-        } catch (SQLException ex) {
-            throw new RuntimeException("Exceção: " + ex);
 
         } finally {
             ConnectionFactoryModel.closeConnection(con, stm, rs);

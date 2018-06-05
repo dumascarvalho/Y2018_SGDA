@@ -192,7 +192,7 @@ public class PessoaDAO implements InterfacePessoaDAO {
             if(!"pessoa".equals(tabela)) {
                 stm = con.prepareStatement("SELECT * FROM pessoa AS a INNER JOIN " + tabela + " AS b ON a.matricula = b.matricula WHERE a.nome LIKE '" + texto + "%'");
             } else {
-                stm = con.prepareStatement("SELECT * FROM pessoa");
+                stm = con.prepareStatement("SELECT * FROM pessoa WHERE nome LIKE '" + texto + "%'");
             }
 
             rs = stm.executeQuery();       
@@ -202,6 +202,75 @@ public class PessoaDAO implements InterfacePessoaDAO {
         } catch (SQLException ex) {
             throw new RuntimeException("Exceção: " + ex);
             
+        } finally {
+            ConnectionFactoryModel.closeConnection(con, stm, rs);
+        }
+    }
+   
+    @Override
+    public List selectForCombo(String coluna) {
+        try {
+            List<String> listColuna = new ArrayList();
+
+            con = ConnectionFactoryModel.getConnection();
+            stm = con.prepareStatement("SELECT * FROM pessoa");
+            rs = stm.executeQuery();
+
+            while (rs.next()) {
+                listColuna.add(rs.getString(coluna));
+            }
+
+            return listColuna;
+
+        } catch (SQLException ex) {
+            throw new RuntimeException("Exceção: " + ex);
+
+        } finally {
+            ConnectionFactoryModel.closeConnection(con, stm, rs);
+        }
+    }
+    
+    @Override
+    public List selectForComboTexto(String coluna, String texto) {
+        try {
+            List<String> listColuna = new ArrayList();
+
+            con = ConnectionFactoryModel.getConnection();
+            stm = con.prepareStatement("SELECT * FROM pessoa WHERE nome LIKE '" + texto + "%'");
+            rs = stm.executeQuery();
+
+            while (rs.next()) {
+                listColuna.add(rs.getString(coluna));
+            }
+
+            return listColuna;
+
+        } catch (SQLException ex) {
+            throw new RuntimeException("Exceção: " + ex);
+
+        } finally {
+            ConnectionFactoryModel.closeConnection(con, stm, rs);
+        }
+    }
+    
+    @Override
+    public List selectForComboPerfil(String coluna, String perfil) {
+        try {
+            List<String> listColuna = new ArrayList();
+
+            con = ConnectionFactoryModel.getConnection();
+            stm = con.prepareStatement("SELECT * FROM pessoa WHERE perfil = '" + perfil + "'");
+            rs = stm.executeQuery();
+
+            while (rs.next()) {
+                listColuna.add(rs.getString(coluna));
+            }
+
+            return listColuna;
+
+        } catch (SQLException ex) {
+            throw new RuntimeException("Exceção: " + ex);
+
         } finally {
             ConnectionFactoryModel.closeConnection(con, stm, rs);
         }

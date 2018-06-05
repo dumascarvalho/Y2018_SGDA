@@ -61,8 +61,8 @@ public class CadastrarPessoaView extends javax.swing.JPanel {
     }
 
     private void preencherTabela() {
-        try {
-            
+        
+        try {            
             String tabela;
             
             switch (cmbPerfil.getSelectedIndex()) {
@@ -205,11 +205,7 @@ public class CadastrarPessoaView extends javax.swing.JPanel {
                             ps.setPerfil(tabelaDados.getValueAt(tabelaDados.getSelectedRow(), tabelaDados.getColumn("PERFIL").getModelIndex()).toString());
                             dao.update(ps, "pessoa");
                             break;
-
-                        case "remover":                            
-
-                            
-                       
+                        case "remover":                      
                             switch(tabelaDados.getValueAt(tabelaDados.getSelectedRow(), tabelaDados.getColumn("PERFIL").getModelIndex()).toString().toLowerCase()) {
                                 case "administrador":
                                     ad = new AdministradorModel();
@@ -321,7 +317,7 @@ public class CadastrarPessoaView extends javax.swing.JPanel {
         setBackground(new java.awt.Color(165, 214, 167));
         setPreferredSize(new java.awt.Dimension(845, 690));
 
-        jLabel1.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Cadastro de Pessoas");
 
@@ -1146,18 +1142,18 @@ public class CadastrarPessoaView extends javax.swing.JPanel {
     private void txtPesquisarCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtPesquisarCaretUpdate
         if (!"".equals(txtPesquisar.getText())) {
 
-            String tabela = "";
+            String tabela = "pessoa";
 
             switch (cmbPerfil.getSelectedIndex()) {
-                case 0: // Administrador
+                case 1: // Administrador
                     tabela = "administrador";
                     break;
-                case 1: // Aluno
+                case 2: // Aluno
                     tabela = "aluno";
                     break;
-                case 2: // Professor
+                case 3: // Professor
                     tabela = "professor";
-                    break;
+                    break;                    
             }
 
             PessoaDAO dao = new PessoaDAO();
@@ -1166,7 +1162,6 @@ public class CadastrarPessoaView extends javax.swing.JPanel {
             tabelaDados.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
             RedimensionarJTableModel redimensionar = new RedimensionarJTableModel(tabelaDados);
             redimensionar.adjustColumns();
-
         } else {
             preencherTabela();
         }

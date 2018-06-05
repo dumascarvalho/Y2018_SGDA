@@ -37,6 +37,24 @@ public class DisciplinaProfessorDAO implements InterfaceDisciplinaProfessorDAO {
     }
 
     @Override
+    public TableModel selectForTable(String texto) {
+        
+        try {
+            con = ConnectionFactoryModel.getConnection();
+            stm = con.prepareStatement("SELECT disciplina, nome_disciplina, matricula, nome FROM pessoa, disciplina_professor, disciplina WHERE perfil = 'Professor' AND disciplina = cod_disciplina AND professor = matricula AND nome_disciplina LIKE '" + texto + "%' ORDER BY nome_disciplina");
+            rs = stm.executeQuery();
+
+            return FormatarCamposModel.colocarDadosTabela(rs);
+
+        } catch (SQLException ex) {
+            throw new RuntimeException("Exceção: " + ex);
+
+        } finally {
+            ConnectionFactoryModel.closeConnection(con, stm, rs);
+        }
+    }
+    
+    @Override
     public void insert(DisciplinaProfessorModel dp) {
         try {
             con = ConnectionFactoryModel.getConnection();

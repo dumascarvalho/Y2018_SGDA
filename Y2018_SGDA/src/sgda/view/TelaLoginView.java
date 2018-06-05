@@ -27,7 +27,9 @@ public class TelaLoginView extends javax.swing.JFrame {
         Login.setBackground(new java.awt.Color(165, 214, 167));
 
         lblLogo.setBackground(new java.awt.Color(76, 175, 80));
+        lblLogo.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         lblLogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblLogo.setText("Tela de Login");
 
         lblUsuário.setText("Nome de Usuário:");
 

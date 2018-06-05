@@ -7,6 +7,8 @@ public interface InterfaceCursoDisciplinaDAO {
     
     public TableModel selectForTable();
     
+    public TableModel selectForTable(String texto);
+    
     public void insert(CursoDisciplinaModel cd);
     
     public void delete(CursoDisciplinaModel cd);

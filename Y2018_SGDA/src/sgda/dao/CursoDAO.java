@@ -59,6 +59,24 @@ public class CursoDAO implements InterfaceCursoDAO {
             ConnectionFactoryModel.closeConnection(con, stm, rs);
         }
     }
+    
+    @Override
+    public TableModel selectForTable(String texto) {
+
+        try {
+            con = ConnectionFactoryModel.getConnection();
+            stm = con.prepareStatement("SELECT * FROM curso WHERE nome_curso LIKE '" + texto + "%'");
+            rs = stm.executeQuery();
+
+            return FormatarCamposModel.colocarDadosTabela(rs);
+
+        } catch (SQLException ex) {
+            throw new RuntimeException("Exceção: " + ex);
+
+        } finally {
+            ConnectionFactoryModel.closeConnection(con, stm, rs);
+        }
+    }
 
     @Override
     public void insert(CursoModel cr) {
@@ -105,7 +123,7 @@ public class CursoDAO implements InterfaceCursoDAO {
 
         try {
             con = ConnectionFactoryModel.getConnection();
-            stm = con.prepareStatement("UPDATE curso SET descricao = ?, carga_horaria = ?, periodo = ? WHERE cod_curso = ?");
+            stm = con.prepareStatement("UPDATE curso SET nome_curso = ?, carga_horaria = ?, periodo = ? WHERE cod_curso = ?");
             stm.setString(1, cr.getDescricao());
             stm.setInt(2, cr.getCargaHoras());
             stm.setString(3, cr.getPeriodo());

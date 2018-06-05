@@ -10,6 +10,8 @@ public interface InterfaceDisciplinaProfessorDAO {
     
     public TableModel selectForTable();
     
+    public TableModel selectForTable(String texto);
+    
     public void insert(DisciplinaProfessorModel dp);
     
     public void delete(DisciplinaProfessorModel dp);

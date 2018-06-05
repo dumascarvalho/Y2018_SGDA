@@ -9,6 +9,7 @@ import sgda.dao.CursoDisciplinaDAO;
 import sgda.dao.DisciplinaDAO;
 import sgda.dao.DisciplinaProfessorDAO;
 import sgda.dao.PessoaContatoDAO;
+import sgda.dao.PessoaDAO;
 import sgda.model.CursoDisciplinaModel;
 import sgda.model.DisciplinaProfessorModel;
 import sgda.model.PessoaContatoModel;
@@ -27,31 +28,15 @@ public class CadastrarRelacaoView extends javax.swing.JPanel {
 
         Guias.addChangeListener((javax.swing.event.ChangeEvent evt) -> {
 
-            CursoDAO curso = new CursoDAO();
-            DisciplinaDAO disciplina = new DisciplinaDAO();
-            PessoaContatoDAO pessoa = new PessoaContatoDAO();
-
             switch (Guias.getSelectedIndex()) {
                 case 0: // Cursos e Disciplinas
-                    cmbCodigoCurso.setModel(new DefaultComboBoxModel(curso.selectForCombo("cod_curso").toArray()));
-                    cmbCurso.setModel(new DefaultComboBoxModel(curso.selectForCombo("nome_curso").toArray()));
-                    cmbCurso.setSelectedIndex(-1);
-                    
-                    cmbCodigoDisciplina.setModel(new DefaultComboBoxModel(disciplina.selectForCombo("cod_disciplina").toArray()));
-                    cmbDisciplina.setModel(new DefaultComboBoxModel(disciplina.selectForCombo("nome_disciplina").toArray()));
-                    cmbDisciplina.setSelectedIndex(-1);
+                    guiaCursosDisciplinas();
                     break;
                 case 1: // Disciplinas e Professores
-                    cmbCodigoDisciplinaProfessor.setModel(new DefaultComboBoxModel(disciplina.selectForCombo("cod_disciplina").toArray()));
-                    cmbDisciplinaProfessor.setModel(new DefaultComboBoxModel(disciplina.selectForCombo("nome_disciplina").toArray()));
-                    cmbCurso.setSelectedIndex(-1);
-                    
-                    cmbCodigoProfessor.setModel(new DefaultComboBoxModel(pessoa.selectForCombo("matricula", "professor").toArray()));
-                    cmbProfessor.setModel(new DefaultComboBoxModel(pessoa.selectForCombo("nome", "professor").toArray()));
-                    cmbCodigoProfessor.setSelectedIndex(-1);
+                    guiaDisciplinasProfessores();
                     break;
                 case 2: // Pessoas e Contatos
-                    procurarPessoa();
+                    guiaPessoasContatos();
                     break;
             }
 
@@ -59,7 +44,9 @@ public class CadastrarRelacaoView extends javax.swing.JPanel {
             preencherTabela();
             limparCampos();
         });
-
+        
+        Guias.setSelectedIndex(0);
+        
         tabelaDados.getParent().setBackground(new Color(217, 224, 217));
     }
 
@@ -122,7 +109,7 @@ public class CadastrarRelacaoView extends javax.swing.JPanel {
         setBackground(new java.awt.Color(165, 214, 167));
         setPreferredSize(new java.awt.Dimension(845, 690));
 
-        Titulo.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        Titulo.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         Titulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Titulo.setText("Cadastro de Relações");
         Titulo.setPreferredSize(new java.awt.Dimension(181, 40));
@@ -178,6 +165,11 @@ public class CadastrarRelacaoView extends javax.swing.JPanel {
         txtPesquisar.setMaximumSize(new java.awt.Dimension(200, 30));
         txtPesquisar.setMinimumSize(new java.awt.Dimension(200, 30));
         txtPesquisar.setPreferredSize(new java.awt.Dimension(300, 30));
+        txtPesquisar.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                txtPesquisarCaretUpdate(evt);
+            }
+        });
         menuBancoDados.add(txtPesquisar);
 
         jPanel5.setBackground(new java.awt.Color(76, 175, 80));
@@ -404,7 +396,7 @@ public class CadastrarRelacaoView extends javax.swing.JPanel {
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel10Layout.createSequentialGroup()
                         .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cmbCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cmbCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel22))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -412,14 +404,14 @@ public class CadastrarRelacaoView extends javax.swing.JPanel {
                             .addComponent(cmbCodigoCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel10Layout.createSequentialGroup()
                         .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cmbDisciplina, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cmbDisciplina, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel23))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel25)
                             .addComponent(cmbCodigoDisciplina, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jLabel6))
-                .addContainerGap(416, Short.MAX_VALUE))
+                .addContainerGap(418, Short.MAX_VALUE))
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -455,7 +447,7 @@ public class CadastrarRelacaoView extends javax.swing.JPanel {
         DisciplinasProfessores.setLayout(DisciplinasProfessoresLayout);
         DisciplinasProfessoresLayout.setHorizontalGroup(
             DisciplinasProfessoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGap(0, 402, Short.MAX_VALUE)
         );
         DisciplinasProfessoresLayout.setVerticalGroup(
             DisciplinasProfessoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -519,7 +511,7 @@ public class CadastrarRelacaoView extends javax.swing.JPanel {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(cmbDisciplinaProfessor, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(cmbDisciplinaProfessor, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel26))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -527,7 +519,7 @@ public class CadastrarRelacaoView extends javax.swing.JPanel {
                                     .addComponent(cmbCodigoDisciplinaProfessor, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(cmbProfessor, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(cmbProfessor, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel30))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -663,7 +655,7 @@ public class CadastrarRelacaoView extends javax.swing.JPanel {
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel5)
                             .addComponent(jLabel1)
-                            .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel3Layout.setVerticalGroup(
@@ -735,6 +727,40 @@ public class CadastrarRelacaoView extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void guiaCursosDisciplinas() {
+        CursoDAO curso = new CursoDAO();
+        DisciplinaDAO disciplina = new DisciplinaDAO();
+
+        cmbCodigoCurso.setModel(new DefaultComboBoxModel(curso.selectForCombo("cod_curso").toArray()));
+        cmbCurso.setModel(new DefaultComboBoxModel(curso.selectForCombo("nome_curso").toArray()));
+        cmbCurso.setSelectedIndex(-1);
+
+        cmbCodigoDisciplina.setModel(new DefaultComboBoxModel(disciplina.selectForCombo("cod_disciplina").toArray()));
+        cmbDisciplina.setModel(new DefaultComboBoxModel(disciplina.selectForCombo("nome_disciplina").toArray()));
+        cmbDisciplina.setSelectedIndex(-1);
+    }
+
+    private void guiaDisciplinasProfessores() {
+        DisciplinaDAO disciplina = new DisciplinaDAO();
+        PessoaDAO pessoa = new PessoaDAO();
+
+        cmbCodigoDisciplinaProfessor.setModel(new DefaultComboBoxModel(disciplina.selectForCombo("cod_disciplina").toArray()));
+        cmbDisciplinaProfessor.setModel(new DefaultComboBoxModel(disciplina.selectForCombo("nome_disciplina").toArray()));
+        cmbCurso.setSelectedIndex(-1);
+
+        cmbCodigoProfessor.setModel(new DefaultComboBoxModel(pessoa.selectForComboPerfil("matricula", "professor").toArray()));
+        cmbProfessor.setModel(new DefaultComboBoxModel(pessoa.selectForComboPerfil("nome", "professor").toArray()));
+        cmbCodigoProfessor.setSelectedIndex(-1);
+    }
+
+    private void guiaPessoasContatos() {
+        PessoaDAO pessoa = new PessoaDAO();
+
+        cmbCodigoPessoa.setModel(new DefaultComboBoxModel(pessoa.selectForCombo("matricula").toArray()));
+        cmbPessoa.setModel(new DefaultComboBoxModel(pessoa.selectForCombo("nome").toArray()));
+        cmbPessoa.setSelectedIndex(-1);
+    }
+    
     private void ativarCRUD() {
         txtPesquisar.setEnabled(true);
         btnInserir.setEnabled(true);
@@ -751,13 +777,6 @@ public class CadastrarRelacaoView extends javax.swing.JPanel {
         cmbPessoa.setSelectedIndex(-1);
         txtContato.setText("");
         txtPesquisar.setText("");
-    }
-    
-    private void procurarPessoa() {
-        PessoaContatoDAO pessoa = new PessoaContatoDAO();
-        cmbCodigoPessoa.setModel(new DefaultComboBoxModel(pessoa.selectForCombo("matricula").toArray()));
-        cmbPessoa.setModel(new DefaultComboBoxModel(pessoa.selectForCombo("nome").toArray()));
-        cmbPessoa.setSelectedIndex(-1);
     }
     
     private CursoDisciplinaModel CursoDisciplina() {
@@ -814,8 +833,7 @@ public class CadastrarRelacaoView extends javax.swing.JPanel {
         return modelPessoaContato;
     }
     
-    private void escolhaCRUD(String tipo) {
-        
+    private void escolhaCRUD(String tipo) {        
         try {           
             switch (Guias.getSelectedIndex()) {
                 case 0:
@@ -954,13 +972,17 @@ public class CadastrarRelacaoView extends javax.swing.JPanel {
 
     private void txtNomeCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtNomeCaretUpdate
         if (!"".equals(txtNome.getText())) {            
-            PessoaContatoDAO pessoa = new PessoaContatoDAO();
-            cmbCodigoPessoa.setModel(new DefaultComboBoxModel(pessoa.selectForCombo("matricula", txtNome.getText()).toArray()));
-            cmbPessoa.setModel(new DefaultComboBoxModel(pessoa.selectForCombo("nome", txtNome.getText()).toArray()));
+            PessoaDAO pessoa = new PessoaDAO();
+            
+            cmbCodigoPessoa.setModel(new DefaultComboBoxModel(pessoa.selectForComboTexto("matricula", txtNome.getText()).toArray()));
+            cmbPessoa.setModel(new DefaultComboBoxModel(pessoa.selectForComboTexto("nome", txtNome.getText()).toArray()));
             cmbPessoa.setSelectedIndex(-1); 
         } else {
-            procurarPessoa();            
+            guiaPessoasContatos();            
         }
+        
+        txtContato.setText("");
+        tabelaDados.clearSelection();        
     }//GEN-LAST:event_txtNomeCaretUpdate
 
     private void tabelaDadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaDadosMouseClicked
@@ -997,6 +1019,30 @@ public class CadastrarRelacaoView extends javax.swing.JPanel {
     private void btnRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverActionPerformed
         escolhaCRUD("remover");
     }//GEN-LAST:event_btnRemoverActionPerformed
+
+    private void txtPesquisarCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtPesquisarCaretUpdate
+        if (!"".equals(txtPesquisar.getText())) {
+            switch (Guias.getSelectedIndex()) {
+                case 0:
+                    CursoDisciplinaDAO daoCD = new CursoDisciplinaDAO();
+                    tabelaDados.setModel(daoCD.selectForTable(txtPesquisar.getText()));
+                    break;
+                case 1:
+                    DisciplinaProfessorDAO daoDP = new DisciplinaProfessorDAO();
+                    tabelaDados.setModel(daoDP.selectForTable(txtPesquisar.getText()));
+                    break;
+                case 2:
+                    PessoaContatoDAO daoPC = new PessoaContatoDAO();
+                    tabelaDados.setModel(daoPC.selectForTable(txtPesquisar.getText()));
+                    break;
+            }
+            tabelaDados.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+            RedimensionarJTableModel redimensionar = new RedimensionarJTableModel(tabelaDados);
+            redimensionar.adjustColumns();
+        } else {
+            preencherTabela();
+        }
+    }//GEN-LAST:event_txtPesquisarCaretUpdate
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel CRUD;

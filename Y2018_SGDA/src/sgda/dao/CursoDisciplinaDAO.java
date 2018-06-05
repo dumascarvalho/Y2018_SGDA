@@ -33,6 +33,24 @@ public class CursoDisciplinaDAO implements InterfaceCursoDisciplinaDAO {
             ConnectionFactoryModel.closeConnection(con, stm, rs);
         }
     }
+    
+    @Override
+    public TableModel selectForTable(String texto) {
+        
+        try {
+            con = ConnectionFactoryModel.getConnection();
+            stm = con.prepareStatement("SELECT curso, nome_curso, disciplina, nome_disciplina FROM curso_disciplina, curso, disciplina WHERE curso = cod_curso AND disciplina = cod_disciplina AND nome_curso LIKE '" + texto + "%' ORDER BY nome_curso");
+            rs = stm.executeQuery();
+
+            return FormatarCamposModel.colocarDadosTabela(rs);
+
+        } catch (SQLException ex) {
+            throw new RuntimeException("Exceção: " + ex);
+
+        } finally {
+            ConnectionFactoryModel.closeConnection(con, stm, rs);
+        }
+    }
 
     @Override
     public void insert(CursoDisciplinaModel cd) {
