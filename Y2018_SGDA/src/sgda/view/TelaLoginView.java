@@ -1,5 +1,9 @@
 package sgda.view;
 
+import javax.swing.JOptionPane;
+import sgda.dao.LoginDAO;
+import sgda.model.LoginModel;
+
 public class TelaLoginView extends javax.swing.JFrame {
 
     public TelaLoginView() {
@@ -127,11 +131,29 @@ public class TelaLoginView extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_btnCancelarActionPerformed
 
+    private void limparCampos() {
+        txtUsuário.setText("");
+        txtSenha.setText("");
+        txtUsuário.grabFocus();
+    }
+    
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
-        TelaPrincipalView main = new TelaPrincipalView();
-        main.pack();
-        main.setVisible(true);
-        this.dispose();
+        LoginDAO dao = new LoginDAO();
+        LoginModel model = new LoginModel();
+        
+        model.setUsuario(txtUsuário.getText());
+        model.setSenha(txtSenha.getText());
+        
+        if (dao.autenticar(model)) {
+            JOptionPane.showConfirmDialog(null, "Usuário e senha autenticados com sucesso!", "SGDA - Aviso", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);          
+            TelaPrincipalView main = new TelaPrincipalView();
+            main.pack();
+            main.setVisible(true);
+            this.dispose();
+        } else {
+            JOptionPane.showConfirmDialog(null, "Usuário e/ou senha inválidos!", "SGDA - Aviso", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+            limparCampos();
+        }
     }//GEN-LAST:event_btnEntrarActionPerformed
 
     public static void main(String args[]) {

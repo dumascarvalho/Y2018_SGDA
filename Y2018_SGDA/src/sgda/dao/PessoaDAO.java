@@ -50,7 +50,7 @@ public class PessoaDAO implements InterfacePessoaDAO {
         
         try {
             con = ConnectionFactoryModel.getConnection();
-            stm = con.prepareStatement("INSERT INTO pessoa (nome, perfil, genero, dt_nascimento, rg, cpf, cep, numero, rua, bairro, cidade, estado) VALUES (?, ? , ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            stm = con.prepareStatement("INSERT INTO pessoa (nome, perfil, genero, dt_nascimento, rg, cpf, cep, numero, rua, bairro, cidade, estado, email) VALUES (?, ? , ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
             stm.setString(1, p.getNome());
             stm.setString(2, p.getPerfil());
             stm.setString(3, p.getGenero());
@@ -63,6 +63,7 @@ public class PessoaDAO implements InterfacePessoaDAO {
             stm.setString(10, p.getBairro());
             stm.setString(11, p.getCidade());
             stm.setString(12, p.getEstado());
+            stm.setString(13, p.getEmail());
             stm.executeUpdate();          
             
             con = ConnectionFactoryModel.getConnection();
@@ -105,7 +106,7 @@ public class PessoaDAO implements InterfacePessoaDAO {
        
         try {
             con = ConnectionFactoryModel.getConnection();
-            stm = con.prepareStatement("UPDATE pessoa SET nome = ?, perfil = ?, genero = ?, dt_nascimento = ?, rg = ?, cpf = ?, cep = ?, numero = ?, rua = ?, bairro = ?, cidade = ?, estado = ? WHERE matricula = ?");
+            stm = con.prepareStatement("UPDATE pessoa SET nome = ?, perfil = ?, genero = ?, dt_nascimento = ?, rg = ?, cpf = ?, cep = ?, numero = ?, rua = ?, bairro = ?, cidade = ?, estado = ?, email = ? WHERE matricula = ?");
             stm.setString(1, p.getNome());
             stm.setString(2, p.getPerfil());
             stm.setString(3, p.getGenero());
@@ -118,7 +119,8 @@ public class PessoaDAO implements InterfacePessoaDAO {
             stm.setString(10, p.getBairro());
             stm.setString(11, p.getCidade());
             stm.setString(12, p.getEstado());
-            stm.setInt(13, p.getMatricula());
+            stm.setString(13, p.getEmail());
+            stm.setInt(14, p.getMatricula());
             stm.executeUpdate();          
                                     
             switch(tabela) {
@@ -261,7 +263,28 @@ public class PessoaDAO implements InterfacePessoaDAO {
             con = ConnectionFactoryModel.getConnection();
             stm = con.prepareStatement("SELECT * FROM pessoa WHERE perfil = '" + perfil + "'");
             rs = stm.executeQuery();
+            while (rs.next()) {
+                listColuna.add(rs.getString(coluna));
+            }
 
+            return listColuna;
+
+        } catch (SQLException ex) {
+            throw new RuntimeException("Exceção: " + ex);
+
+        } finally {
+            ConnectionFactoryModel.closeConnection(con, stm, rs);
+        }
+    }
+    
+    @Override
+    public List selectForComboMatricula(String coluna, int matricula) {
+        try {
+            List<String> listColuna = new ArrayList();
+
+            con = ConnectionFactoryModel.getConnection();
+            stm = con.prepareStatement("SELECT * FROM pessoa WHERE matricula = '" + matricula + "'");
+            rs = stm.executeQuery();
             while (rs.next()) {
                 listColuna.add(rs.getString(coluna));
             }

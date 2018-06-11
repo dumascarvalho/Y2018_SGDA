@@ -17,13 +17,14 @@ public class DisciplinaProfessorDAO implements InterfaceDisciplinaProfessorDAO {
     private PreparedStatement stm = null;
     private ResultSet rs = null;
     private Connection con = null;
+    boolean duplicado = false;
     
     @Override
     public TableModel selectForTable() {
         
         try {
             con = ConnectionFactoryModel.getConnection();
-            stm = con.prepareStatement("SELECT disciplina, nome_disciplina, matricula, nome FROM pessoa, disciplina_professor, disciplina WHERE perfil = 'Professor' AND disciplina = cod_disciplina AND professor = matricula ORDER BY nome_disciplina");
+            stm = con.prepareStatement("SELECT disciplina, nome_disciplina, matricula, nome FROM pessoa, disciplina_professor, disciplina WHERE perfil = 'Professor' AND disciplina = cod_disciplina AND professor = matricula ORDER BY nome_disciplina, nome");
             rs = stm.executeQuery();
 
             return FormatarCamposModel.colocarDadosTabela(rs);
@@ -41,7 +42,7 @@ public class DisciplinaProfessorDAO implements InterfaceDisciplinaProfessorDAO {
         
         try {
             con = ConnectionFactoryModel.getConnection();
-            stm = con.prepareStatement("SELECT disciplina, nome_disciplina, matricula, nome FROM pessoa, disciplina_professor, disciplina WHERE perfil = 'Professor' AND disciplina = cod_disciplina AND professor = matricula AND nome_disciplina LIKE '" + texto + "%' ORDER BY nome_disciplina");
+            stm = con.prepareStatement("SELECT disciplina, nome_disciplina, matricula, nome FROM pessoa, disciplina_professor, disciplina WHERE perfil = 'Professor' AND disciplina = cod_disciplina AND professor = matricula AND nome_disciplina LIKE '" + texto + "%' ORDER BY nome_disciplina, nome");
             rs = stm.executeQuery();
 
             return FormatarCamposModel.colocarDadosTabela(rs);
@@ -56,14 +57,30 @@ public class DisciplinaProfessorDAO implements InterfaceDisciplinaProfessorDAO {
     
     @Override
     public void insert(DisciplinaProfessorModel dp) {
+               
         try {
             con = ConnectionFactoryModel.getConnection();
-            stm = con.prepareStatement("INSERT INTO disciplina_professor (disciplina, professor) VALUES (?, ?)");
-            stm.setInt(1, dp.getDisciplina());
-            stm.setInt(2, dp.getProfessor());
-            stm.executeUpdate();
+            stm = con.prepareStatement("SELECT * FROM disciplina_professor");
+            rs = stm.executeQuery();
+            
+            while (rs.next()) {                
+                if (dp.getDisciplina()== rs.getInt("disciplina") && dp.getProfessor()== rs.getInt("professor")) {
+                    duplicado = true;
+                }                
+            }
+            
+            stm = null;
+            
+            if (duplicado == false) {
+                stm = con.prepareStatement("INSERT INTO disciplina_professor (disciplina, professor) VALUES (?, ?)");
+                stm.setInt(1, dp.getDisciplina());
+                stm.setInt(2, dp.getProfessor());
+                stm.executeUpdate();
 
-            JOptionPane.showConfirmDialog(null, "Inserção feita com sucesso!", "SGDA - Aviso", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showConfirmDialog(null, "Inserção feita com sucesso!", "SGDA - Aviso", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showConfirmDialog(null, "Não foi possível realizar a inserção!\nMotivo: a relação informada já existe.", "SGDA - Aviso", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE);
+            }
 
         } catch (Exception ex) {
             JOptionPane.showConfirmDialog(null, "Houve algum erro durante a inserção!\n\nInformações técnicas sobre o erro: " + ex, "SGDA - Aviso", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
@@ -75,6 +92,7 @@ public class DisciplinaProfessorDAO implements InterfaceDisciplinaProfessorDAO {
 
     @Override
     public void delete(DisciplinaProfessorModel dp) {
+        
         try {
             con = ConnectionFactoryModel.getConnection();
             stm = con.prepareStatement("DELETE FROM disciplina_professor WHERE disciplina = ? AND professor = ?");
@@ -94,19 +112,34 @@ public class DisciplinaProfessorDAO implements InterfaceDisciplinaProfessorDAO {
 
     @Override
     public void update(DisciplinaProfessorModel dp, DisciplinaProfessorModel dpu) {
+        
         try {
             con = ConnectionFactoryModel.getConnection();
-            stm = con.prepareStatement("UPDATE disciplina_professor SET disciplina = ?, professor = ? WHERE disciplina = ? AND professor = ?");
-            stm.setInt(1, dp.getDisciplina());
-            stm.setInt(2, dp.getProfessor());
-            stm.setInt(3, dpu.getDisciplina());
-            stm.setInt(4, dpu.getProfessor());
-            stm.executeUpdate();
+            stm = con.prepareStatement("SELECT * FROM disciplina_professor");
+            rs = stm.executeQuery();
+            
+            while (rs.next()) {                
+                if (dp.getDisciplina()== rs.getInt("disciplina") && dp.getProfessor()== rs.getInt("professor")) {
+                    duplicado = true;
+                }                
+            }
+            
+            stm = null;
+         
+            if (duplicado == false) {
+                stm = con.prepareStatement("UPDATE disciplina_professor SET disciplina = ?, professor = ? WHERE disciplina = ? AND professor = ?");
+                stm.setInt(1, dp.getDisciplina());
+                stm.setInt(2, dp.getProfessor());
+                stm.setInt(3, dpu.getDisciplina());
+                stm.setInt(4, dpu.getProfessor());
+                stm.executeUpdate();
 
-            JOptionPane.showConfirmDialog(null, "Inserção feita com sucesso!", "SGDA - Aviso", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
-
+                JOptionPane.showConfirmDialog(null, "Atualização feita com sucesso!", "SGDA - Aviso", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showConfirmDialog(null, "Não foi possível realizar a inserção!\nMotivo: a relação informada já existe.", "SGDA - Aviso", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE);
+            }
         } catch (Exception ex) {
-            JOptionPane.showConfirmDialog(null, "Houve algum erro durante a inserção!\n\nInformações técnicas sobre o erro: " + ex, "SGDA - Aviso", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showConfirmDialog(null, "Houve algum erro durante a atualização!\n\nInformações técnicas sobre o erro: " + ex, "SGDA - Aviso", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
 
         } finally {
             ConnectionFactoryModel.closeConnection(con, stm, rs);
@@ -115,6 +148,7 @@ public class DisciplinaProfessorDAO implements InterfaceDisciplinaProfessorDAO {
 
     @Override
     public List selectForCombo(String coluna, String perfil) {
+        
         try {
             List<String> listColuna = new ArrayList();
 

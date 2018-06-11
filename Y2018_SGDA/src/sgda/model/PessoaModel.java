@@ -3,12 +3,13 @@ package sgda.model;
 public class PessoaModel {
     
     private int matricula, numero;
-    private String nome, dtnascimento, bairro, cidade, rua, estado, cep, perfil, genero, rg, cpf;
+    private String nome, email, dtnascimento, bairro, cidade, rua, estado, cep, perfil, genero, rg, cpf;
 
-    public PessoaModel(int matricula, int numero, String nome, String dtnascimento, String bairro, String cidade, String rua, String estado, String cep, String perfil, String genero, String rg, String cpf, String email) {
+    public PessoaModel(int matricula, int numero, String nome, String email, String dtnascimento, String bairro, String cidade, String rua, String estado, String cep, String perfil, String genero, String rg, String cpf) {
         this.matricula = matricula;
         this.numero = numero;
         this.nome = nome;
+        this.email = email;
         this.dtnascimento = dtnascimento;
         this.bairro = bairro;
         this.cidade = cidade;
@@ -23,6 +24,14 @@ public class PessoaModel {
     
     public PessoaModel() { }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+    
     public String getBairro() {
         return bairro;
     }

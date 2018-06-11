@@ -25,6 +25,7 @@ public class CadastrarCursoView extends javax.swing.JPanel {
         spnCarga.setValue(0);
         cmbPeriodo.setSelectedIndex(-1);
         txtPesquisar.setText("");
+        tabelaDados.clearSelection();
         txtNome.grabFocus();
     }
 
@@ -95,6 +96,8 @@ public class CadastrarCursoView extends javax.swing.JPanel {
         CRUD = new javax.swing.JPanel();
         menuBancoDados = new javax.swing.JToolBar();
         jPanel4 = new javax.swing.JPanel();
+        btnLimpar = new javax.swing.JButton();
+        jPanel9 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         txtPesquisar = new javax.swing.JTextField();
@@ -154,7 +157,7 @@ public class CadastrarCursoView extends javax.swing.JPanel {
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 9, Short.MAX_VALUE)
+            .addGap(0, 7, Short.MAX_VALUE)
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -163,18 +166,53 @@ public class CadastrarCursoView extends javax.swing.JPanel {
 
         menuBancoDados.add(jPanel4);
 
+        btnLimpar.setBackground(new java.awt.Color(217, 224, 217));
+        btnLimpar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        btnLimpar.setText("Limpar");
+        btnLimpar.setActionCommand("");
+        btnLimpar.setBorder(new javax.swing.border.MatteBorder(null));
+        btnLimpar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnLimpar.setFocusable(false);
+        btnLimpar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnLimpar.setMaximumSize(new java.awt.Dimension(100, 30));
+        btnLimpar.setMinimumSize(new java.awt.Dimension(100, 30));
+        btnLimpar.setPreferredSize(new java.awt.Dimension(100, 30));
+        btnLimpar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnLimpar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimparActionPerformed(evt);
+            }
+        });
+        menuBancoDados.add(btnLimpar);
+
+        jPanel9.setBackground(new java.awt.Color(76, 175, 80));
+        jPanel9.setPreferredSize(new java.awt.Dimension(30, 30));
+
+        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
+        jPanel9.setLayout(jPanel9Layout);
+        jPanel9Layout.setHorizontalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 21, Short.MAX_VALUE)
+        );
+        jPanel9Layout.setVerticalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 38, Short.MAX_VALUE)
+        );
+
+        menuBancoDados.add(jPanel9);
+
         jLabel5.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel5.setText("Pesquisar:");
         menuBancoDados.add(jLabel5);
 
         jPanel6.setBackground(new java.awt.Color(76, 175, 80));
-        jPanel6.setPreferredSize(new java.awt.Dimension(10, 40));
+        jPanel6.setPreferredSize(new java.awt.Dimension(20, 30));
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 9, Short.MAX_VALUE)
+            .addGap(0, 14, Short.MAX_VALUE)
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -186,7 +224,7 @@ public class CadastrarCursoView extends javax.swing.JPanel {
         txtPesquisar.setEnabled(false);
         txtPesquisar.setMaximumSize(new java.awt.Dimension(200, 30));
         txtPesquisar.setMinimumSize(new java.awt.Dimension(200, 30));
-        txtPesquisar.setPreferredSize(new java.awt.Dimension(300, 30));
+        txtPesquisar.setPreferredSize(new java.awt.Dimension(200, 30));
         txtPesquisar.addCaretListener(new javax.swing.event.CaretListener() {
             public void caretUpdate(javax.swing.event.CaretEvent evt) {
                 txtPesquisarCaretUpdate(evt);
@@ -195,7 +233,7 @@ public class CadastrarCursoView extends javax.swing.JPanel {
         menuBancoDados.add(txtPesquisar);
 
         jPanel1.setBackground(new java.awt.Color(76, 175, 80));
-        jPanel1.setPreferredSize(new java.awt.Dimension(40, 40));
+        jPanel1.setPreferredSize(new java.awt.Dimension(30, 30));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -236,7 +274,7 @@ public class CadastrarCursoView extends javax.swing.JPanel {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 19, Short.MAX_VALUE)
+            .addGap(0, 14, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -271,7 +309,7 @@ public class CadastrarCursoView extends javax.swing.JPanel {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 19, Short.MAX_VALUE)
+            .addGap(0, 14, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -306,7 +344,7 @@ public class CadastrarCursoView extends javax.swing.JPanel {
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 9, Short.MAX_VALUE)
+            .addGap(0, 7, Short.MAX_VALUE)
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -406,10 +444,6 @@ public class CadastrarCursoView extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInserirActionPerformed
-        escolhaCRUD("incluir");
-    }//GEN-LAST:event_btnInserirActionPerformed
-
     private void cmbPeriodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPeriodoActionPerformed
         ativarCRUD();
     }//GEN-LAST:event_cmbPeriodoActionPerformed
@@ -424,25 +458,29 @@ public class CadastrarCursoView extends javax.swing.JPanel {
         txtNome.grabFocus();
     }//GEN-LAST:event_tabelaDadosMouseClicked
 
-    private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
-        escolhaCRUD("alterar");
-    }//GEN-LAST:event_btnAlterarActionPerformed
-
-    private void btnRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverActionPerformed
-        escolhaCRUD("remover");
-    }//GEN-LAST:event_btnRemoverActionPerformed
-
     private void spnCargaStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnCargaStateChanged
         if ((int) spnCarga.getValue() <= 0) {
             spnCarga.setValue(0);
         }
     }//GEN-LAST:event_spnCargaStateChanged
 
+    private void btnRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverActionPerformed
+        escolhaCRUD("remover");
+    }//GEN-LAST:event_btnRemoverActionPerformed
+
+    private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
+        escolhaCRUD("alterar");
+    }//GEN-LAST:event_btnAlterarActionPerformed
+
+    private void btnInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInserirActionPerformed
+        escolhaCRUD("incluir");
+    }//GEN-LAST:event_btnInserirActionPerformed
+
     private void txtPesquisarCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtPesquisarCaretUpdate
         if (!"".equals(txtPesquisar.getText())) {
-            
+
             CursoDAO dao = new CursoDAO();
-            
+
             tabelaDados.setModel(dao.selectForTable(txtPesquisar.getText()));
             tabelaDados.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
             RedimensionarJTableModel redimensionar = new RedimensionarJTableModel(tabelaDados);
@@ -452,10 +490,15 @@ public class CadastrarCursoView extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_txtPesquisarCaretUpdate
 
+    private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
+        limparCampos();
+    }//GEN-LAST:event_btnLimparActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel CRUD;
     private javax.swing.JButton btnAlterar;
     private javax.swing.JButton btnInserir;
+    private javax.swing.JButton btnLimpar;
     private javax.swing.JButton btnRemover;
     private javax.swing.JComboBox<String> cmbPeriodo;
     private javax.swing.JLabel jLabel1;
@@ -469,6 +512,7 @@ public class CadastrarCursoView extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel9;
     private javax.swing.JToolBar menuBancoDados;
     private javax.swing.JScrollPane scrollPessoa;
     private javax.swing.JSpinner spnCarga;
