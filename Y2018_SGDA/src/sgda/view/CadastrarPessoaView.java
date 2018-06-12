@@ -43,6 +43,7 @@ public class CadastrarPessoaView extends javax.swing.JPanel {
         txtNome.setText("");
         cmbGenero.setSelectedIndex(-1);
         txtDtNascimento.setText("");
+        txtEmail.setText("");
         txtRG.setText("");
         txtCPF.setText("");
         txtRua.setText("");
@@ -98,6 +99,7 @@ public class CadastrarPessoaView extends javax.swing.JPanel {
         obj.setNome(txtNome.getText());
         obj.setGenero(cmbGenero.getSelectedItem().toString());
         obj.setDtnascimento(txtDtNascimento.getText());
+        obj.setEmail(txtEmail.getText());
         obj.setRg(txtRG.getText());
         obj.setCpf(txtCPF.getText());
         obj.setRua(txtRua.getText());
@@ -277,6 +279,8 @@ public class CadastrarPessoaView extends javax.swing.JPanel {
         CRUD = new javax.swing.JPanel();
         menuBancoDados = new javax.swing.JToolBar();
         jPanel4 = new javax.swing.JPanel();
+        btnLimpar = new javax.swing.JButton();
+        jPanel7 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         txtPesquisar = new javax.swing.JTextField();
@@ -308,11 +312,12 @@ public class CadastrarPessoaView extends javax.swing.JPanel {
         txtCPF = new javax.swing.JFormattedTextField();
         jLabel5 = new javax.swing.JLabel();
         txtDtNascimento = new javax.swing.JFormattedTextField();
-        jLabel8 = new javax.swing.JLabel();
-        txtRua = new javax.swing.JTextField();
         cmbEstado = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
-        btnLimpar = new javax.swing.JButton();
+        txtRua = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        txtEmail = new javax.swing.JTextField();
+        jLabel19 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(165, 214, 167));
         setPreferredSize(new java.awt.Dimension(845, 690));
@@ -325,7 +330,7 @@ public class CadastrarPessoaView extends javax.swing.JPanel {
         lblLogo.setText("Selecione um Perfil:");
 
         cmbPerfil.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        cmbPerfil.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Geral", "Administrador", "Aluno", "Professor" }));
+        cmbPerfil.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos", "Administrador", "Aluno", "Professor" }));
         cmbPerfil.setSelectedIndex(-1);
         cmbPerfil.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         cmbPerfil.setFocusable(false);
@@ -346,7 +351,7 @@ public class CadastrarPessoaView extends javax.swing.JPanel {
         Vazio.setLayout(VazioLayout);
         VazioLayout.setHorizontalGroup(
             VazioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 380, Short.MAX_VALUE)
+            .addGap(0, 345, Short.MAX_VALUE)
         );
         VazioLayout.setVerticalGroup(
             VazioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -386,7 +391,7 @@ public class CadastrarPessoaView extends javax.swing.JPanel {
 
         txtDtMatricula.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("yyyy-MM-dd"))));
         txtDtMatricula.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtDtMatricula.setToolTipText("Formato: AAAA/MM/DD");
+        txtDtMatricula.setToolTipText("Formato: AAAA-MM-DD");
         txtDtMatricula.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtDtMatriculaKeyPressed(evt);
@@ -413,7 +418,7 @@ public class CadastrarPessoaView extends javax.swing.JPanel {
                         .addGroup(AlunoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel24)
                             .addComponent(cmbCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         AlunoLayout.setVerticalGroup(
             AlunoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -446,7 +451,7 @@ public class CadastrarPessoaView extends javax.swing.JPanel {
 
         txtDtAdmissao.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("yyyy-MM-dd"))));
         txtDtAdmissao.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtDtAdmissao.setToolTipText("Formato: AAAA/MM/DD");
+        txtDtAdmissao.setToolTipText("Formato: AAAA-MM-DD");
         txtDtAdmissao.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtDtAdmissaoKeyPressed(evt);
@@ -583,7 +588,7 @@ public class CadastrarPessoaView extends javax.swing.JPanel {
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 9, Short.MAX_VALUE)
+            .addGap(0, 7, Short.MAX_VALUE)
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -592,18 +597,54 @@ public class CadastrarPessoaView extends javax.swing.JPanel {
 
         menuBancoDados.add(jPanel4);
 
+        btnLimpar.setBackground(new java.awt.Color(217, 224, 217));
+        btnLimpar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        btnLimpar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sgda/img/application_form.png"))); // NOI18N
+        btnLimpar.setText("Limpar");
+        btnLimpar.setActionCommand("");
+        btnLimpar.setBorder(new javax.swing.border.MatteBorder(null));
+        btnLimpar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnLimpar.setFocusable(false);
+        btnLimpar.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        btnLimpar.setIconTextGap(10);
+        btnLimpar.setMaximumSize(new java.awt.Dimension(110, 30));
+        btnLimpar.setMinimumSize(new java.awt.Dimension(110, 30));
+        btnLimpar.setPreferredSize(new java.awt.Dimension(110, 30));
+        btnLimpar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimparActionPerformed(evt);
+            }
+        });
+        menuBancoDados.add(btnLimpar);
+
+        jPanel7.setBackground(new java.awt.Color(76, 175, 80));
+        jPanel7.setPreferredSize(new java.awt.Dimension(30, 30));
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 21, Short.MAX_VALUE)
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 38, Short.MAX_VALUE)
+        );
+
+        menuBancoDados.add(jPanel7);
+
         jLabel2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel2.setText("Pesquisar:");
         menuBancoDados.add(jLabel2);
 
         jPanel6.setBackground(new java.awt.Color(76, 175, 80));
-        jPanel6.setPreferredSize(new java.awt.Dimension(10, 40));
+        jPanel6.setPreferredSize(new java.awt.Dimension(20, 30));
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 9, Short.MAX_VALUE)
+            .addGap(0, 14, Short.MAX_VALUE)
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -613,9 +654,9 @@ public class CadastrarPessoaView extends javax.swing.JPanel {
         menuBancoDados.add(jPanel6);
 
         txtPesquisar.setEnabled(false);
-        txtPesquisar.setMaximumSize(new java.awt.Dimension(200, 30));
-        txtPesquisar.setMinimumSize(new java.awt.Dimension(200, 30));
-        txtPesquisar.setPreferredSize(new java.awt.Dimension(300, 30));
+        txtPesquisar.setMaximumSize(new java.awt.Dimension(160, 30));
+        txtPesquisar.setMinimumSize(new java.awt.Dimension(160, 30));
+        txtPesquisar.setPreferredSize(new java.awt.Dimension(160, 30));
         txtPesquisar.addCaretListener(new javax.swing.event.CaretListener() {
             public void caretUpdate(javax.swing.event.CaretEvent evt) {
                 txtPesquisarCaretUpdate(evt);
@@ -624,7 +665,7 @@ public class CadastrarPessoaView extends javax.swing.JPanel {
         menuBancoDados.add(txtPesquisar);
 
         jPanel1.setBackground(new java.awt.Color(76, 175, 80));
-        jPanel1.setPreferredSize(new java.awt.Dimension(40, 40));
+        jPanel1.setPreferredSize(new java.awt.Dimension(30, 30));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -641,16 +682,24 @@ public class CadastrarPessoaView extends javax.swing.JPanel {
 
         btnInserir.setBackground(new java.awt.Color(217, 224, 217));
         btnInserir.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        btnInserir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sgda/img/database_add.png"))); // NOI18N
         btnInserir.setText("Inserir");
+        btnInserir.setToolTipText("");
         btnInserir.setActionCommand("");
         btnInserir.setBorder(new javax.swing.border.MatteBorder(null));
         btnInserir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnInserir.setEnabled(false);
         btnInserir.setFocusable(false);
-        btnInserir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnInserir.setMaximumSize(new java.awt.Dimension(100, 30));
-        btnInserir.setMinimumSize(new java.awt.Dimension(100, 30));
-        btnInserir.setPreferredSize(new java.awt.Dimension(100, 35));
+        btnInserir.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        btnInserir.setIconTextGap(10);
+        btnInserir.setMaximumSize(new java.awt.Dimension(110, 30));
+        btnInserir.setMinimumSize(new java.awt.Dimension(110, 30));
+        btnInserir.setPreferredSize(new java.awt.Dimension(110, 30));
+        btnInserir.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnInserirMouseClicked(evt);
+            }
+        });
         btnInserir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnInserirActionPerformed(evt);
@@ -665,7 +714,7 @@ public class CadastrarPessoaView extends javax.swing.JPanel {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 19, Short.MAX_VALUE)
+            .addGap(0, 14, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -676,16 +725,17 @@ public class CadastrarPessoaView extends javax.swing.JPanel {
 
         btnAlterar.setBackground(new java.awt.Color(217, 224, 217));
         btnAlterar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        btnAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sgda/img/database_edit.png"))); // NOI18N
         btnAlterar.setText("Alterar");
-        btnAlterar.setActionCommand("");
         btnAlterar.setBorder(new javax.swing.border.MatteBorder(null));
         btnAlterar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAlterar.setEnabled(false);
         btnAlterar.setFocusable(false);
-        btnAlterar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnAlterar.setMaximumSize(new java.awt.Dimension(100, 30));
-        btnAlterar.setMinimumSize(new java.awt.Dimension(100, 30));
-        btnAlterar.setPreferredSize(new java.awt.Dimension(100, 35));
+        btnAlterar.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        btnAlterar.setIconTextGap(10);
+        btnAlterar.setMaximumSize(new java.awt.Dimension(110, 30));
+        btnAlterar.setMinimumSize(new java.awt.Dimension(110, 30));
+        btnAlterar.setPreferredSize(new java.awt.Dimension(110, 30));
         btnAlterar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAlterarActionPerformed(evt);
@@ -700,7 +750,7 @@ public class CadastrarPessoaView extends javax.swing.JPanel {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 19, Short.MAX_VALUE)
+            .addGap(0, 14, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -711,16 +761,18 @@ public class CadastrarPessoaView extends javax.swing.JPanel {
 
         btnRemover.setBackground(new java.awt.Color(217, 224, 217));
         btnRemover.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        btnRemover.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sgda/img/database_delete.png"))); // NOI18N
         btnRemover.setText("Remover");
         btnRemover.setActionCommand("");
         btnRemover.setBorder(new javax.swing.border.MatteBorder(null));
         btnRemover.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnRemover.setEnabled(false);
         btnRemover.setFocusable(false);
-        btnRemover.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnRemover.setMaximumSize(new java.awt.Dimension(100, 30));
-        btnRemover.setMinimumSize(new java.awt.Dimension(100, 30));
-        btnRemover.setPreferredSize(new java.awt.Dimension(100, 35));
+        btnRemover.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        btnRemover.setIconTextGap(10);
+        btnRemover.setMaximumSize(new java.awt.Dimension(110, 30));
+        btnRemover.setMinimumSize(new java.awt.Dimension(110, 30));
+        btnRemover.setPreferredSize(new java.awt.Dimension(110, 30));
         btnRemover.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRemoverActionPerformed(evt);
@@ -735,7 +787,7 @@ public class CadastrarPessoaView extends javax.swing.JPanel {
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 9, Short.MAX_VALUE)
+            .addGap(0, 7, Short.MAX_VALUE)
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -785,7 +837,7 @@ public class CadastrarPessoaView extends javax.swing.JPanel {
                 .addGap(15, 15, 15)
                 .addComponent(menuBancoDados, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(scrollPessoa, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE)
+                .addComponent(scrollPessoa, javax.swing.GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -844,14 +896,12 @@ public class CadastrarPessoaView extends javax.swing.JPanel {
 
         txtDtNascimento.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("yyyy-MM-dd"))));
         txtDtNascimento.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtDtNascimento.setToolTipText("Formato: AAAA/MM/DD");
+        txtDtNascimento.setToolTipText("Formato: AAAA-MM-DD");
         txtDtNascimento.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtDtNascimentoKeyPressed(evt);
             }
         });
-
-        jLabel8.setText("Rua:");
 
         cmbEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Acre (AC)", "Alagoas (AL)", "Amapá (AP)", "Amazonas (AM)", "Bahia (BA)", "Ceará (CE)", "Distrito Federal (DF)", "Espírito Santo (ES)", "Goiás (GO)", "Maranhão (MA)", "Mato Grosso (MT)", "Mato Grosso do Sul (MS)", "Minas Gerais (MG)", "Pará (PA)", "Paraíba (PB)", "Paraná (PR)", "Pernambuco (PE)", "Piauí (PI)", "Rio de Janeiro (RJ)", "Rio Grande do Norte (RN)", "Rio Grande do Sul (RS)", "Rondônia (RO)", "Roraima (RR)", "Santa Catarina (SC)", "São Paulo (SP)", "Sergipe (SE)", "Tocantins (TO)" }));
         cmbEstado.setSelectedIndex(-1);
@@ -859,23 +909,31 @@ public class CadastrarPessoaView extends javax.swing.JPanel {
 
         jLabel4.setText("Gênero:");
 
+        jLabel8.setText("Rua:");
+
+        jLabel19.setText("Email:");
+
         javax.swing.GroupLayout PessoaLayout = new javax.swing.GroupLayout(Pessoa);
         Pessoa.setLayout(PessoaLayout);
         PessoaLayout.setHorizontalGroup(
             PessoaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel8)
             .addGroup(PessoaLayout.createSequentialGroup()
                 .addGroup(PessoaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtRG, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4)
-                    .addComponent(cmbGenero, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6)
-                    .addComponent(txtDtNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel7)
-                    .addComponent(txtCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNome)
+                    .addGroup(PessoaLayout.createSequentialGroup()
+                        .addGroup(PessoaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(txtRG, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4)
+                            .addComponent(cmbGenero, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6)
+                            .addComponent(txtDtNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel7)
+                            .addComponent(txtCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel19))
+                        .addGap(0, 80, Short.MAX_VALUE))
+                    .addComponent(txtEmail))
                 .addGap(18, 18, 18)
                 .addGroup(PessoaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel12)
@@ -887,94 +945,88 @@ public class CadastrarPessoaView extends javax.swing.JPanel {
                     .addComponent(txtCidade)
                     .addComponent(txtCEP)
                     .addComponent(txtBairro)
-                    .addComponent(txtNumero, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)))
-            .addComponent(txtRua, javax.swing.GroupLayout.PREFERRED_SIZE, 408, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNumero)
+                    .addComponent(jLabel8)
+                    .addComponent(txtRua)))
         );
         PessoaLayout.setVerticalGroup(
             PessoaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PessoaLayout.createSequentialGroup()
-                .addGroup(PessoaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(PessoaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(PessoaLayout.createSequentialGroup()
+                        .addComponent(jLabel8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtRua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(PessoaLayout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(PessoaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cmbGenero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtDtNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtRG, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(PessoaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(PessoaLayout.createSequentialGroup()
-                        .addComponent(jLabel12)
-                        .addGap(37, 37, 37)
-                        .addComponent(jLabel9)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtBairro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(PessoaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(PessoaLayout.createSequentialGroup()
+                                .addComponent(jLabel12)
+                                .addGap(37, 37, 37)
+                                .addComponent(jLabel9)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtBairro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel10)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtCidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(11, 11, 11)
+                                .addComponent(jLabel11)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cmbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(PessoaLayout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cmbGenero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtDtNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtRG, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel7)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel10)
+                        .addGroup(PessoaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel16)
+                            .addComponent(jLabel19))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtCidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(11, 11, 11)
-                        .addComponent(jLabel11)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cmbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel16)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtCEP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel8)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtRua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(PessoaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtCEP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(PessoaLayout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
-
-        btnLimpar.setBackground(new java.awt.Color(217, 224, 217));
-        btnLimpar.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        btnLimpar.setText("Limpar Campos");
-        btnLimpar.setBorder(null);
-        btnLimpar.setBorderPainted(false);
-        btnLimpar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnLimpar.setFocusable(false);
-        btnLimpar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnLimpar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLimparActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(CRUD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblLogo)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(cmbPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnLimpar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(Pessoa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(CRUD, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addComponent(Pessoa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Adicional, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addComponent(Adicional, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 47, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addComponent(lblLogo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(cmbPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(20, 20, 20))
         );
         layout.setVerticalGroup(
@@ -984,18 +1036,15 @@ public class CadastrarPessoaView extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(lblLogo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cmbPerfil)
-                    .addComponent(btnLimpar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(cmbPerfil))
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Pessoa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Adicional, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
-                .addComponent(CRUD, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Adicional, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Pessoa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, Short.MAX_VALUE)
+                .addComponent(CRUD, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(20, 20, 20))
         );
-
-        btnLimpar.getAccessibleContext().setAccessibleDescription("");
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtDtNascimentoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDtNascimentoKeyPressed
@@ -1056,7 +1105,7 @@ public class CadastrarPessoaView extends javax.swing.JPanel {
     }//GEN-LAST:event_txtDtMatriculaKeyPressed
 
     private void btnInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInserirActionPerformed
-        escolhaCRUD("incluir");
+        escolhaCRUD("incluir");       
     }//GEN-LAST:event_btnInserirActionPerformed
 
     private void txtNumeroKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumeroKeyPressed
@@ -1080,6 +1129,7 @@ public class CadastrarPessoaView extends javax.swing.JPanel {
         if (tabelaDados.getSelectedRow() != -1) {
             txtNome.setText(tabelaDados.getValueAt(tabelaDados.getSelectedRow(), tabelaDados.getColumn("NOME").getModelIndex()).toString());
             cmbGenero.setSelectedItem(tabelaDados.getValueAt(tabelaDados.getSelectedRow(), tabelaDados.getColumn("GENERO").getModelIndex()).toString());
+            txtEmail.setText(tabelaDados.getValueAt(tabelaDados.getSelectedRow(), tabelaDados.getColumn("EMAIL").getModelIndex()).toString());
             txtDtNascimento.setText(tabelaDados.getValueAt(tabelaDados.getSelectedRow(), tabelaDados.getColumn("DT_NASCIMENTO").getModelIndex()).toString());
             txtRG.setText(tabelaDados.getValueAt(tabelaDados.getSelectedRow(), tabelaDados.getColumn("RG").getModelIndex()).toString());
             txtCPF.setText(tabelaDados.getValueAt(tabelaDados.getSelectedRow(), tabelaDados.getColumn("CPF").getModelIndex()).toString());
@@ -1130,15 +1180,6 @@ public class CadastrarPessoaView extends javax.swing.JPanel {
         escolhaCRUD("alterar");
     }//GEN-LAST:event_btnAlterarActionPerformed
 
-    private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
-        limparCamposEspecificos();
-        limparCamposComuns();
-        txtPesquisar.setText("");
-        preencherTabela();
-
-        txtNome.grabFocus();
-    }//GEN-LAST:event_btnLimparActionPerformed
-
     private void txtPesquisarCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtPesquisarCaretUpdate
         if (!"".equals(txtPesquisar.getText())) {
 
@@ -1166,6 +1207,21 @@ public class CadastrarPessoaView extends javax.swing.JPanel {
             preencherTabela();
         }
     }//GEN-LAST:event_txtPesquisarCaretUpdate
+
+    private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
+        limparCamposEspecificos();
+        limparCamposComuns();
+        txtPesquisar.setText("");
+        preencherTabela();
+        tabelaDados.clearSelection();
+        txtNome.grabFocus();
+    }//GEN-LAST:event_btnLimparActionPerformed
+
+    private void btnInserirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnInserirMouseClicked
+        if (!btnInserir.isEnabled()) {
+            JOptionPane.showConfirmDialog(null, "A inserção de dados somente é possível após um perfil ter sido selecionado.", "SGDA - Aviso", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_btnInserirMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Adicional;
@@ -1197,6 +1253,7 @@ public class CadastrarPessoaView extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
@@ -1215,6 +1272,7 @@ public class CadastrarPessoaView extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
     private javax.swing.JLabel lblFormacao;
     private javax.swing.JLabel lblLogo;
     private javax.swing.JLabel lblNivel;
@@ -1230,6 +1288,7 @@ public class CadastrarPessoaView extends javax.swing.JPanel {
     private javax.swing.JFormattedTextField txtDtAdmissao;
     private javax.swing.JFormattedTextField txtDtMatricula;
     private javax.swing.JFormattedTextField txtDtNascimento;
+    private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtNome;
     private javax.swing.JFormattedTextField txtNumero;
     private javax.swing.JTextField txtPesquisar;

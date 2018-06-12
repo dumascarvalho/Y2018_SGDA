@@ -12,7 +12,11 @@ public interface InterfacePessoaDAO {
             
     public List selectForComboPerfil(String coluna, String perfil); 
     
+    public List selectForComboMatricula(String coluna, int matricula); 
+    
     public TableModel select(String tabela);
+    
+    public String select(int matricula);
     
     public TableModel pesquisarPessoas(String tabela, String texto);
         

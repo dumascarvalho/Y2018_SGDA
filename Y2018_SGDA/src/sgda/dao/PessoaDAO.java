@@ -28,7 +28,7 @@ public class PessoaDAO implements InterfacePessoaDAO {
             con = ConnectionFactoryModel.getConnection();
                     
             if(!"pessoa".equals(tabela)) {
-                stm = con.prepareStatement("SELECT * FROM pessoa AS a INNER JOIN " + tabela + " AS b ON a.matricula = b.matricula");
+                stm = con.prepareStatement("SELECT * FROM pessoa p JOIN " + tabela + " t ON p.matricula = t.matricula");
             } else {
                 stm = con.prepareStatement("SELECT * FROM pessoa");
             }
@@ -50,7 +50,7 @@ public class PessoaDAO implements InterfacePessoaDAO {
         
         try {
             con = ConnectionFactoryModel.getConnection();
-            stm = con.prepareStatement("INSERT INTO pessoa (nome, perfil, genero, dt_nascimento, rg, cpf, cep, numero, rua, bairro, cidade, estado) VALUES (?, ? , ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            stm = con.prepareStatement("INSERT INTO pessoa (nome, perfil, genero, dt_nascimento, rg, cpf, cep, numero, rua, bairro, cidade, estado, email) VALUES (?, ? , ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
             stm.setString(1, p.getNome());
             stm.setString(2, p.getPerfil());
             stm.setString(3, p.getGenero());
@@ -63,6 +63,7 @@ public class PessoaDAO implements InterfacePessoaDAO {
             stm.setString(10, p.getBairro());
             stm.setString(11, p.getCidade());
             stm.setString(12, p.getEstado());
+            stm.setString(13, p.getEmail());
             stm.executeUpdate();          
             
             con = ConnectionFactoryModel.getConnection();
@@ -105,7 +106,7 @@ public class PessoaDAO implements InterfacePessoaDAO {
        
         try {
             con = ConnectionFactoryModel.getConnection();
-            stm = con.prepareStatement("UPDATE pessoa SET nome = ?, perfil = ?, genero = ?, dt_nascimento = ?, rg = ?, cpf = ?, cep = ?, numero = ?, rua = ?, bairro = ?, cidade = ?, estado = ? WHERE matricula = ?");
+            stm = con.prepareStatement("UPDATE pessoa SET nome = ?, perfil = ?, genero = ?, dt_nascimento = ?, rg = ?, cpf = ?, cep = ?, numero = ?, rua = ?, bairro = ?, cidade = ?, estado = ?, email = ? WHERE matricula = ?");
             stm.setString(1, p.getNome());
             stm.setString(2, p.getPerfil());
             stm.setString(3, p.getGenero());
@@ -118,7 +119,8 @@ public class PessoaDAO implements InterfacePessoaDAO {
             stm.setString(10, p.getBairro());
             stm.setString(11, p.getCidade());
             stm.setString(12, p.getEstado());
-            stm.setInt(13, p.getMatricula());
+            stm.setString(13, p.getEmail());
+            stm.setInt(14, p.getMatricula());
             stm.executeUpdate();          
                                     
             switch(tabela) {
@@ -186,11 +188,14 @@ public class PessoaDAO implements InterfacePessoaDAO {
 
     @Override
     public TableModel pesquisarPessoas(String tabela, String texto) {
+        
         try {
             con = ConnectionFactoryModel.getConnection();
             
             if(!"pessoa".equals(tabela)) {
-                stm = con.prepareStatement("SELECT * FROM pessoa AS a INNER JOIN " + tabela + " AS b ON a.matricula = b.matricula WHERE a.nome LIKE '" + texto + "%'");
+                stm = con.prepareStatement("SELECT * \n"
+                + "FROM pessoa AS p JOIN " + tabela + " t ON p.matricula = t.matricula \n"
+                + "WHERE UPPER(p.nome) LIKE UPPER('" + texto + "%')");
             } else {
                 stm = con.prepareStatement("SELECT * FROM pessoa WHERE nome LIKE '" + texto + "%'");
             }
@@ -209,6 +214,7 @@ public class PessoaDAO implements InterfacePessoaDAO {
    
     @Override
     public List selectForCombo(String coluna) {
+        
         try {
             List<String> listColuna = new ArrayList();
 
@@ -232,11 +238,14 @@ public class PessoaDAO implements InterfacePessoaDAO {
     
     @Override
     public List selectForComboTexto(String coluna, String texto) {
+        
         try {
             List<String> listColuna = new ArrayList();
 
             con = ConnectionFactoryModel.getConnection();
-            stm = con.prepareStatement("SELECT * FROM pessoa WHERE nome LIKE '" + texto + "%'");
+            stm = con.prepareStatement("SELECT * \n"
+                    + "FROM pessoa \n"
+                    + "WHERE UPPER(nome) LIKE UPPER('" + texto + "%')");
             rs = stm.executeQuery();
 
             while (rs.next()) {
@@ -255,18 +264,64 @@ public class PessoaDAO implements InterfacePessoaDAO {
     
     @Override
     public List selectForComboPerfil(String coluna, String perfil) {
+        
         try {
             List<String> listColuna = new ArrayList();
 
             con = ConnectionFactoryModel.getConnection();
             stm = con.prepareStatement("SELECT * FROM pessoa WHERE perfil = '" + perfil + "'");
             rs = stm.executeQuery();
-
             while (rs.next()) {
                 listColuna.add(rs.getString(coluna));
             }
 
             return listColuna;
+
+        } catch (SQLException ex) {
+            throw new RuntimeException("Exceção: " + ex);
+
+        } finally {
+            ConnectionFactoryModel.closeConnection(con, stm, rs);
+        }
+    }
+    
+    @Override
+    public List selectForComboMatricula(String coluna, int matricula) {
+        
+        try {
+            List<String> listColuna = new ArrayList();
+
+            con = ConnectionFactoryModel.getConnection();
+            stm = con.prepareStatement("SELECT * FROM pessoa WHERE matricula = '" + matricula + "'");
+            rs = stm.executeQuery();
+            while (rs.next()) {
+                listColuna.add(rs.getString(coluna));
+            }
+
+            return listColuna;
+
+        } catch (SQLException ex) {
+            throw new RuntimeException("Exceção: " + ex);
+
+        } finally {
+            ConnectionFactoryModel.closeConnection(con, stm, rs);
+        }
+    }
+    
+    @Override
+    public String select(int matricula) {
+        
+        try {            
+            con = ConnectionFactoryModel.getConnection();
+            stm = con.prepareStatement("SELECT "
+                    + "CONCAT_WS(' ', SUBSTRING_INDEX(SUBSTRING_INDEX(nome, ' ', 1), ' ', -1), "
+                    + "TRIM(SUBSTR(nome, LOCATE(' ', nome)))) AS nome "
+                    + "FROM pessoa WHERE matricula = '" + matricula + "'");
+            rs = stm.executeQuery();
+            
+            rs.next();
+
+            return rs.getString("nome");
 
         } catch (SQLException ex) {
             throw new RuntimeException("Exceção: " + ex);

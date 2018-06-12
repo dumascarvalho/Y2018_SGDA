@@ -12,6 +12,7 @@ import sgda.dao.PessoaContatoDAO;
 import sgda.dao.PessoaDAO;
 import sgda.model.CursoDisciplinaModel;
 import sgda.model.DisciplinaProfessorModel;
+import sgda.model.FormatarCamposModel;
 import sgda.model.PessoaContatoModel;
 import sgda.model.RedimensionarJTableModel;
 
@@ -46,7 +47,8 @@ public class CadastrarRelacaoView extends javax.swing.JPanel {
         });
         
         Guias.setSelectedIndex(0);
-        
+        FormatarCamposModel.filtrarSpinner(spnMatricula);
+        spnMatricula.setValue(1);
         tabelaDados.getParent().setBackground(new Color(217, 224, 217));
     }
 
@@ -58,8 +60,10 @@ public class CadastrarRelacaoView extends javax.swing.JPanel {
         CRUD = new javax.swing.JPanel();
         menuBancoDados = new javax.swing.JToolBar();
         jPanel4 = new javax.swing.JPanel();
+        btnLimpar = new javax.swing.JButton();
+        jPanel11 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jPanel6 = new javax.swing.JPanel();
+        jPanel12 = new javax.swing.JPanel();
         txtPesquisar = new javax.swing.JTextField();
         jPanel5 = new javax.swing.JPanel();
         btnInserir = new javax.swing.JButton();
@@ -98,12 +102,16 @@ public class CadastrarRelacaoView extends javax.swing.JPanel {
         PessoasContatos = new javax.swing.JPanel();
         jLabel36 = new javax.swing.JLabel();
         cmbPessoa = new javax.swing.JComboBox<>();
-        cmbCodigoPessoa = new javax.swing.JComboBox<>();
+        cmbMatriculaPessoa = new javax.swing.JComboBox<>();
         jLabel37 = new javax.swing.JLabel();
         jLabel38 = new javax.swing.JLabel();
         txtContato = new javax.swing.JFormattedTextField();
+        jSeparator1 = new javax.swing.JSeparator();
         jLabel1 = new javax.swing.JLabel();
-        txtNome = new javax.swing.JTextField();
+        cmbPerfil = new javax.swing.JComboBox<>();
+        btnOk = new javax.swing.JButton();
+        spnMatricula = new javax.swing.JSpinner();
+        jLabel39 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(165, 214, 167));
@@ -126,13 +134,13 @@ public class CadastrarRelacaoView extends javax.swing.JPanel {
         menuBancoDados.setPreferredSize(new java.awt.Dimension(783, 102));
 
         jPanel4.setBackground(new java.awt.Color(76, 175, 80));
-        jPanel4.setPreferredSize(new java.awt.Dimension(10, 40));
+        jPanel4.setPreferredSize(new java.awt.Dimension(10, 30));
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 9, Short.MAX_VALUE)
+            .addGap(0, 7, Short.MAX_VALUE)
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -141,30 +149,66 @@ public class CadastrarRelacaoView extends javax.swing.JPanel {
 
         menuBancoDados.add(jPanel4);
 
+        btnLimpar.setBackground(new java.awt.Color(217, 224, 217));
+        btnLimpar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        btnLimpar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sgda/img/application_form.png"))); // NOI18N
+        btnLimpar.setText("Limpar");
+        btnLimpar.setActionCommand("");
+        btnLimpar.setBorder(new javax.swing.border.MatteBorder(null));
+        btnLimpar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnLimpar.setFocusable(false);
+        btnLimpar.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        btnLimpar.setIconTextGap(10);
+        btnLimpar.setMaximumSize(new java.awt.Dimension(110, 30));
+        btnLimpar.setMinimumSize(new java.awt.Dimension(110, 30));
+        btnLimpar.setPreferredSize(new java.awt.Dimension(110, 30));
+        btnLimpar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimparActionPerformed(evt);
+            }
+        });
+        menuBancoDados.add(btnLimpar);
+
+        jPanel11.setBackground(new java.awt.Color(76, 175, 80));
+        jPanel11.setPreferredSize(new java.awt.Dimension(30, 30));
+
+        javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
+        jPanel11.setLayout(jPanel11Layout);
+        jPanel11Layout.setHorizontalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 21, Short.MAX_VALUE)
+        );
+        jPanel11Layout.setVerticalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 38, Short.MAX_VALUE)
+        );
+
+        menuBancoDados.add(jPanel11);
+
         jLabel2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel2.setText("Pesquisar:");
         menuBancoDados.add(jLabel2);
 
-        jPanel6.setBackground(new java.awt.Color(76, 175, 80));
-        jPanel6.setPreferredSize(new java.awt.Dimension(10, 40));
+        jPanel12.setBackground(new java.awt.Color(76, 175, 80));
+        jPanel12.setPreferredSize(new java.awt.Dimension(20, 30));
 
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 9, Short.MAX_VALUE)
+        javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
+        jPanel12.setLayout(jPanel12Layout);
+        jPanel12Layout.setHorizontalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 14, Short.MAX_VALUE)
         );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        jPanel12Layout.setVerticalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 38, Short.MAX_VALUE)
         );
 
-        menuBancoDados.add(jPanel6);
+        menuBancoDados.add(jPanel12);
 
         txtPesquisar.setEnabled(false);
-        txtPesquisar.setMaximumSize(new java.awt.Dimension(200, 30));
-        txtPesquisar.setMinimumSize(new java.awt.Dimension(200, 30));
-        txtPesquisar.setPreferredSize(new java.awt.Dimension(300, 30));
+        txtPesquisar.setMaximumSize(new java.awt.Dimension(160, 30));
+        txtPesquisar.setMinimumSize(new java.awt.Dimension(160, 30));
+        txtPesquisar.setPreferredSize(new java.awt.Dimension(160, 30));
         txtPesquisar.addCaretListener(new javax.swing.event.CaretListener() {
             public void caretUpdate(javax.swing.event.CaretEvent evt) {
                 txtPesquisarCaretUpdate(evt);
@@ -173,7 +217,7 @@ public class CadastrarRelacaoView extends javax.swing.JPanel {
         menuBancoDados.add(txtPesquisar);
 
         jPanel5.setBackground(new java.awt.Color(76, 175, 80));
-        jPanel5.setPreferredSize(new java.awt.Dimension(40, 40));
+        jPanel5.setPreferredSize(new java.awt.Dimension(30, 30));
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -190,16 +234,18 @@ public class CadastrarRelacaoView extends javax.swing.JPanel {
 
         btnInserir.setBackground(new java.awt.Color(217, 224, 217));
         btnInserir.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        btnInserir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sgda/img/database_add.png"))); // NOI18N
         btnInserir.setText("Inserir");
         btnInserir.setActionCommand("");
         btnInserir.setBorder(new javax.swing.border.MatteBorder(null));
         btnInserir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnInserir.setEnabled(false);
         btnInserir.setFocusable(false);
-        btnInserir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnInserir.setMaximumSize(new java.awt.Dimension(100, 30));
-        btnInserir.setMinimumSize(new java.awt.Dimension(100, 30));
-        btnInserir.setPreferredSize(new java.awt.Dimension(100, 35));
+        btnInserir.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        btnInserir.setIconTextGap(10);
+        btnInserir.setMaximumSize(new java.awt.Dimension(110, 30));
+        btnInserir.setMinimumSize(new java.awt.Dimension(110, 30));
+        btnInserir.setPreferredSize(new java.awt.Dimension(110, 30));
         btnInserir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnInserirActionPerformed(evt);
@@ -208,13 +254,13 @@ public class CadastrarRelacaoView extends javax.swing.JPanel {
         menuBancoDados.add(btnInserir);
 
         jPanel7.setBackground(new java.awt.Color(76, 175, 80));
-        jPanel7.setPreferredSize(new java.awt.Dimension(20, 40));
+        jPanel7.setPreferredSize(new java.awt.Dimension(20, 30));
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 19, Short.MAX_VALUE)
+            .addGap(0, 14, Short.MAX_VALUE)
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -225,16 +271,18 @@ public class CadastrarRelacaoView extends javax.swing.JPanel {
 
         btnAlterar.setBackground(new java.awt.Color(217, 224, 217));
         btnAlterar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        btnAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sgda/img/database_edit.png"))); // NOI18N
         btnAlterar.setText("Alterar");
         btnAlterar.setActionCommand("");
         btnAlterar.setBorder(new javax.swing.border.MatteBorder(null));
         btnAlterar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAlterar.setEnabled(false);
         btnAlterar.setFocusable(false);
-        btnAlterar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnAlterar.setMaximumSize(new java.awt.Dimension(100, 30));
-        btnAlterar.setMinimumSize(new java.awt.Dimension(100, 30));
-        btnAlterar.setPreferredSize(new java.awt.Dimension(100, 35));
+        btnAlterar.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        btnAlterar.setIconTextGap(10);
+        btnAlterar.setMaximumSize(new java.awt.Dimension(110, 30));
+        btnAlterar.setMinimumSize(new java.awt.Dimension(110, 30));
+        btnAlterar.setPreferredSize(new java.awt.Dimension(110, 30));
         btnAlterar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAlterarActionPerformed(evt);
@@ -243,13 +291,13 @@ public class CadastrarRelacaoView extends javax.swing.JPanel {
         menuBancoDados.add(btnAlterar);
 
         jPanel8.setBackground(new java.awt.Color(76, 175, 80));
-        jPanel8.setPreferredSize(new java.awt.Dimension(20, 40));
+        jPanel8.setPreferredSize(new java.awt.Dimension(20, 30));
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 19, Short.MAX_VALUE)
+            .addGap(0, 14, Short.MAX_VALUE)
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -260,16 +308,18 @@ public class CadastrarRelacaoView extends javax.swing.JPanel {
 
         btnRemover.setBackground(new java.awt.Color(217, 224, 217));
         btnRemover.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        btnRemover.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sgda/img/database_delete.png"))); // NOI18N
         btnRemover.setText("Remover");
         btnRemover.setActionCommand("");
         btnRemover.setBorder(new javax.swing.border.MatteBorder(null));
         btnRemover.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnRemover.setEnabled(false);
         btnRemover.setFocusable(false);
-        btnRemover.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnRemover.setMaximumSize(new java.awt.Dimension(100, 30));
-        btnRemover.setMinimumSize(new java.awt.Dimension(100, 30));
-        btnRemover.setPreferredSize(new java.awt.Dimension(100, 35));
+        btnRemover.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        btnRemover.setIconTextGap(10);
+        btnRemover.setMaximumSize(new java.awt.Dimension(110, 30));
+        btnRemover.setMinimumSize(new java.awt.Dimension(110, 30));
+        btnRemover.setPreferredSize(new java.awt.Dimension(110, 30));
         btnRemover.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRemoverActionPerformed(evt);
@@ -278,13 +328,13 @@ public class CadastrarRelacaoView extends javax.swing.JPanel {
         menuBancoDados.add(btnRemover);
 
         jPanel9.setBackground(new java.awt.Color(76, 175, 80));
-        jPanel9.setPreferredSize(new java.awt.Dimension(10, 40));
+        jPanel9.setPreferredSize(new java.awt.Dimension(10, 30));
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
         jPanel9Layout.setHorizontalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 9, Short.MAX_VALUE)
+            .addGap(0, 7, Short.MAX_VALUE)
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -564,7 +614,7 @@ public class CadastrarRelacaoView extends javax.swing.JPanel {
         jPanel3.setBackground(new java.awt.Color(165, 214, 167));
 
         jLabel5.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel5.setText("Filtre pelo Nome:");
+        jLabel5.setText("Filtre pelo Perfil ou Escolha pela Matrícula:");
 
         PessoasContatos.setBackground(new java.awt.Color(165, 214, 167));
 
@@ -577,16 +627,16 @@ public class CadastrarRelacaoView extends javax.swing.JPanel {
             }
         });
 
-        cmbCodigoPessoa.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        cmbCodigoPessoa.setEnabled(false);
-        cmbCodigoPessoa.setFocusable(false);
-        cmbCodigoPessoa.addActionListener(new java.awt.event.ActionListener() {
+        cmbMatriculaPessoa.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        cmbMatriculaPessoa.setEnabled(false);
+        cmbMatriculaPessoa.setFocusable(false);
+        cmbMatriculaPessoa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbCodigoPessoaActionPerformed(evt);
+                cmbMatriculaPessoaActionPerformed(evt);
             }
         });
 
-        jLabel37.setText("Código:");
+        jLabel37.setText("Matrícula:");
 
         jLabel38.setText("Contato:");
 
@@ -596,6 +646,9 @@ public class CadastrarRelacaoView extends javax.swing.JPanel {
             ex.printStackTrace();
         }
         txtContato.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+
+        jSeparator1.setBackground(new java.awt.Color(217, 224, 217));
+        jSeparator1.setForeground(new java.awt.Color(76, 175, 80));
 
         javax.swing.GroupLayout PessoasContatosLayout = new javax.swing.GroupLayout(PessoasContatos);
         PessoasContatos.setLayout(PessoasContatosLayout);
@@ -610,36 +663,57 @@ public class CadastrarRelacaoView extends javax.swing.JPanel {
                         .addGap(18, 18, 18)
                         .addGroup(PessoasContatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel37)
-                            .addComponent(cmbCodigoPessoa, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(cmbMatriculaPessoa, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jLabel38)
                     .addComponent(txtContato, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 408, Short.MAX_VALUE))
+            .addComponent(jSeparator1)
         );
         PessoasContatosLayout.setVerticalGroup(
             PessoasContatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PessoasContatosLayout.createSequentialGroup()
-                .addGap(11, 11, 11)
+                .addContainerGap()
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
                 .addGroup(PessoasContatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel36)
                     .addComponent(jLabel37))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(PessoasContatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cmbPessoa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cmbCodigoPessoa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cmbMatriculaPessoa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel38)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtContato, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
-        jLabel1.setText("Nome:");
+        jLabel1.setText("Perfil:");
 
-        txtNome.addCaretListener(new javax.swing.event.CaretListener() {
-            public void caretUpdate(javax.swing.event.CaretEvent evt) {
-                txtNomeCaretUpdate(evt);
+        cmbPerfil.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Administrador", "Aluno", "Professor" }));
+        cmbPerfil.setSelectedIndex(-1);
+        cmbPerfil.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbPerfilActionPerformed(evt);
             }
         });
+
+        btnOk.setText("Ok");
+        btnOk.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnOk.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOkActionPerformed(evt);
+            }
+        });
+
+        spnMatricula.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                spnMatriculaStateChanged(evt);
+            }
+        });
+
+        jLabel39.setText("Matrícula:");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -648,15 +722,23 @@ public class CadastrarRelacaoView extends javax.swing.JPanel {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(PessoasContatos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())
+                    .addComponent(PessoasContatos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel5)
-                            .addComponent(jLabel1)
-                            .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(cmbPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel1))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addComponent(spnMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(btnOk, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jLabel39))))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -664,9 +746,14 @@ public class CadastrarRelacaoView extends javax.swing.JPanel {
                 .addGap(20, 20, 20)
                 .addComponent(jLabel5)
                 .addGap(15, 15, 15)
-                .addComponent(jLabel1)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel39))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cmbPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnOk, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(spnMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, 0)
                 .addComponent(PessoasContatos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -756,7 +843,7 @@ public class CadastrarRelacaoView extends javax.swing.JPanel {
     private void guiaPessoasContatos() {
         PessoaDAO pessoa = new PessoaDAO();
 
-        cmbCodigoPessoa.setModel(new DefaultComboBoxModel(pessoa.selectForCombo("matricula").toArray()));
+        cmbMatriculaPessoa.setModel(new DefaultComboBoxModel(pessoa.selectForCombo("matricula").toArray()));
         cmbPessoa.setModel(new DefaultComboBoxModel(pessoa.selectForCombo("nome").toArray()));
         cmbPessoa.setSelectedIndex(-1);
     }
@@ -773,10 +860,24 @@ public class CadastrarRelacaoView extends javax.swing.JPanel {
         cmbDisciplina.setSelectedIndex(-1);
         cmbDisciplinaProfessor.setSelectedIndex(-1);
         cmbProfessor.setSelectedIndex(-1);
-        txtNome.setText("");
+        cmbPerfil.setSelectedIndex(-1);
+        spnMatricula.setValue(1);
         cmbPessoa.setSelectedIndex(-1);
         txtContato.setText("");
         txtPesquisar.setText("");
+        tabelaDados.clearSelection();
+        
+        switch (Guias.getSelectedIndex()) {
+            case 0: // Cursos e Disciplinas
+                cmbCurso.grabFocus();
+                break;
+            case 1: // Disciplinas e Professores
+                cmbDisciplinaProfessor.grabFocus();
+                break;
+            case 2: // Pessoas e Contatos
+                cmbPerfil.grabFocus();
+                break;
+        }
     }
     
     private CursoDisciplinaModel CursoDisciplina() {
@@ -818,7 +919,7 @@ public class CadastrarRelacaoView extends javax.swing.JPanel {
     private PessoaContatoModel PessoaContato() {
         PessoaContatoModel modelPessoaContato = new PessoaContatoModel();
 
-        modelPessoaContato.setPessoa(Integer.parseInt(cmbCodigoPessoa.getSelectedItem().toString()));
+        modelPessoaContato.setPessoa(Integer.parseInt(cmbMatriculaPessoa.getSelectedItem().toString()));
         modelPessoaContato.setContato(txtContato.getText());
 
         return modelPessoaContato;
@@ -896,7 +997,7 @@ public class CadastrarRelacaoView extends javax.swing.JPanel {
                     cmbDisciplinaProfessor.grabFocus();
                     break;                
                 case 2:
-                    txtNome.grabFocus();
+                    cmbPerfil.grabFocus();
                     break;                
             }
             
@@ -928,6 +1029,10 @@ public class CadastrarRelacaoView extends javax.swing.JPanel {
 
     private void cmbCursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCursoActionPerformed
         cmbCodigoCurso.setSelectedIndex(cmbCurso.getSelectedIndex());
+        
+        if (cmbCurso.getSelectedIndex() != -1) {
+            cmbDisciplina.grabFocus();
+        }
     }//GEN-LAST:event_cmbCursoActionPerformed
 
     private void cmbCodigoCursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCodigoCursoActionPerformed
@@ -944,6 +1049,10 @@ public class CadastrarRelacaoView extends javax.swing.JPanel {
 
     private void cmbDisciplinaProfessorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbDisciplinaProfessorActionPerformed
         cmbCodigoDisciplinaProfessor.setSelectedIndex(cmbDisciplinaProfessor.getSelectedIndex());
+        
+        if (cmbDisciplinaProfessor.getSelectedIndex() != -1) {
+            cmbProfessor.grabFocus();
+        }
     }//GEN-LAST:event_cmbDisciplinaProfessorActionPerformed
 
     private void cmbCodigoDisciplinaProfessorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCodigoDisciplinaProfessorActionPerformed
@@ -963,27 +1072,16 @@ public class CadastrarRelacaoView extends javax.swing.JPanel {
     }//GEN-LAST:event_btnInserirActionPerformed
 
     private void cmbPessoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPessoaActionPerformed
-        cmbCodigoPessoa.setSelectedIndex(cmbPessoa.getSelectedIndex());
+        cmbMatriculaPessoa.setSelectedIndex(cmbPessoa.getSelectedIndex());
+        
+        if (cmbPessoa.getSelectedIndex() != -1) {
+            txtContato.grabFocus();
+        }
     }//GEN-LAST:event_cmbPessoaActionPerformed
 
-    private void cmbCodigoPessoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCodigoPessoaActionPerformed
-        cmbPessoa.setSelectedIndex(cmbCodigoPessoa.getSelectedIndex());
-    }//GEN-LAST:event_cmbCodigoPessoaActionPerformed
-
-    private void txtNomeCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtNomeCaretUpdate
-        if (!"".equals(txtNome.getText())) {            
-            PessoaDAO pessoa = new PessoaDAO();
-            
-            cmbCodigoPessoa.setModel(new DefaultComboBoxModel(pessoa.selectForComboTexto("matricula", txtNome.getText()).toArray()));
-            cmbPessoa.setModel(new DefaultComboBoxModel(pessoa.selectForComboTexto("nome", txtNome.getText()).toArray()));
-            cmbPessoa.setSelectedIndex(-1); 
-        } else {
-            guiaPessoasContatos();            
-        }
-        
-        txtContato.setText("");
-        tabelaDados.clearSelection();        
-    }//GEN-LAST:event_txtNomeCaretUpdate
+    private void cmbMatriculaPessoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbMatriculaPessoaActionPerformed
+        cmbPessoa.setSelectedIndex(cmbMatriculaPessoa.getSelectedIndex());
+    }//GEN-LAST:event_cmbMatriculaPessoaActionPerformed
 
     private void tabelaDadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaDadosMouseClicked
         if (tabelaDados.getSelectedRow() != -1) {
@@ -998,10 +1096,17 @@ public class CadastrarRelacaoView extends javax.swing.JPanel {
                     cmbDisciplinaProfessor.setSelectedItem(tabelaDados.getValueAt(tabelaDados.getSelectedRow(), tabelaDados.getColumn("NOME_DISCIPLINA").getModelIndex()).toString());
                     cmbProfessor.setSelectedItem(tabelaDados.getValueAt(tabelaDados.getSelectedRow(), tabelaDados.getColumn("NOME").getModelIndex()).toString());
                     
-                    cmbCurso.grabFocus();
+                    cmbDisciplinaProfessor.grabFocus();
                     break;
                 case 2:
-                    txtNome.setText("");
+                    PessoaDAO pessoa = new PessoaDAO();
+                    
+                    cmbPerfil.setSelectedIndex(-1);
+                    spnMatricula.setValue(1);
+                    
+                    cmbMatriculaPessoa.setModel(new DefaultComboBoxModel(pessoa.selectForCombo("matricula").toArray()));
+                    cmbPessoa.setModel(new DefaultComboBoxModel(pessoa.selectForCombo("nome").toArray()));
+                    cmbMatriculaPessoa.setSelectedIndex(-1);
                     
                     cmbPessoa.setSelectedItem(tabelaDados.getValueAt(tabelaDados.getSelectedRow(), tabelaDados.getColumn("NOME").getModelIndex()).toString());
                     txtContato.setText(tabelaDados.getValueAt(tabelaDados.getSelectedRow(), tabelaDados.getColumn("CONTATO").getModelIndex()).toString());
@@ -1044,6 +1149,55 @@ public class CadastrarRelacaoView extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_txtPesquisarCaretUpdate
 
+    private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
+        limparCampos();
+    }//GEN-LAST:event_btnLimparActionPerformed
+
+    private void spnMatriculaStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnMatriculaStateChanged
+        if ((int) spnMatricula.getValue() <= 1) {
+            spnMatricula.setValue(1);
+        }
+    }//GEN-LAST:event_spnMatriculaStateChanged
+
+    private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkActionPerformed
+        PessoaDAO pessoa = new PessoaDAO();
+        
+        cmbMatriculaPessoa.setModel(new DefaultComboBoxModel(pessoa.selectForComboMatricula("matricula", (int) spnMatricula.getValue()).toArray()));
+        cmbPessoa.setModel(new DefaultComboBoxModel(pessoa.selectForComboMatricula("nome", (int) spnMatricula.getValue()).toArray()));
+        
+        if (cmbPessoa.getSelectedIndex() == -1) {
+            cmbMatriculaPessoa.setModel(new DefaultComboBoxModel(pessoa.selectForCombo("matricula").toArray()));
+            cmbPessoa.setModel(new DefaultComboBoxModel(pessoa.selectForCombo("nome").toArray()));
+            cmbMatriculaPessoa.setSelectedIndex(-1);
+            
+            JOptionPane.showConfirmDialog(null, "Nenhuma pessoa com esta matrícula foi encontrada.", "SGDA - Aviso", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
+            
+            spnMatricula.setValue(1);
+            spnMatricula.grabFocus();
+        } else {
+            txtContato.grabFocus();
+        }
+        
+        cmbPerfil.setSelectedIndex(-1);
+        txtContato.setText("");
+        tabelaDados.clearSelection();
+    }//GEN-LAST:event_btnOkActionPerformed
+
+    private void cmbPerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPerfilActionPerformed
+        PessoaDAO pessoa = new PessoaDAO();
+        
+        if (cmbPerfil.getSelectedIndex() != -1) {
+            cmbMatriculaPessoa.setModel(new DefaultComboBoxModel(pessoa.selectForComboPerfil("matricula", cmbPerfil.getSelectedItem().toString().toLowerCase()).toArray()));
+            cmbPessoa.setModel(new DefaultComboBoxModel(pessoa.selectForComboPerfil("nome", cmbPerfil.getSelectedItem().toString().toLowerCase()).toArray()));
+            cmbMatriculaPessoa.setSelectedIndex(-1);
+            
+            spnMatricula.setValue(1);
+            txtContato.setText("");
+            tabelaDados.clearSelection();
+            cmbPessoa.grabFocus();
+        }
+    }//GEN-LAST:event_cmbPerfilActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel CRUD;
     private javax.swing.JPanel DisciplinasProfessores;
@@ -1053,15 +1207,18 @@ public class CadastrarRelacaoView extends javax.swing.JPanel {
     private javax.swing.JLabel Titulo;
     private javax.swing.JButton btnAlterar;
     private javax.swing.JButton btnInserir;
+    private javax.swing.JButton btnLimpar;
+    private javax.swing.JButton btnOk;
     private javax.swing.JButton btnRemover;
     private javax.swing.JComboBox<String> cmbCodigoCurso;
     private javax.swing.JComboBox<String> cmbCodigoDisciplina;
     private javax.swing.JComboBox<String> cmbCodigoDisciplinaProfessor;
-    private javax.swing.JComboBox<String> cmbCodigoPessoa;
     private javax.swing.JComboBox<String> cmbCodigoProfessor;
     private javax.swing.JComboBox<String> cmbCurso;
     private javax.swing.JComboBox<String> cmbDisciplina;
     private javax.swing.JComboBox<String> cmbDisciplinaProfessor;
+    private javax.swing.JComboBox<String> cmbMatriculaPessoa;
+    private javax.swing.JComboBox<String> cmbPerfil;
     private javax.swing.JComboBox<String> cmbPessoa;
     private javax.swing.JComboBox<String> cmbProfessor;
     private javax.swing.JLabel jLabel1;
@@ -1078,23 +1235,26 @@ public class CadastrarRelacaoView extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel38;
+    private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel11;
+    private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JToolBar menuBancoDados;
     private javax.swing.JScrollPane scrollPessoa;
+    private javax.swing.JSpinner spnMatricula;
     private javax.swing.JTable tabelaDados;
     private javax.swing.JFormattedTextField txtContato;
-    private javax.swing.JTextField txtNome;
     private javax.swing.JTextField txtPesquisar;
     // End of variables declaration//GEN-END:variables
 }
