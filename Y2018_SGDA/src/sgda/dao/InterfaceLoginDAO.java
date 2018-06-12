@@ -4,7 +4,9 @@ import sgda.model.LoginModel;
 
 public interface InterfaceLoginDAO {
        
-    public boolean autenticar(LoginModel lo);  
+    public LoginModel autenticar(LoginModel lo);  
     
-    public void update(LoginModel lo);
+    public void incrementarAcesso(int matricula);
+    
+    public void update(LoginModel lo, String novaSenha);
 }

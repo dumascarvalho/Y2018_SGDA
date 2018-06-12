@@ -3,17 +3,26 @@ package sgda.model;
 public class LoginModel {
     
     private int matricula, qtdAcesso;
-    private String usuario, senha, email;
+    private String perfil, usuario, senha, email;
 
-    public LoginModel(int matricula, int qtdAcesso, String usuario, String senha, String email) {
+    public LoginModel(int matricula, int qtdAcesso, String perfil, String usuario, String senha, String email) {
         this.matricula = matricula;
         this.qtdAcesso = qtdAcesso;
+        this.perfil = perfil;
         this.usuario = usuario;
         this.senha = senha;
         this.email = email;
     }
 
     public LoginModel() { }
+
+    public String getPerfil() {
+        return perfil;
+    }
+
+    public void setPerfil(String perfil) {
+        this.perfil = perfil;
+    }
 
     public int getMatricula() {
         return matricula;

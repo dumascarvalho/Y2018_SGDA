@@ -1,6 +1,7 @@
 package sgda.view;
 
 import javax.swing.JOptionPane;
+import sgda.controller.DadosLoginController;
 import sgda.dao.LoginDAO;
 import sgda.model.LoginModel;
 
@@ -45,6 +46,11 @@ public class TelaLoginView extends javax.swing.JFrame {
         lblRedefinirSenha.setText("<html><font color = 'black'>Você também pode</font> <u>redefinir sua senha</u> <font color = 'black'>aqui.</font></html>");
         lblRedefinirSenha.setToolTipText("Clique aqui para redefinir a sua senha.");
         lblRedefinirSenha.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblRedefinirSenha.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblRedefinirSenhaMouseClicked(evt);
+            }
+        });
 
         btnEntrar.setBackground(new java.awt.Color(217, 224, 217));
         btnEntrar.setText("Entrar");
@@ -139,22 +145,30 @@ public class TelaLoginView extends javax.swing.JFrame {
     
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
         LoginDAO dao = new LoginDAO();
-        LoginModel model = new LoginModel();
+        LoginModel dadosInformados = new LoginModel();
         
-        model.setUsuario(txtUsuário.getText());
-        model.setSenha(txtSenha.getText());
+        dadosInformados.setUsuario(txtUsuário.getText());
+        dadosInformados.setSenha(txtSenha.getText());
         
-        if (dao.autenticar(model)) {
+        LoginModel dadosLogin = dao.autenticar(dadosInformados);
+        
+        if (dadosInformados.getUsuario().equals(dadosLogin.getUsuario()) && dadosInformados.getSenha().equals(dadosLogin.getSenha())) {
             JOptionPane.showConfirmDialog(null, "Usuário e senha autenticados com sucesso!", "SGDA - Aviso", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);          
-            TelaPrincipalView main = new TelaPrincipalView();
-            main.pack();
-            main.setVisible(true);
+            DadosLoginController loginController = new DadosLoginController();
+            loginController.primeiroAcesso(dadosLogin);
             this.dispose();
         } else {
             JOptionPane.showConfirmDialog(null, "Usuário e/ou senha inválidos!", "SGDA - Aviso", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
             limparCampos();
         }
     }//GEN-LAST:event_btnEntrarActionPerformed
+
+    private void lblRedefinirSenhaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRedefinirSenhaMouseClicked
+            RedefinirSenhaView senha = new RedefinirSenhaView();
+
+            senha.pack();
+            senha.setVisible(true);
+    }//GEN-LAST:event_lblRedefinirSenhaMouseClicked
 
     public static void main(String args[]) {
         try {

@@ -130,7 +130,7 @@ public class CursoDAO implements InterfaceCursoDAO {
             stm.setInt(4, cr.getCodCurso());
             stm.executeUpdate();
 
-            JOptionPane.showConfirmDialog(null, "Alteração feita com sucesso!", "SGDA - Aviso", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showConfirmDialog(null, "Atualização feita com sucesso!", "SGDA - Aviso", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
 
         } catch (Exception ex) {
             JOptionPane.showConfirmDialog(null, "Houve algum erro durante a alteração!\n\nInformações técnicas sobre o erro: " + ex, "SGDA - Aviso", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);

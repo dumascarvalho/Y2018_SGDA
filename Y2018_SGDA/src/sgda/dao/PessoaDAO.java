@@ -188,6 +188,7 @@ public class PessoaDAO implements InterfacePessoaDAO {
 
     @Override
     public TableModel pesquisarPessoas(String tabela, String texto) {
+        
         try {
             con = ConnectionFactoryModel.getConnection();
             
@@ -211,6 +212,7 @@ public class PessoaDAO implements InterfacePessoaDAO {
    
     @Override
     public List selectForCombo(String coluna) {
+        
         try {
             List<String> listColuna = new ArrayList();
 
@@ -234,6 +236,7 @@ public class PessoaDAO implements InterfacePessoaDAO {
     
     @Override
     public List selectForComboTexto(String coluna, String texto) {
+        
         try {
             List<String> listColuna = new ArrayList();
 
@@ -257,6 +260,7 @@ public class PessoaDAO implements InterfacePessoaDAO {
     
     @Override
     public List selectForComboPerfil(String coluna, String perfil) {
+        
         try {
             List<String> listColuna = new ArrayList();
 
@@ -279,6 +283,7 @@ public class PessoaDAO implements InterfacePessoaDAO {
     
     @Override
     public List selectForComboMatricula(String coluna, int matricula) {
+        
         try {
             List<String> listColuna = new ArrayList();
 
@@ -290,6 +295,29 @@ public class PessoaDAO implements InterfacePessoaDAO {
             }
 
             return listColuna;
+
+        } catch (SQLException ex) {
+            throw new RuntimeException("Exceção: " + ex);
+
+        } finally {
+            ConnectionFactoryModel.closeConnection(con, stm, rs);
+        }
+    }
+    
+    @Override
+    public String select(int matricula) {
+        
+        try {            
+            con = ConnectionFactoryModel.getConnection();
+            stm = con.prepareStatement("SELECT "
+                    + "CONCAT_WS(' ', SUBSTRING_INDEX(SUBSTRING_INDEX(nome, ' ', 1), ' ', -1), "
+                    + "TRIM(SUBSTR(nome, LOCATE(' ', nome)))) AS nome "
+                    + "FROM pessoa WHERE matricula = '" + matricula + "'");
+            rs = stm.executeQuery();
+            
+            rs.next();
+
+            return rs.getString("nome");
 
         } catch (SQLException ex) {
             throw new RuntimeException("Exceção: " + ex);
