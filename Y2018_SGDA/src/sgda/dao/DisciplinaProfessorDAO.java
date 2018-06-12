@@ -24,7 +24,12 @@ public class DisciplinaProfessorDAO implements InterfaceDisciplinaProfessorDAO {
         
         try {
             con = ConnectionFactoryModel.getConnection();
-            stm = con.prepareStatement("SELECT disciplina, nome_disciplina, matricula, nome FROM pessoa, disciplina_professor, disciplina WHERE perfil = 'Professor' AND disciplina = cod_disciplina AND professor = matricula ORDER BY nome_disciplina, nome");
+            stm = con.prepareStatement("SELECT disciplina, nome_disciplina, matricula, nome \n" +
+            "FROM pessoa p \n" +
+            "JOIN disciplina_professor dp ON (p.matricula = dp.professor) \n" +
+            "JOIN disciplina d ON (d.cod_disciplina = dp.disciplina) \n" +
+            "WHERE perfil = 'Professor' \n" +
+            "ORDER BY nome_disciplina, nome");
             rs = stm.executeQuery();
 
             return FormatarCamposModel.colocarDadosTabela(rs);
@@ -42,7 +47,13 @@ public class DisciplinaProfessorDAO implements InterfaceDisciplinaProfessorDAO {
         
         try {
             con = ConnectionFactoryModel.getConnection();
-            stm = con.prepareStatement("SELECT disciplina, nome_disciplina, matricula, nome FROM pessoa, disciplina_professor, disciplina WHERE perfil = 'Professor' AND disciplina = cod_disciplina AND professor = matricula AND nome_disciplina LIKE '" + texto + "%' ORDER BY nome_disciplina, nome");
+            stm = con.prepareStatement("SELECT disciplina, nome_disciplina, matricula, nome \n" +
+            "FROM pessoa p \n" +
+            "JOIN disciplina_professor dp ON (p.matricula = dp.professor) \n" +
+            "JOIN disciplina d ON (d.cod_disciplina = dp.disciplina) \n" +
+            "WHERE perfil = 'Professor' \n" +
+            "AND UPPER(nome_disciplina) LIKE UPPER('" + texto + "%') \n" +
+            "ORDER BY nome_disciplina, nome");
             rs = stm.executeQuery();
 
             return FormatarCamposModel.colocarDadosTabela(rs);
@@ -78,6 +89,7 @@ public class DisciplinaProfessorDAO implements InterfaceDisciplinaProfessorDAO {
                 stm.executeUpdate();
 
                 JOptionPane.showConfirmDialog(null, "Inserção feita com sucesso!", "SGDA - Aviso", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
+            
             } else {
                 JOptionPane.showConfirmDialog(null, "Não foi possível realizar a inserção!\nMotivo: a relação informada já existe.", "SGDA - Aviso", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE);
             }
@@ -135,6 +147,7 @@ public class DisciplinaProfessorDAO implements InterfaceDisciplinaProfessorDAO {
                 stm.executeUpdate();
 
                 JOptionPane.showConfirmDialog(null, "Atualização feita com sucesso!", "SGDA - Aviso", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
+            
             } else {
                 JOptionPane.showConfirmDialog(null, "Não foi possível realizar a inserção!\nMotivo: a relação informada já existe.", "SGDA - Aviso", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE);
             }

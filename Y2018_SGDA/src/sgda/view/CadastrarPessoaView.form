@@ -628,6 +628,9 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Arial" size="14" style="1"/>
                 </Property>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/sgda/img/application_form.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Limpar"/>
                 <Property name="actionCommand" type="java.lang.String" value=""/>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -639,17 +642,17 @@
                   <Color id="Cursor em Forma de M&#xe3;o"/>
                 </Property>
                 <Property name="focusable" type="boolean" value="false"/>
-                <Property name="horizontalTextPosition" type="int" value="0"/>
+                <Property name="horizontalTextPosition" type="int" value="4"/>
+                <Property name="iconTextGap" type="int" value="10"/>
                 <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[100, 30]"/>
+                  <Dimension value="[110, 30]"/>
                 </Property>
                 <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[100, 30]"/>
+                  <Dimension value="[110, 30]"/>
                 </Property>
                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[100, 30]"/>
+                  <Dimension value="[110, 30]"/>
                 </Property>
-                <Property name="verticalTextPosition" type="int" value="3"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLimparActionPerformed"/>
@@ -713,13 +716,13 @@
               <Properties>
                 <Property name="enabled" type="boolean" value="false"/>
                 <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[200, 30]"/>
+                  <Dimension value="[160, 30]"/>
                 </Property>
                 <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[200, 30]"/>
+                  <Dimension value="[160, 30]"/>
                 </Property>
                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[200, 30]"/>
+                  <Dimension value="[160, 30]"/>
                 </Property>
               </Properties>
               <Events>
@@ -757,8 +760,11 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Arial" size="14" style="1"/>
                 </Property>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/sgda/img/database_add.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Inserir"/>
-                <Property name="toolTipText" type="java.lang.String" value="A inclus&#xe3;o de novas pessoas s&#xf3; &#xe9; poss&#xed;vel ap&#xf3;s escolher um perfil."/>
+                <Property name="toolTipText" type="java.lang.String" value=""/>
                 <Property name="actionCommand" type="java.lang.String" value=""/>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.MatteColorBorderInfo">
@@ -770,15 +776,16 @@
                 </Property>
                 <Property name="enabled" type="boolean" value="false"/>
                 <Property name="focusable" type="boolean" value="false"/>
-                <Property name="horizontalTextPosition" type="int" value="0"/>
+                <Property name="horizontalTextPosition" type="int" value="4"/>
+                <Property name="iconTextGap" type="int" value="10"/>
                 <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[100, 30]"/>
+                  <Dimension value="[110, 30]"/>
                 </Property>
                 <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[100, 30]"/>
+                  <Dimension value="[110, 30]"/>
                 </Property>
                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[100, 30]"/>
+                  <Dimension value="[110, 30]"/>
                 </Property>
               </Properties>
               <Events>
@@ -817,8 +824,10 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Arial" size="14" style="1"/>
                 </Property>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/sgda/img/database_edit.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Alterar"/>
-                <Property name="actionCommand" type="java.lang.String" value=""/>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.MatteColorBorderInfo">
                     <MatteColorBorder/>
@@ -829,15 +838,16 @@
                 </Property>
                 <Property name="enabled" type="boolean" value="false"/>
                 <Property name="focusable" type="boolean" value="false"/>
-                <Property name="horizontalTextPosition" type="int" value="0"/>
+                <Property name="horizontalTextPosition" type="int" value="4"/>
+                <Property name="iconTextGap" type="int" value="10"/>
                 <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[100, 30]"/>
+                  <Dimension value="[110, 30]"/>
                 </Property>
                 <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[100, 30]"/>
+                  <Dimension value="[110, 30]"/>
                 </Property>
                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[100, 30]"/>
+                  <Dimension value="[110, 30]"/>
                 </Property>
               </Properties>
               <Events>
@@ -875,6 +885,9 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Arial" size="14" style="1"/>
                 </Property>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/sgda/img/database_delete.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Remover"/>
                 <Property name="actionCommand" type="java.lang.String" value=""/>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -887,15 +900,16 @@
                 </Property>
                 <Property name="enabled" type="boolean" value="false"/>
                 <Property name="focusable" type="boolean" value="false"/>
-                <Property name="horizontalTextPosition" type="int" value="0"/>
+                <Property name="horizontalTextPosition" type="int" value="4"/>
+                <Property name="iconTextGap" type="int" value="10"/>
                 <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[100, 30]"/>
+                  <Dimension value="[110, 30]"/>
                 </Property>
                 <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[100, 30]"/>
+                  <Dimension value="[110, 30]"/>
                 </Property>
                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[100, 30]"/>
+                  <Dimension value="[110, 30]"/>
                 </Property>
               </Properties>
               <Events>

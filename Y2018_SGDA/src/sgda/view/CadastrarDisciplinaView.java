@@ -174,16 +174,17 @@ public class CadastrarDisciplinaView extends javax.swing.JPanel {
 
         btnLimpar.setBackground(new java.awt.Color(217, 224, 217));
         btnLimpar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        btnLimpar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sgda/img/application_form.png"))); // NOI18N
         btnLimpar.setText("Limpar");
         btnLimpar.setActionCommand("");
         btnLimpar.setBorder(new javax.swing.border.MatteBorder(null));
         btnLimpar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnLimpar.setFocusable(false);
-        btnLimpar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnLimpar.setMaximumSize(new java.awt.Dimension(100, 30));
-        btnLimpar.setMinimumSize(new java.awt.Dimension(100, 30));
-        btnLimpar.setPreferredSize(new java.awt.Dimension(100, 30));
-        btnLimpar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnLimpar.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        btnLimpar.setIconTextGap(10);
+        btnLimpar.setMaximumSize(new java.awt.Dimension(110, 30));
+        btnLimpar.setMinimumSize(new java.awt.Dimension(110, 30));
+        btnLimpar.setPreferredSize(new java.awt.Dimension(110, 30));
         btnLimpar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLimparActionPerformed(evt);
@@ -244,9 +245,9 @@ public class CadastrarDisciplinaView extends javax.swing.JPanel {
         menuBancoDados.add(jPanel7);
 
         txtPesquisar.setEnabled(false);
-        txtPesquisar.setMaximumSize(new java.awt.Dimension(200, 30));
-        txtPesquisar.setMinimumSize(new java.awt.Dimension(200, 30));
-        txtPesquisar.setPreferredSize(new java.awt.Dimension(200, 30));
+        txtPesquisar.setMaximumSize(new java.awt.Dimension(160, 30));
+        txtPesquisar.setMinimumSize(new java.awt.Dimension(160, 30));
+        txtPesquisar.setPreferredSize(new java.awt.Dimension(160, 30));
         txtPesquisar.addCaretListener(new javax.swing.event.CaretListener() {
             public void caretUpdate(javax.swing.event.CaretEvent evt) {
                 txtPesquisarCaretUpdate(evt);
@@ -272,16 +273,18 @@ public class CadastrarDisciplinaView extends javax.swing.JPanel {
 
         btnInserir.setBackground(new java.awt.Color(217, 224, 217));
         btnInserir.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        btnInserir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sgda/img/database_add.png"))); // NOI18N
         btnInserir.setText("Inserir");
         btnInserir.setActionCommand("");
         btnInserir.setBorder(new javax.swing.border.MatteBorder(null));
         btnInserir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnInserir.setEnabled(false);
         btnInserir.setFocusable(false);
-        btnInserir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnInserir.setMaximumSize(new java.awt.Dimension(100, 30));
-        btnInserir.setMinimumSize(new java.awt.Dimension(100, 30));
-        btnInserir.setPreferredSize(new java.awt.Dimension(100, 35));
+        btnInserir.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        btnInserir.setIconTextGap(10);
+        btnInserir.setMaximumSize(new java.awt.Dimension(110, 30));
+        btnInserir.setMinimumSize(new java.awt.Dimension(110, 30));
+        btnInserir.setPreferredSize(new java.awt.Dimension(110, 30));
         btnInserir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnInserirActionPerformed(evt);
@@ -307,16 +310,18 @@ public class CadastrarDisciplinaView extends javax.swing.JPanel {
 
         btnAlterar.setBackground(new java.awt.Color(217, 224, 217));
         btnAlterar.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        btnAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sgda/img/database_edit.png"))); // NOI18N
         btnAlterar.setText("Alterar");
         btnAlterar.setActionCommand("");
         btnAlterar.setBorder(new javax.swing.border.MatteBorder(null));
         btnAlterar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAlterar.setEnabled(false);
         btnAlterar.setFocusable(false);
-        btnAlterar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnAlterar.setMaximumSize(new java.awt.Dimension(100, 30));
-        btnAlterar.setMinimumSize(new java.awt.Dimension(100, 30));
-        btnAlterar.setPreferredSize(new java.awt.Dimension(100, 35));
+        btnAlterar.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        btnAlterar.setIconTextGap(10);
+        btnAlterar.setMaximumSize(new java.awt.Dimension(110, 30));
+        btnAlterar.setMinimumSize(new java.awt.Dimension(110, 30));
+        btnAlterar.setPreferredSize(new java.awt.Dimension(110, 30));
         btnAlterar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAlterarActionPerformed(evt);
@@ -342,16 +347,18 @@ public class CadastrarDisciplinaView extends javax.swing.JPanel {
 
         btnRemover.setBackground(new java.awt.Color(217, 224, 217));
         btnRemover.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        btnRemover.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sgda/img/database_delete.png"))); // NOI18N
         btnRemover.setText("Remover");
         btnRemover.setActionCommand("");
         btnRemover.setBorder(new javax.swing.border.MatteBorder(null));
         btnRemover.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnRemover.setEnabled(false);
         btnRemover.setFocusable(false);
-        btnRemover.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnRemover.setMaximumSize(new java.awt.Dimension(100, 30));
-        btnRemover.setMinimumSize(new java.awt.Dimension(100, 30));
-        btnRemover.setPreferredSize(new java.awt.Dimension(100, 35));
+        btnRemover.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        btnRemover.setIconTextGap(10);
+        btnRemover.setMaximumSize(new java.awt.Dimension(110, 30));
+        btnRemover.setMinimumSize(new java.awt.Dimension(110, 30));
+        btnRemover.setPreferredSize(new java.awt.Dimension(110, 30));
         btnRemover.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRemoverActionPerformed(evt);

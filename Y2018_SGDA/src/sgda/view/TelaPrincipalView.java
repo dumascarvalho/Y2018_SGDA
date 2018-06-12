@@ -6,13 +6,18 @@ import sgda.model.LoginModel;
 
 public class TelaPrincipalView extends javax.swing.JFrame {
 
-    private final LoginModel dadosLogin;
-    private final String nomeUsuario;
+    private LoginModel dadosLogin;
+    private String nomeUsuario;
     
     public TelaPrincipalView(LoginModel dadosLogin, String nomeUsuario) {
         
         this.dadosLogin = dadosLogin; 
         this.nomeUsuario = nomeUsuario;
+        initComponents();
+    }
+    
+    public TelaPrincipalView() {
+        
         initComponents();
     }
     
@@ -22,6 +27,9 @@ public class TelaPrincipalView extends javax.swing.JFrame {
 
         panelPrincipal = new javax.swing.JPanel();
         panelJanela = new javax.swing.JPanel();
+        janelaVazia = new javax.swing.JPanel();
+        lblLogo1 = new javax.swing.JLabel();
+        lblLogo2 = new javax.swing.JLabel();
         panelMenu = new javax.swing.JPanel();
         Administrador = new javax.swing.JPanel();
         menuAdministrador = new javax.swing.JToolBar();
@@ -86,6 +94,44 @@ public class TelaPrincipalView extends javax.swing.JFrame {
 
         panelJanela.setBackground(new java.awt.Color(165, 214, 167));
         panelJanela.setLayout(new java.awt.CardLayout());
+
+        janelaVazia.setBackground(new java.awt.Color(165, 214, 167));
+        janelaVazia.setMaximumSize(new java.awt.Dimension(846, 690));
+        janelaVazia.setMinimumSize(new java.awt.Dimension(846, 690));
+        janelaVazia.setPreferredSize(new java.awt.Dimension(846, 690));
+
+        lblLogo1.setBackground(new java.awt.Color(76, 175, 80));
+        lblLogo1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        lblLogo1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblLogo1.setText("Versão Protótipo");
+
+        lblLogo2.setBackground(new java.awt.Color(76, 175, 80));
+        lblLogo2.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        lblLogo2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblLogo2.setText("Tela Principal do Sistema");
+
+        javax.swing.GroupLayout janelaVaziaLayout = new javax.swing.GroupLayout(janelaVazia);
+        janelaVazia.setLayout(janelaVaziaLayout);
+        janelaVaziaLayout.setHorizontalGroup(
+            janelaVaziaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(janelaVaziaLayout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(janelaVaziaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblLogo2, javax.swing.GroupLayout.DEFAULT_SIZE, 806, Short.MAX_VALUE)
+                    .addComponent(lblLogo1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 806, Short.MAX_VALUE))
+                .addGap(20, 20, 20))
+        );
+        janelaVaziaLayout.setVerticalGroup(
+            janelaVaziaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(janelaVaziaLayout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(lblLogo2, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
+                .addComponent(lblLogo1, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(510, Short.MAX_VALUE))
+        );
+
+        panelJanela.add(janelaVazia, "card2");
 
         panelMenu.setBackground(new java.awt.Color(76, 175, 80));
         panelMenu.setLayout(new java.awt.CardLayout());
@@ -205,7 +251,7 @@ public class TelaPrincipalView extends javax.swing.JFrame {
             AdministradorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(AdministradorLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(menuAdministrador, javax.swing.GroupLayout.DEFAULT_SIZE, 509, Short.MAX_VALUE)
+                .addComponent(menuAdministrador, javax.swing.GroupLayout.DEFAULT_SIZE, 517, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -351,7 +397,7 @@ public class TelaPrincipalView extends javax.swing.JFrame {
             ProfessorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ProfessorLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(menuProfessor, javax.swing.GroupLayout.DEFAULT_SIZE, 509, Short.MAX_VALUE)
+                .addComponent(menuProfessor, javax.swing.GroupLayout.DEFAULT_SIZE, 517, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -492,7 +538,7 @@ public class TelaPrincipalView extends javax.swing.JFrame {
             AlunoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(AlunoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(menuAluno, javax.swing.GroupLayout.DEFAULT_SIZE, 509, Short.MAX_VALUE)
+                .addComponent(menuAluno, javax.swing.GroupLayout.DEFAULT_SIZE, 517, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -508,20 +554,20 @@ public class TelaPrincipalView extends javax.swing.JFrame {
         );
         VazioLayout.setVerticalGroup(
             VazioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 531, Short.MAX_VALUE)
+            .addGap(0, 539, Short.MAX_VALUE)
         );
 
         panelMenu.add(Vazio, "Vazio");
 
         panelDados.setBackground(new java.awt.Color(76, 175, 80));
 
-        jLabel8.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel8.setText("Perfil:");
 
-        jLabel9.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jLabel9.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel9.setText("Matrícula:");
 
-        jLabel17.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jLabel17.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel17.setText("Usuário:");
 
         txtMatricula.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
@@ -536,7 +582,7 @@ public class TelaPrincipalView extends javax.swing.JFrame {
         txtPerfil.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         txtPerfil.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
-        jLabel20.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jLabel20.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel20.setText("Acesso:");
 
         txtAcesso.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
@@ -565,7 +611,7 @@ public class TelaPrincipalView extends javax.swing.JFrame {
         panelDadosLayout.setVerticalGroup(
             panelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelDadosLayout.createSequentialGroup()
-                .addGap(15, 15, 15)
+                .addContainerGap()
                 .addGroup(panelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel8)
                     .addComponent(txtPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -582,7 +628,7 @@ public class TelaPrincipalView extends javax.swing.JFrame {
                 .addGroup(panelDadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel20, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(txtAcesso, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(15, 15, 15))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout panelPrincipalLayout = new javax.swing.GroupLayout(panelPrincipal);
@@ -595,20 +641,22 @@ public class TelaPrincipalView extends javax.swing.JFrame {
                     .addComponent(panelMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(panelDados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(10, 10, 10)
-                .addComponent(panelJanela, javax.swing.GroupLayout.DEFAULT_SIZE, 846, Short.MAX_VALUE)
+                .addComponent(panelJanela, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(10, 10, 10))
         );
         panelPrincipalLayout.setVerticalGroup(
             panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelPrincipalLayout.createSequentialGroup()
                 .addGap(10, 10, 10)
-                .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(panelJanela, javax.swing.GroupLayout.PREFERRED_SIZE, 670, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelPrincipalLayout.createSequentialGroup()
-                        .addComponent(panelMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(10, 10, 10)
-                        .addComponent(panelDados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(10, 10, 10))
+                        .addComponent(panelMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(panelDados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10))
+                    .addGroup(panelPrincipalLayout.createSequentialGroup()
+                        .addComponent(panelJanela, javax.swing.GroupLayout.PREFERRED_SIZE, 670, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -648,7 +696,7 @@ public class TelaPrincipalView extends javax.swing.JFrame {
         txtPerfil.setText(dadosLogin.getPerfil()); 
         txtMatricula.setText(Integer.toString(dadosLogin.getMatricula()));
         txtUsuario.setText(nomeUsuario);     
-        txtAcesso.setText(Integer.toString(dadosLogin.getQtdAcesso() + 1)); 
+        txtAcesso.setText(Integer.toString(dadosLogin.getQtdAcesso() + 1));         
     }//GEN-LAST:event_formWindowActivated
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -677,6 +725,10 @@ public class TelaPrincipalView extends javax.swing.JFrame {
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(TelaLoginView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        
+        java.awt.EventQueue.invokeLater(() -> {
+            new TelaPrincipalView().setVisible(true);
+        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -720,6 +772,9 @@ public class TelaPrincipalView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel janelaVazia;
+    private javax.swing.JLabel lblLogo1;
+    private javax.swing.JLabel lblLogo2;
     private javax.swing.JToolBar menuAdministrador;
     private javax.swing.JToolBar menuAluno;
     private javax.swing.JToolBar menuProfessor;

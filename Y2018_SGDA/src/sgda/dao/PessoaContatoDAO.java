@@ -22,7 +22,10 @@ public class PessoaContatoDAO implements InterfacePessoaContatoDAO {
         
         try {
             con = ConnectionFactoryModel.getConnection();
-            stm = con.prepareStatement("SELECT matricula, perfil, nome, contato FROM pessoa, pessoa_contato WHERE matricula = pessoa ORDER BY perfil, nome");
+            stm = con.prepareStatement("SELECT matricula, perfil, nome, contato \n" +
+            "FROM pessoa p \n" +
+            "JOIN pessoa_contato pc ON (p.matricula = pc.pessoa) \n" +
+            "ORDER BY perfil, nome");
             rs = stm.executeQuery();
 
             return FormatarCamposModel.colocarDadosTabela(rs);
@@ -40,7 +43,11 @@ public class PessoaContatoDAO implements InterfacePessoaContatoDAO {
         
         try {
             con = ConnectionFactoryModel.getConnection();
-            stm = con.prepareStatement("SELECT matricula, perfil, nome, contato FROM pessoa, pessoa_contato WHERE matricula = pessoa AND nome LIKE '" + texto + "%' ORDER BY perfil, nome");
+            stm = con.prepareStatement("SELECT matricula, perfil, nome, contato \n" +
+            "FROM pessoa p \n" +
+            "JOIN pessoa_contato pc ON (p.matricula = pc.pessoa) \n" +
+            "WHERE UPPER(nome) LIKE UPPER('" + texto + "%') \n" +
+            "ORDER BY perfil, nome");
             rs = stm.executeQuery();
 
             return FormatarCamposModel.colocarDadosTabela(rs);
@@ -76,6 +83,7 @@ public class PessoaContatoDAO implements InterfacePessoaContatoDAO {
                 stm.executeUpdate();
 
                 JOptionPane.showConfirmDialog(null, "Inserção feita com sucesso!", "SGDA - Aviso", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
+            
             } else {
                 JOptionPane.showConfirmDialog(null, "Não foi possível realizar a inserção!\nMotivo: a relação informada já existe.", "SGDA - Aviso", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE);
             }
@@ -132,6 +140,7 @@ public class PessoaContatoDAO implements InterfacePessoaContatoDAO {
                 stm.executeUpdate();
 
                 JOptionPane.showConfirmDialog(null, "Atualização feita com sucesso!", "SGDA - Aviso", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
+            
             } else {
                 JOptionPane.showConfirmDialog(null, "Não foi possível realizar a inserção!\nMotivo: a relação informada já existe.", "SGDA - Aviso", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE);
             }

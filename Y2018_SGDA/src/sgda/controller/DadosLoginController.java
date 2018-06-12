@@ -4,7 +4,7 @@ import javax.swing.JOptionPane;
 import sgda.dao.LoginDAO;
 import sgda.dao.PessoaDAO;
 import sgda.model.LoginModel;
-import sgda.view.RedefinirSenhaView;
+import sgda.view.TelaRedefinirSenhaView;
 import sgda.view.TelaPrincipalView;
 
 public class DadosLoginController {
@@ -14,8 +14,8 @@ public class DadosLoginController {
         LoginDAO daoLogin = new LoginDAO();
         
         if (dadosLogin.getQtdAcesso() == -1) {
-            JOptionPane.showConfirmDialog(null, "Primeiro acesso detectado, favor alterar a senha.\nApós sua senha ter sido alterada, basta realizar um novo com a mesma.", "SGDA - Aviso", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);          
-            RedefinirSenhaView senha = new RedefinirSenhaView();
+            JOptionPane.showConfirmDialog(null, "Primeiro acesso detectado, favor alterar a senha.\nApós sua senha ter sido alterada, basta realizar um novo login com a mesma.", "SGDA - Aviso", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);          
+            TelaRedefinirSenhaView senha = new TelaRedefinirSenhaView();
             senha.pack();
             senha.primeiroAcesso(dadosLogin);
             senha.setVisible(true);

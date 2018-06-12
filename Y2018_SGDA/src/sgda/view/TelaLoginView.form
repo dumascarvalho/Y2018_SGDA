@@ -58,7 +58,7 @@
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="btnEntrar" alignment="0" max="32767" attributes="0"/>
-                              <Component id="btnCancelar" alignment="0" max="32767" attributes="0"/>
+                              <Component id="btnFechar" alignment="0" max="32767" attributes="0"/>
                               <Component id="txtSenha" alignment="0" max="32767" attributes="0"/>
                               <Component id="txtUsuário" alignment="0" max="32767" attributes="0"/>
                               <Component id="lblLogo" alignment="0" max="32767" attributes="0"/>
@@ -91,7 +91,7 @@
                   <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                   <Component id="btnEntrar" min="-2" pref="30" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
-                  <Component id="btnCancelar" min="-2" pref="30" max="-2" attributes="0"/>
+                  <Component id="btnFechar" min="-2" pref="30" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -134,9 +134,9 @@
             </Property>
             <Property name="horizontalAlignment" type="int" value="4"/>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="&quot;&lt;html&gt;&lt;font color = &apos;black&apos;&gt;Voc&#xea; tamb&#xe9;m pode&lt;/font&gt; &lt;u&gt;redefinir sua senha&lt;/u&gt; &lt;font color = &apos;black&apos;&gt;aqui.&lt;/font&gt;&lt;/html&gt;&quot;" type="code"/>
+              <Connection code="&quot;&lt;html&gt;&lt;font color = &apos;black&apos;&gt;Voc&#xea; tamb&#xe9;m pode&lt;/font&gt; &lt;u&gt;redefinir sua senha&lt;/u&gt; &lt;font color = &apos;black&apos;&gt;clicando aqui.&lt;/font&gt;&lt;/html&gt;&quot;" type="code"/>
             </Property>
-            <Property name="toolTipText" type="java.lang.String" value="Clique aqui para redefinir a sua senha."/>
+            <Property name="toolTipText" type="java.lang.String" value=""/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursor em Forma de M&#xe3;o"/>
             </Property>
@@ -150,6 +150,9 @@
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="d9" green="e0" red="d9" type="rgb"/>
             </Property>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/sgda/img/house_go.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Entrar"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.MatteColorBorderInfo">
@@ -159,17 +162,22 @@
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursor em Forma de M&#xe3;o"/>
             </Property>
+            <Property name="horizontalTextPosition" type="int" value="4"/>
+            <Property name="iconTextGap" type="int" value="10"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEntrarActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="btnCancelar">
+        <Component class="javax.swing.JButton" name="btnFechar">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="d9" green="e0" red="d9" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Cancelar"/>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/sgda/img/door_out.png"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Sair do Sistema"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.MatteColorBorderInfo">
                 <MatteColorBorder/>
@@ -178,9 +186,11 @@
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursor em Forma de M&#xe3;o"/>
             </Property>
+            <Property name="horizontalTextPosition" type="int" value="4"/>
+            <Property name="iconTextGap" type="int" value="10"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCancelarActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnFecharActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

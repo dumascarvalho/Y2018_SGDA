@@ -49,7 +49,11 @@ public class DisciplinaDAO implements InterfaceDisciplinaDAO {
             List<String> listColuna = new ArrayList();
 
             con = ConnectionFactoryModel.getConnection();
-            stm = con.prepareStatement("SELECT * FROM curso_disciplina, curso, disciplina WHERE disciplina = cod_disciplina AND curso = cod_curso AND nome_curso = '" + curso + "'");
+            stm = con.prepareStatement("SELECT * \n" +
+            "FROM curso_disciplina cd \n" +
+            "JOIN curso c ON (c.cod_curso = cd.curso) \n" +
+            "JOIN disciplina d ON (d.cod_disciplina = cd.disciplina) \n" +
+            "WHERE UPPER(nome_curso) LIKE UPPER('" + curso + "')");
             rs = stm.executeQuery();
 
             while (rs.next()) {
@@ -89,7 +93,9 @@ public class DisciplinaDAO implements InterfaceDisciplinaDAO {
 
         try {
             con = ConnectionFactoryModel.getConnection();
-            stm = con.prepareStatement("SELECT * FROM disciplina WHERE nome_disciplina LIKE '" + texto + "%'");
+            stm = con.prepareStatement("SELECT * \n" +
+            "FROM disciplina d \n" +
+            "WHERE UPPER(d.nome_disciplina) LIKE UPPER('" + texto + "%')");
             rs = stm.executeQuery();
 
             return FormatarCamposModel.colocarDadosTabela(rs);

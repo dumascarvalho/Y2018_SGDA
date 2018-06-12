@@ -28,7 +28,7 @@ public class PessoaDAO implements InterfacePessoaDAO {
             con = ConnectionFactoryModel.getConnection();
                     
             if(!"pessoa".equals(tabela)) {
-                stm = con.prepareStatement("SELECT * FROM pessoa AS a INNER JOIN " + tabela + " AS b ON a.matricula = b.matricula");
+                stm = con.prepareStatement("SELECT * FROM pessoa p JOIN " + tabela + " t ON p.matricula = t.matricula");
             } else {
                 stm = con.prepareStatement("SELECT * FROM pessoa");
             }
@@ -193,7 +193,9 @@ public class PessoaDAO implements InterfacePessoaDAO {
             con = ConnectionFactoryModel.getConnection();
             
             if(!"pessoa".equals(tabela)) {
-                stm = con.prepareStatement("SELECT * FROM pessoa AS a INNER JOIN " + tabela + " AS b ON a.matricula = b.matricula WHERE a.nome LIKE '" + texto + "%'");
+                stm = con.prepareStatement("SELECT * \n"
+                + "FROM pessoa AS p JOIN " + tabela + " t ON p.matricula = t.matricula \n"
+                + "WHERE UPPER(p.nome) LIKE UPPER('" + texto + "%')");
             } else {
                 stm = con.prepareStatement("SELECT * FROM pessoa WHERE nome LIKE '" + texto + "%'");
             }
@@ -241,7 +243,9 @@ public class PessoaDAO implements InterfacePessoaDAO {
             List<String> listColuna = new ArrayList();
 
             con = ConnectionFactoryModel.getConnection();
-            stm = con.prepareStatement("SELECT * FROM pessoa WHERE nome LIKE '" + texto + "%'");
+            stm = con.prepareStatement("SELECT * \n"
+                    + "FROM pessoa \n"
+                    + "WHERE UPPER(nome) LIKE UPPER('" + texto + "%')");
             rs = stm.executeQuery();
 
             while (rs.next()) {

@@ -22,7 +22,11 @@ public class CursoDisciplinaDAO implements InterfaceCursoDisciplinaDAO {
         
         try {
             con = ConnectionFactoryModel.getConnection();
-            stm = con.prepareStatement("SELECT curso, nome_curso, disciplina, nome_disciplina FROM curso_disciplina, curso, disciplina WHERE curso = cod_curso AND disciplina = cod_disciplina ORDER BY nome_curso, nome_disciplina");
+            stm = con.prepareStatement("SELECT curso, nome_curso, disciplina, nome_disciplina \n" +
+                "FROM curso_disciplina cd \n" +
+                "JOIN curso c ON (c.cod_curso = cd.curso) \n" +
+                "JOIN disciplina d ON (d.cod_disciplina = cd.disciplina) \n" +
+                "ORDER BY nome_curso, nome_disciplina");
             rs = stm.executeQuery();
 
             return FormatarCamposModel.colocarDadosTabela(rs);
@@ -40,7 +44,12 @@ public class CursoDisciplinaDAO implements InterfaceCursoDisciplinaDAO {
         
         try {
             con = ConnectionFactoryModel.getConnection();
-            stm = con.prepareStatement("SELECT curso, nome_curso, disciplina, nome_disciplina FROM curso_disciplina, curso, disciplina WHERE curso = cod_curso AND disciplina = cod_disciplina AND nome_curso LIKE '" + texto + "%' ORDER BY nome_curso, nome_disciplina");
+            stm = con.prepareStatement("SELECT curso, nome_curso, disciplina, nome_disciplina \n" +
+            "FROM curso_disciplina cd \n" +
+            "JOIN curso c ON (c.cod_curso = cd.curso) \n" +
+            "JOIN disciplina d ON (d.cod_disciplina = cd.disciplina) \n" +
+            "WHERE UPPER(nome_curso) LIKE UPPER('" + texto + "%') \n" +
+            "ORDER BY nome_curso, nome_disciplina");
             rs = stm.executeQuery();
 
             return FormatarCamposModel.colocarDadosTabela(rs);
