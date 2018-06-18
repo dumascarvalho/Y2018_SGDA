@@ -87,7 +87,6 @@ public class CadastrarRelacaoView extends javax.swing.JPanel {
         cmbCodigoDisciplina = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        DisciplinasProfessores = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         cmbCodigoProfessor = new javax.swing.JComboBox<>();
         jLabel31 = new javax.swing.JLabel();
@@ -491,21 +490,8 @@ public class CadastrarRelacaoView extends javax.swing.JPanel {
 
         jPanel2.setBackground(new java.awt.Color(165, 214, 167));
 
-        DisciplinasProfessores.setBackground(new java.awt.Color(165, 214, 167));
-
-        javax.swing.GroupLayout DisciplinasProfessoresLayout = new javax.swing.GroupLayout(DisciplinasProfessores);
-        DisciplinasProfessores.setLayout(DisciplinasProfessoresLayout);
-        DisciplinasProfessoresLayout.setHorizontalGroup(
-            DisciplinasProfessoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 402, Short.MAX_VALUE)
-        );
-        DisciplinasProfessoresLayout.setVerticalGroup(
-            DisciplinasProfessoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 129, Short.MAX_VALUE)
-        );
-
         jLabel3.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel3.setText("Selecione um Curso:");
+        jLabel3.setText("Preencha os Campos:");
 
         cmbCodigoProfessor.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         cmbCodigoProfessor.setEnabled(false);
@@ -575,38 +561,30 @@ public class CadastrarRelacaoView extends javax.swing.JPanel {
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel31)
                                     .addComponent(cmbCodigoProfessor, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(DisciplinasProfessores, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())))
+                        .addContainerGap(418, Short.MAX_VALUE))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(jLabel3)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(65, 65, 65)
-                        .addComponent(DisciplinasProfessores, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(15, 15, 15)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel26)
-                            .addComponent(jLabel27))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cmbDisciplinaProfessor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cmbCodigoDisciplinaProfessor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel30)
-                            .addComponent(jLabel31))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cmbProfessor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cmbCodigoProfessor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addGap(15, 15, 15)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel26)
+                    .addComponent(jLabel27))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cmbDisciplinaProfessor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbCodigoDisciplinaProfessor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel30)
+                    .addComponent(jLabel31))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cmbProfessor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbCodigoProfessor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(99, Short.MAX_VALUE))
         );
 
         Guias.addTab("Disciplinas e Professores", jPanel2);
@@ -665,7 +643,7 @@ public class CadastrarRelacaoView extends javax.swing.JPanel {
                             .addComponent(jLabel37)
                             .addComponent(cmbMatriculaPessoa, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jLabel38)
-                    .addComponent(txtContato, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtContato, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 408, Short.MAX_VALUE))
             .addComponent(jSeparator1)
         );
@@ -816,11 +794,12 @@ public class CadastrarRelacaoView extends javax.swing.JPanel {
 
     private void guiaCursosDisciplinas() {
         CursoDAO curso = new CursoDAO();
-        DisciplinaDAO disciplina = new DisciplinaDAO();
 
         cmbCodigoCurso.setModel(new DefaultComboBoxModel(curso.selectForCombo("cod_curso").toArray()));
         cmbCurso.setModel(new DefaultComboBoxModel(curso.selectForCombo("nome_curso").toArray()));
-        cmbCurso.setSelectedIndex(-1);
+        cmbCurso.setSelectedIndex(-1); 
+        
+        DisciplinaDAO disciplina = new DisciplinaDAO();
 
         cmbCodigoDisciplina.setModel(new DefaultComboBoxModel(disciplina.selectForCombo("cod_disciplina").toArray()));
         cmbDisciplina.setModel(new DefaultComboBoxModel(disciplina.selectForCombo("nome_disciplina").toArray()));
@@ -1200,7 +1179,6 @@ public class CadastrarRelacaoView extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel CRUD;
-    private javax.swing.JPanel DisciplinasProfessores;
     private javax.swing.JTabbedPane Guias;
     private javax.swing.JPanel PessoasContatos;
     private javax.swing.JPanel Principal;

@@ -64,6 +64,5 @@ public class AlunoDAO implements InterfaceAlunoDAO {
         } finally {
             ConnectionFactoryModel.closeConnection(con, stm);
         } 
-    }
-    
+    }    
 }
