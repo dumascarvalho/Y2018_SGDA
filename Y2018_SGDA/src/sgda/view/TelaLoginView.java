@@ -25,9 +25,14 @@ public class TelaLoginView extends javax.swing.JFrame {
         btnEntrar = new javax.swing.JButton();
         btnFechar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Tela de Login");
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         Login.setBackground(new java.awt.Color(165, 214, 167));
 
@@ -171,10 +176,13 @@ public class TelaLoginView extends javax.swing.JFrame {
 
     private void lblRedefinirSenhaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRedefinirSenhaMouseClicked
             TelaRedefinirSenhaView senha = new TelaRedefinirSenhaView();
-
             senha.pack();
             senha.setVisible(true);
     }//GEN-LAST:event_lblRedefinirSenhaMouseClicked
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        System.exit(0);
+    }//GEN-LAST:event_formWindowClosing
 
     public static void main(String args[]) {
         try {

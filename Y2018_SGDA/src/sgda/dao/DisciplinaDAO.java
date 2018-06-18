@@ -41,34 +41,6 @@ public class DisciplinaDAO implements InterfaceDisciplinaDAO {
             ConnectionFactoryModel.closeConnection(con, stm, rs);
         }
     }
-    
-    @Override
-    public List selectForComboRelacoes(String coluna, String curso) {
-
-        try {
-            List<String> listColuna = new ArrayList();
-
-            con = ConnectionFactoryModel.getConnection();
-            stm = con.prepareStatement("SELECT * \n" +
-            "FROM curso_disciplina cd \n" +
-            "JOIN curso c ON (c.cod_curso = cd.curso) \n" +
-            "JOIN disciplina d ON (d.cod_disciplina = cd.disciplina) \n" +
-            "WHERE UPPER(nome_curso) LIKE UPPER('" + curso + "')");
-            rs = stm.executeQuery();
-
-            while (rs.next()) {
-                listColuna.add(rs.getString(coluna));
-            }
-
-            return listColuna;
-
-        } catch (SQLException ex) {
-            throw new RuntimeException("Exceção: " + ex);
-
-        } finally {
-            ConnectionFactoryModel.closeConnection(con, stm, rs);
-        }
-    }
 
     @Override
     public TableModel selectForTable() {

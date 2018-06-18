@@ -7,9 +7,7 @@ import sgda.model.DisciplinaModel;
 public interface InterfaceDisciplinaDAO {
   
     public List selectForCombo(String coluna); 
-    
-    public List selectForComboRelacoes(String coluna, String curso); 
-    
+       
     public TableModel selectForTable();
     
     public TableModel selectForTable(String texto);

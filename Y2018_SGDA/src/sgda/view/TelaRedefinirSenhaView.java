@@ -1,6 +1,7 @@
 package sgda.view;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import sgda.dao.LoginDAO;
 import sgda.model.LoginModel;
 
@@ -135,21 +136,25 @@ public class TelaRedefinirSenhaView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnConfirmaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmaActionPerformed
-        LoginModel novosDados = new LoginModel();
-        
-        novosDados.setEmail(txtEmail.getText());
-        novosDados.setUsuario(txtUsuario.getText());   
-        
-        LoginDAO dao = new LoginDAO();
+        if (!"".equals(txtNova.getText())) {
+            LoginModel conferirDados = new LoginModel();
 
-        dao.update(novosDados, txtNova.getText());
+            conferirDados.setEmail(txtEmail.getText());
+            conferirDados.setUsuario(txtUsuario.getText());
 
-        if (primeiroAcesso == true) {
-            this.dispose();
+            LoginDAO dao = new LoginDAO();
 
-            TelaLoginView login = new TelaLoginView();
-            login.pack();
-            login.setVisible(true);
+            dao.update(conferirDados, txtNova.getText());
+
+            if (primeiroAcesso == true) {
+                this.dispose();
+
+                TelaLoginView login = new TelaLoginView();
+                login.pack();
+                login.setVisible(true);
+            }
+        } else {
+            JOptionPane.showConfirmDialog(null, "A senha não pode estar em branco!", "SGDA - Aviso", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnConfirmaActionPerformed
 

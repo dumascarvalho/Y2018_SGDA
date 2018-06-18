@@ -1,6 +1,7 @@
 package sgda.view;
 
 import java.awt.CardLayout;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import sgda.model.LoginModel;
 
@@ -8,6 +9,7 @@ public class TelaPrincipalView extends javax.swing.JFrame {
 
     private LoginModel dadosLogin;
     private String nomeUsuario;
+   
     
     public TelaPrincipalView(LoginModel dadosLogin, String nomeUsuario) {
         
@@ -16,8 +18,7 @@ public class TelaPrincipalView extends javax.swing.JFrame {
         initComponents();
     }
     
-    public TelaPrincipalView() {
-        
+    public TelaPrincipalView() {        
         initComponents();
     }
     
@@ -31,6 +32,7 @@ public class TelaPrincipalView extends javax.swing.JFrame {
         lblLogo1 = new javax.swing.JLabel();
         lblLogo2 = new javax.swing.JLabel();
         panelMenu = new javax.swing.JPanel();
+        Vazio = new javax.swing.JPanel();
         Administrador = new javax.swing.JPanel();
         menuAdministrador = new javax.swing.JToolBar();
         jLabel1 = new javax.swing.JLabel();
@@ -47,8 +49,6 @@ public class TelaPrincipalView extends javax.swing.JFrame {
         jButton12 = new javax.swing.JButton();
         jLabel12 = new javax.swing.JLabel();
         jButton15 = new javax.swing.JButton();
-        jLabel13 = new javax.swing.JLabel();
-        jButton14 = new javax.swing.JButton();
         jLabel14 = new javax.swing.JLabel();
         jButton13 = new javax.swing.JButton();
         jLabel15 = new javax.swing.JLabel();
@@ -69,7 +69,6 @@ public class TelaPrincipalView extends javax.swing.JFrame {
         jButton17 = new javax.swing.JButton();
         jLabel18 = new javax.swing.JLabel();
         jButton18 = new javax.swing.JButton();
-        Vazio = new javax.swing.JPanel();
         panelDados = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
@@ -80,13 +79,16 @@ public class TelaPrincipalView extends javax.swing.JFrame {
         jLabel20 = new javax.swing.JLabel();
         txtAcesso = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Sistema de Gerenciamento de Dados Acadêmcios");
         setMinimumSize(new java.awt.Dimension(700, 400));
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
+            }
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
             }
         });
 
@@ -135,6 +137,21 @@ public class TelaPrincipalView extends javax.swing.JFrame {
 
         panelMenu.setBackground(new java.awt.Color(76, 175, 80));
         panelMenu.setLayout(new java.awt.CardLayout());
+
+        Vazio.setBackground(new java.awt.Color(76, 175, 80));
+
+        javax.swing.GroupLayout VazioLayout = new javax.swing.GroupLayout(Vazio);
+        Vazio.setLayout(VazioLayout);
+        VazioLayout.setHorizontalGroup(
+            VazioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 222, Short.MAX_VALUE)
+        );
+        VazioLayout.setVerticalGroup(
+            VazioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 539, Short.MAX_VALUE)
+        );
+
+        panelMenu.add(Vazio, "Vazio");
 
         Administrador.setBackground(new java.awt.Color(76, 175, 80));
 
@@ -276,6 +293,7 @@ public class TelaPrincipalView extends javax.swing.JFrame {
         jButton12.setActionCommand("");
         jButton12.setBorder(new javax.swing.border.MatteBorder(null));
         jButton12.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton12.setEnabled(false);
         jButton12.setFocusable(false);
         jButton12.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton12.setMaximumSize(new java.awt.Dimension(200, 40));
@@ -292,7 +310,7 @@ public class TelaPrincipalView extends javax.swing.JFrame {
 
         jButton15.setBackground(new java.awt.Color(217, 224, 217));
         jButton15.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jButton15.setText("Consultar Cursos");
+        jButton15.setText("Painel do Professor");
         jButton15.setActionCommand("");
         jButton15.setBorder(new javax.swing.border.MatteBorder(null));
         jButton15.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -302,27 +320,12 @@ public class TelaPrincipalView extends javax.swing.JFrame {
         jButton15.setMinimumSize(new java.awt.Dimension(200, 40));
         jButton15.setPreferredSize(new java.awt.Dimension(200, 40));
         jButton15.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton15.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton15ActionPerformed(evt);
+            }
+        });
         menuProfessor.add(jButton15);
-
-        jLabel13.setText(" ");
-        jLabel13.setMaximumSize(new java.awt.Dimension(30, 30));
-        jLabel13.setMinimumSize(new java.awt.Dimension(30, 30));
-        jLabel13.setPreferredSize(new java.awt.Dimension(30, 30));
-        menuProfessor.add(jLabel13);
-
-        jButton14.setBackground(new java.awt.Color(217, 224, 217));
-        jButton14.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jButton14.setText("Consultar Disciplinas");
-        jButton14.setActionCommand("");
-        jButton14.setBorder(new javax.swing.border.MatteBorder(null));
-        jButton14.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton14.setFocusable(false);
-        jButton14.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton14.setMaximumSize(new java.awt.Dimension(200, 40));
-        jButton14.setMinimumSize(new java.awt.Dimension(200, 40));
-        jButton14.setPreferredSize(new java.awt.Dimension(200, 40));
-        jButton14.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        menuProfessor.add(jButton14);
 
         jLabel14.setText(" ");
         jLabel14.setMaximumSize(new java.awt.Dimension(30, 30));
@@ -336,6 +339,7 @@ public class TelaPrincipalView extends javax.swing.JFrame {
         jButton13.setActionCommand("");
         jButton13.setBorder(new javax.swing.border.MatteBorder(null));
         jButton13.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton13.setEnabled(false);
         jButton13.setFocusable(false);
         jButton13.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton13.setMaximumSize(new java.awt.Dimension(200, 40));
@@ -356,6 +360,7 @@ public class TelaPrincipalView extends javax.swing.JFrame {
         jButton16.setActionCommand("");
         jButton16.setBorder(new javax.swing.border.MatteBorder(null));
         jButton16.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton16.setEnabled(false);
         jButton16.setFocusable(false);
         jButton16.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton16.setMaximumSize(new java.awt.Dimension(200, 40));
@@ -421,6 +426,7 @@ public class TelaPrincipalView extends javax.swing.JFrame {
         jButton5.setText("Dados Pessoais");
         jButton5.setBorder(new javax.swing.border.MatteBorder(null));
         jButton5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton5.setEnabled(false);
         jButton5.setFocusable(false);
         jButton5.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton5.setMaximumSize(new java.awt.Dimension(200, 40));
@@ -446,6 +452,11 @@ public class TelaPrincipalView extends javax.swing.JFrame {
         jButton11.setMinimumSize(new java.awt.Dimension(200, 40));
         jButton11.setPreferredSize(new java.awt.Dimension(200, 40));
         jButton11.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton11ActionPerformed(evt);
+            }
+        });
         menuAluno.add(jButton11);
 
         jLabel6.setText(" ");
@@ -459,6 +470,7 @@ public class TelaPrincipalView extends javax.swing.JFrame {
         jButton7.setText("Consultar Disciplinas");
         jButton7.setBorder(new javax.swing.border.MatteBorder(null));
         jButton7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton7.setEnabled(false);
         jButton7.setFocusable(false);
         jButton7.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton7.setMaximumSize(new java.awt.Dimension(200, 40));
@@ -478,6 +490,7 @@ public class TelaPrincipalView extends javax.swing.JFrame {
         jButton6.setText("Consultar Grade");
         jButton6.setBorder(new javax.swing.border.MatteBorder(null));
         jButton6.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton6.setEnabled(false);
         jButton6.setFocusable(false);
         jButton6.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton6.setMaximumSize(new java.awt.Dimension(200, 40));
@@ -497,6 +510,7 @@ public class TelaPrincipalView extends javax.swing.JFrame {
         jButton17.setText("Consultar Calendário");
         jButton17.setBorder(new javax.swing.border.MatteBorder(null));
         jButton17.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton17.setEnabled(false);
         jButton17.setFocusable(false);
         jButton17.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton17.setMaximumSize(new java.awt.Dimension(200, 40));
@@ -543,21 +557,6 @@ public class TelaPrincipalView extends javax.swing.JFrame {
         );
 
         panelMenu.add(Aluno, "Aluno");
-
-        Vazio.setBackground(new java.awt.Color(76, 175, 80));
-
-        javax.swing.GroupLayout VazioLayout = new javax.swing.GroupLayout(Vazio);
-        Vazio.setLayout(VazioLayout);
-        VazioLayout.setHorizontalGroup(
-            VazioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 222, Short.MAX_VALUE)
-        );
-        VazioLayout.setVerticalGroup(
-            VazioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 539, Short.MAX_VALUE)
-        );
-
-        panelMenu.add(Vazio, "Vazio");
 
         panelDados.setBackground(new java.awt.Color(76, 175, 80));
 
@@ -652,11 +651,9 @@ public class TelaPrincipalView extends javax.swing.JFrame {
                     .addGroup(panelPrincipalLayout.createSequentialGroup()
                         .addComponent(panelMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(panelDados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(10, 10, 10))
-                    .addGroup(panelPrincipalLayout.createSequentialGroup()
-                        .addComponent(panelJanela, javax.swing.GroupLayout.PREFERRED_SIZE, 670, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(10, 10, 10))))
+                        .addComponent(panelDados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(panelJanela, javax.swing.GroupLayout.PREFERRED_SIZE, 670, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(10, 10, 10))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -679,13 +676,15 @@ public class TelaPrincipalView extends javax.swing.JFrame {
         setPainel(painel);
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    public LoginModel obterDadosLogin() {
+        return dadosLogin;
+    }
+    
     private void setPainel(JPanel painel){            
         panelJanela.removeAll();
         panelJanela.add(painel);
-        panelJanela.repaint();     
-        
-        this.pack();
-        
+        panelJanela.repaint();  
+        this.pack();    
         panelJanela.grabFocus();
     }
         
@@ -713,6 +712,25 @@ public class TelaPrincipalView extends javax.swing.JFrame {
         JPanel painel = new CadastrarRelacaoView();
         setPainel(painel);
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
+        JPanel painel = new TelaRealizarMatriculaView(dadosLogin);
+        setPainel(painel);
+    }//GEN-LAST:event_jButton11ActionPerformed
+
+    private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
+        JPanel painel = new TelaPainelProfessorView(dadosLogin);
+        setPainel(painel);
+    }//GEN-LAST:event_jButton15ActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        if (JOptionPane.showConfirmDialog(null, "Você realmente deseja encerrar a sessão?", "SGDA - Aviso", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+            this.dispose();
+            TelaLoginView login = new TelaLoginView();
+            login.pack();
+            login.setVisible(true);
+        }
+    }//GEN-LAST:event_formWindowClosing
     
     public static void main(String args[]) {
         try {
@@ -740,7 +758,6 @@ public class TelaPrincipalView extends javax.swing.JFrame {
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton13;
-    private javax.swing.JButton jButton14;
     private javax.swing.JButton jButton15;
     private javax.swing.JButton jButton16;
     private javax.swing.JButton jButton17;
@@ -756,7 +773,6 @@ public class TelaPrincipalView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;

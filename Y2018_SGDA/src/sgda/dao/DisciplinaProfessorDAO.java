@@ -11,6 +11,7 @@ import javax.swing.table.TableModel;
 import sgda.model.ConnectionFactoryModel;
 import sgda.model.DisciplinaProfessorModel;
 import sgda.model.FormatarCamposModel;
+import sgda.model.LoginModel;
 
 public class DisciplinaProfessorDAO implements InterfaceDisciplinaProfessorDAO {
 
@@ -172,6 +173,37 @@ public class DisciplinaProfessorDAO implements InterfaceDisciplinaProfessorDAO {
             while (rs.next()) {
                 listColuna.add(rs.getString(coluna));
             }
+
+            return listColuna;
+
+        } catch (SQLException ex) {
+            throw new RuntimeException("Exceção: " + ex);
+
+        } finally {
+            ConnectionFactoryModel.closeConnection(con, stm, rs);
+        }
+    }
+    
+    @Override
+    public List selectForComboComCurso(String coluna, int curso, LoginModel lo) {
+
+        try {
+            List<String> listColuna = new ArrayList();
+
+            con = ConnectionFactoryModel.getConnection();
+            stm = con.prepareStatement("SELECT matricula, nome, cod_curso, nome_curso, cod_disciplina, nome_disciplina \n" +
+            "FROM disciplina_professor dp, curso_disciplina cd, curso c, disciplina d, pessoa p \n" +
+            "WHERE dp.disciplina = d.cod_disciplina \n" +
+            "AND (cd.curso = c.cod_curso = ?) \n" +
+            "AND (dp.professor = p.matricula AND p.matricula = ?) \n" +
+            "GROUP BY d.nome_disciplina");
+            stm.setInt(1, curso);
+            stm.setInt(2, lo.getMatricula());
+            rs = stm.executeQuery();
+            
+            while (rs.next()) {
+                listColuna.add(rs.getString(coluna));
+            }         
 
             return listColuna;
 
