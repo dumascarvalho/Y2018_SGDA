@@ -1,6 +1,7 @@
 package sgda.view;
 
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 import sgda.dao.AlunoDisciplinaDAO;
 import sgda.model.AlunoDisciplinaModel;
 import sgda.model.LoginModel;
@@ -135,15 +136,22 @@ public class TelaRealizarMatriculaView extends javax.swing.JPanel {
     }//GEN-LAST:event_cmbCodigoDisciplinaActionPerformed
 
     private void btnConfirmaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmaActionPerformed
-        AlunoDisciplinaModel ad = new AlunoDisciplinaModel();        
-        ad.setAluno(dadosLogin.getMatricula());
-        ad.setDisciplina(Integer.parseInt(cmbCodigoDisciplina.getSelectedItem().toString()));
         
-        AlunoDisciplinaDAO dao = new AlunoDisciplinaDAO();
-        dao.insert(ad);
+        try {
+            AlunoDisciplinaModel ad = new AlunoDisciplinaModel();
+            ad.setAluno(dadosLogin.getMatricula());
+            ad.setDisciplina(Integer.parseInt(cmbCodigoDisciplina.getSelectedItem().toString()));
+
+            AlunoDisciplinaDAO dao = new AlunoDisciplinaDAO();
+            dao.insert(ad);
+
+        } catch (Exception ex) {
+            JOptionPane.showConfirmDialog(this, "Ocorreu algum erro durante a operação e encontra-se abaixo as possíveis causas deste problema:\n\nInserção: algum está campo vazio e/ou em formato inválido;\nAlteração: mesmas possíveis causas das demais operações;\nRemoção: nenhuma linha foi selecionada.\n\nInformações técnicas sobre este erro: " + ex, "SGDA - Aviso", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
         
-        pegarDisciplinasDoCurso();
-        cmbDisciplina.grabFocus();
+        } finally {
+            pegarDisciplinasDoCurso();
+            cmbDisciplina.grabFocus();
+        }
     }//GEN-LAST:event_btnConfirmaActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

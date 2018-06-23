@@ -185,6 +185,7 @@ public class TelaPainelProfessorView extends javax.swing.JPanel {
                 cmbCurso.setSelectedIndex(-1);
                 cmbCodigoCurso.setSelectedIndex(cmbCurso.getSelectedIndex());
                 cmbCurso.grabFocus();
+                
             } else {
                 cmbDisciplina.grabFocus();
             }
