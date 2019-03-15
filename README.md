@@ -7,3 +7,5 @@ Interação Humano-Computador - Prof.º André Constantino<br>
 Banco de Dados II - Prof.º Ewerton Silva<br>
 
 Desenvolvido por: Dumas Morais de Carvalho, Maria Eduarda de Oliveira Silva e Murilo Cassiano Rodrigues.
+
+O conceito deste projeto parte de sua versão anterior, a qual está disponibilizada em: https://github.com/dumascarvalho/Y2017_SGDA
