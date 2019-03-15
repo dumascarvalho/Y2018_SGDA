@@ -6,4 +6,4 @@ Linguagem de Programação III - Prof.º Leandro Ledel<br>
 Interação Humano-Computador - Prof.º André Constantino<br>
 Banco de Dados II - Prof.º Ewerton Silva<br>
 
-Desenvolvido por: Dumas Morais de Carvalho, Maria Eduarda de Oliveira Silva e Murilo Cassiano Rodrigues
+Desenvolvido por: Dumas Morais de Carvalho, Maria Eduarda de Oliveira Silva e Murilo Cassiano Rodrigues.
